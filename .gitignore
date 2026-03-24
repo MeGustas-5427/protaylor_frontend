@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+stitch-export/
+前端初始化教程.md
+.qa/
+.codex-runtime/
+playwright-report/
+test-results/

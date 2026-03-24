@@ -1,0 +1,16 @@
+# PRO-TAYLOR
+> Factory-direct dessert equipment website focused on structured product pages, buyer guidance, and quote conversion.
+
+## Main sections
+- [Homepage](https://www.protaylor.com/): Overview of the brand, canonical categories, trust signals, and inquiry direction.
+- [Products](https://www.protaylor.com/products): Canonical category entry for frozen dessert equipment families.
+- [Soft Ice Cream Machines](https://www.protaylor.com/products/soft-ice-cream-machine): Category template for comparing commercial soft serve equipment.
+- [ICM-T838 Twin Twist Soft Serve Machine](https://www.protaylor.com/products/soft-ice-cream-machine/icm-t838-twin-twist-soft-serve-machine): Product detail template with quick facts, specification groups, FAQ, and quote context.
+- [Soft Serve Machine Buying Guide](https://www.protaylor.com/resources/soft-serve-buying-guide): Buyer guide for throughput, cleaning rhythm, and model shortlist logic.
+- [Contact](https://www.protaylor.com/contact): Shared inquiry route with project-context form.
+
+## Key facts
+- Product quick facts are derived from highlighted specification rows instead of fixed duplicate fields.
+- Related products and related resources are modeled separately.
+- Homepage and product detail routes are structured for both buyer readability and machine-extractable understanding.
+- The mobile homepage is rebuilt responsively from the approved desktop design because the existing mobile Stitch draft is content-invalid.
