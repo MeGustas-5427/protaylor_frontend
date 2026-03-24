@@ -11,9 +11,9 @@ import { ROUTES } from '@/fixtures/stitch/site'
 export function HomePage() {
   return (
     <>
-      <TrustRibbon highlight="oem" neutralDesktop topClassName="top-0" />
-      <SiteHeader topClassName="top-10" navTone="plain" searchMode="icons" ctaTone="sentence" />
-      <main className="pt-24 pb-20 md:pb-0">
+      <TrustRibbon highlight="oem" topClassName="top-16" />
+      <SiteHeader navTone="serif" searchMode="pill" searchPlaceholder="Search PRO-TAYLOR" />
+      <main className="pt-32 pb-20 md:pb-0">
         <section className="relative hidden h-[921px] w-full overflow-hidden md:flex md:items-center md:px-8 lg:px-20">
           <div className="absolute inset-0 z-0">
             <img

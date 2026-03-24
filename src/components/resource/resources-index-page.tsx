@@ -14,7 +14,7 @@ export function ResourcesIndexPage() {
         activeSection="resources"
         navTone="serif"
         searchMode="pill"
-        searchPlaceholder="Search the Journal"
+        searchPlaceholder="Search PRO-TAYLOR"
       />
       <TrustRibbon highlight="oem" topClassName="top-16" />
       <main className="mx-auto max-w-[1440px] px-6 pb-20 pt-32 md:px-8">

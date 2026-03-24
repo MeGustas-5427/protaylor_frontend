@@ -10,7 +10,7 @@ import { contactFixture } from '@/fixtures/stitch/content'
 export function ContactPage() {
   return (
     <>
-      <SiteHeader navTone="serif" searchMode="icons" />
+      <SiteHeader navTone="serif" searchMode="pill" searchPlaceholder="Search PRO-TAYLOR" />
       <TrustRibbon highlight="oem" topClassName="top-16" />
       <main className="mx-auto max-w-[1440px] px-6 py-20 pt-32 md:px-8">
         <div className="grid gap-16 lg:grid-cols-12 lg:items-start">

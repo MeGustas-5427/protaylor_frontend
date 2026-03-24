@@ -15,7 +15,7 @@ export function ProductDetailPage() {
         activeSection="products"
         navTone="serif"
         searchMode="pill"
-        searchPlaceholder="Search industrial catalog..."
+        searchPlaceholder="Search PRO-TAYLOR"
       />
       <TrustRibbon highlight="oem" topClassName="top-16" />
       <main className="mx-auto max-w-[1440px] px-6 pb-20 pt-32 md:px-8">

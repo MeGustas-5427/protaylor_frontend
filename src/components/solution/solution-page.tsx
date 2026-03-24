@@ -10,7 +10,12 @@ import { solutionFixture } from '@/fixtures/stitch/content'
 export function SolutionPage() {
   return (
     <>
-      <SiteHeader activeSection="solutions" navTone="label" searchMode="icons" />
+      <SiteHeader
+        activeSection="solutions"
+        navTone="serif"
+        searchMode="pill"
+        searchPlaceholder="Search PRO-TAYLOR"
+      />
       <TrustRibbon highlight="ce" topClassName="top-16" />
       <main className="pt-12">
         <section className="mx-auto grid max-w-[1440px] gap-16 px-6 py-20 lg:grid-cols-2 lg:items-center md:px-8 lg:py-32">

@@ -11,7 +11,12 @@ import { ROUTES } from '@/fixtures/stitch/site'
 export function CategoryPage() {
   return (
     <>
-      <SiteHeader activeSection="products" navTone="serif" />
+      <SiteHeader
+        activeSection="products"
+        navTone="serif"
+        searchMode="pill"
+        searchPlaceholder="Search PRO-TAYLOR"
+      />
       <TrustRibbon highlight="oem" topClassName="top-16" />
       <main className="pt-32">
         <section className="mx-auto grid max-w-[1440px] gap-12 px-6 py-20 lg:grid-cols-12 lg:items-center md:px-8 lg:py-32">

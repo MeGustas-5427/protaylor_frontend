@@ -9,7 +9,12 @@ import { articleFixture } from '@/fixtures/stitch/content'
 export function ArticlePage() {
   return (
     <>
-      <SiteHeader activeSection="resources" navTone="label" searchMode="icons" />
+      <SiteHeader
+        activeSection="resources"
+        navTone="serif"
+        searchMode="pill"
+        searchPlaceholder="Search PRO-TAYLOR"
+      />
       <TrustRibbon highlight="factory" topClassName="top-16" />
       <main className="mx-auto max-w-[1440px] px-6 pb-20 pt-32 md:px-8">
         <header className="mx-auto mb-20 max-w-4xl text-center">

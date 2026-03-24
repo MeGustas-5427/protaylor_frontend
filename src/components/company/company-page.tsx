@@ -3,6 +3,7 @@
 import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
 import { TrustRibbon } from '@/components/layout/trust-ribbon'
+import { MaterialIcon } from '@/components/ui/material-icon'
 import { companyFixture } from '@/fixtures/stitch/content'
 
 export function CompanyPage() {
@@ -10,19 +11,19 @@ export function CompanyPage() {
     <>
       <SiteHeader
         activeSection="company"
-        navTone="label"
+        navTone="serif"
         searchMode="pill"
-        searchPlaceholder="Search Facility"
+        searchPlaceholder="Search PRO-TAYLOR"
       />
       <TrustRibbon highlight="factory" topClassName="top-16" />
       <main className="pt-32">
-        <section className="mx-auto max-w-[1440px] px-6 py-20 lg:py-32 md:px-8">
+        <section className="mx-auto max-w-[1440px] px-8 py-20 lg:py-32">
           <div className="editorial-grid">
             <div className="col-span-12 lg:col-span-7">
-              <span className="mb-6 block font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">
+              <span className="mb-6 block font-label text-xs uppercase tracking-[0.2em] text-secondary">
                 Legacy of Excellence
               </span>
-              <h1 className="mb-12 font-headline text-6xl leading-[0.9] tracking-tighter text-on-background md:text-8xl lg:text-9xl">
+              <h1 className="mb-12 font-headline text-6xl leading-none tracking-tighter text-on-background md:text-8xl lg:text-9xl">
                 The Art of <br />
                 <span className="serif-italic font-normal">Precision Cooling.</span>
               </h1>
@@ -31,11 +32,15 @@ export function CompanyPage() {
               </p>
             </div>
             <div className="col-span-12 flex items-end lg:col-span-5">
-              <div className="relative w-full overflow-hidden rounded-xl bg-surface-container shadow-2xl">
-                <img src={companyFixture.heroImage} alt="Industrial precision" className="h-full w-full object-cover grayscale transition-all duration-700 hover:grayscale-0" />
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-surface-container shadow-2xl">
+                <img
+                  src={companyFixture.heroImage}
+                  alt="Industrial Precision"
+                  className="h-full w-full object-cover grayscale transition-all duration-700 hover:grayscale-0"
+                />
                 <div className="absolute bottom-8 left-8 text-on-primary">
                   <span className="block font-headline text-3xl italic">Est. 1994</span>
-                  <span className="text-[10px] uppercase tracking-widest opacity-70">
+                  <span className="font-label text-[10px] uppercase tracking-widest opacity-70">
                     Guangdong Manufacturing Hub
                   </span>
                 </div>
@@ -44,108 +49,199 @@ export function CompanyPage() {
           </div>
         </section>
 
-        <section className="bg-surface-container-low py-24">
-          <div className="mx-auto max-w-[1440px] px-6 md:px-8">
-            <div className="mb-12 flex flex-wrap gap-10">
-              {companyFixture.stats.map(([value, label]) => (
-                <div key={label}>
-                  <p className="font-headline text-5xl font-bold text-primary">{value}</p>
-                  <p className="mt-2 text-sm uppercase tracking-[0.2em] text-on-surface-variant">{label}</p>
-                </div>
-              ))}
+        <section className="bg-surface-container-low py-32">
+          <div className="mx-auto max-w-[1440px] px-8">
+            <div className="mb-20 flex flex-col justify-between gap-8 md:flex-row md:items-baseline">
+              <h2 className="font-headline text-5xl italic tracking-tight">
+                {companyFixture.scaleHeading[0]} <br />
+                <span className="not-italic font-bold">{companyFixture.scaleHeading[1]}</span>
+              </h2>
+              <div className="flex gap-12">
+                {companyFixture.scaleStats.map(([value, label]) => (
+                  <div key={label} className="text-center">
+                    <span className="block font-headline text-4xl font-bold text-primary">
+                      {value}
+                    </span>
+                    <span className="font-label text-[10px] uppercase tracking-widest text-secondary">
+                      {label}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="grid gap-8 md:grid-cols-3">
-              {companyFixture.capabilityCards.map((card, index) => (
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {companyFixture.capabilityCards.map((card) => (
                 <div
                   key={card.title}
-                  className={`rounded-xl bg-surface-container-lowest p-8 shadow-sm ${
-                    index === 1 ? 'md:translate-y-8' : ''
-                  }`}
+                  className={`group cursor-crosshair ${card.stagger ? 'pt-12' : ''}`}
                 >
-                  <h2 className="mb-4 font-headline text-3xl font-bold text-primary">{card.title}</h2>
-                  <p className="leading-relaxed text-on-surface-variant">{card.copy}</p>
+                  <div className="mb-6 aspect-[3/4] overflow-hidden rounded-lg">
+                    <img
+                      src={card.image}
+                      alt={card.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <h3 className="mb-2 font-headline text-2xl">{card.title}</h3>
+                  <p className="text-sm leading-relaxed text-on-surface-variant">{card.copy}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="mx-auto grid max-w-[1440px] gap-12 px-6 py-24 lg:grid-cols-[0.95fr_1.05fr] md:px-8">
-          <div className="space-y-4">
-            <span className="font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">
-              Quality Control
-            </span>
-            <h2 className="font-headline text-4xl font-bold text-primary">Zero-defect methodology</h2>
-            {companyFixture.qcSteps.map(([step, title, copy]) => (
-              <div key={step} className="rounded-xl bg-surface-container-low p-6">
-                <div className="mb-3 flex items-center gap-4">
-                  <span className="font-headline text-2xl font-bold text-primary">{step}</span>
-                  <h3 className="font-bold text-on-surface">{title}</h3>
+        <section className="mx-auto max-w-[1440px] px-8 py-32">
+          <div className="editorial-grid items-center">
+            <div className="order-2 col-span-12 lg:order-1 lg:col-span-5">
+              <div className="space-y-12">
+                {companyFixture.qcStages.map(([stage, title, copy], index) => (
+                  <div
+                    key={stage}
+                    className={`border-l-2 pl-6 ${
+                      index === 0 ? 'border-secondary' : 'border-outline-variant'
+                    }`}
+                  >
+                    <h4
+                      className={`mb-2 font-label text-xs uppercase tracking-widest ${
+                        index === 0 ? 'text-secondary' : 'text-stone-400'
+                      }`}
+                    >
+                      {stage}
+                    </h4>
+                    <h3 className="mb-4 font-headline text-3xl italic">{title}</h3>
+                    <p className="text-sm text-on-surface-variant">{copy}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="order-1 col-span-12 mb-12 lg:order-2 lg:col-span-7 lg:mb-0">
+              <div className="rounded-2xl bg-surface-container-high p-8 lg:p-16">
+                <span className="mb-8 block font-headline text-5xl leading-tight">
+                  Zero-Defect <br />
+                  <span className="serif-italic font-normal">Methodology.</span>
+                </span>
+                <div className="grid grid-cols-2 gap-8">
+                  {companyFixture.methodologyTags.map((item) => (
+                    <div
+                      key={item.label}
+                      className="rounded-lg bg-white/40 p-6 backdrop-blur"
+                    >
+                      <MaterialIcon name={item.icon} className="mb-4 text-primary" />
+                      <p className="font-label text-xs uppercase tracking-widest">
+                        {item.label}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-                <p className="text-sm leading-relaxed text-on-surface-variant">{copy}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-on-background py-32 text-surface">
+          <div className="mx-auto max-w-[1440px] px-8">
+            <div className="mb-24 text-center">
+              <h2 className="mb-6 font-headline text-5xl md:text-6xl">
+                Global Standard, <span className="italic text-surface-variant">Uncompromised.</span>
+              </h2>
+              <p className="mx-auto max-w-2xl font-body text-xs uppercase tracking-[0.1em] text-surface-dim opacity-70">
+                {companyFixture.complianceSubtitle}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 items-center justify-items-center gap-12 opacity-80 md:grid-cols-4">
+              {companyFixture.complianceItems.map((item) => (
+                <div key={item.label} className="flex flex-col items-center gap-4">
+                  <div className="flex h-24 w-24 items-center justify-center rounded-full border border-surface/10 bg-surface-container-low/10">
+                    <MaterialIcon name={item.icon} className="text-4xl" />
+                  </div>
+                  <span className="font-label text-xs uppercase tracking-widest">
+                    {item.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-[1440px] px-8 py-32">
+          <h2 className="mb-20 font-headline text-5xl">
+            The Journey of <span className="italic">Trust.</span>
+          </h2>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+            {companyFixture.journeyCards.map(([number, title, copy]) => (
+              <div
+                key={number}
+                className="group rounded-xl bg-surface-container-low p-8 transition-colors duration-500 hover:bg-primary"
+              >
+                <span className="mb-8 block font-headline text-6xl text-outline-variant/30 group-hover:text-surface-container-low">
+                  {number}
+                </span>
+                <h4 className="mb-4 font-label text-xs uppercase tracking-widest text-secondary group-hover:text-surface-variant">
+                  {title}
+                </h4>
+                <p className="text-sm leading-relaxed group-hover:text-surface">{copy}</p>
               </div>
             ))}
           </div>
-          <div className="rounded-2xl bg-primary p-10 text-on-primary">
-            <span className="mb-4 block text-xs font-bold uppercase tracking-[0.2em] text-primary-fixed-dim">
-              Compliance
-            </span>
-            <h2 className="mb-6 font-headline text-4xl font-bold">Export-grade reliability</h2>
-            <p className="mb-8 max-w-xl text-on-primary/80">
-              Every premium shipment is supported by process documentation, packaging discipline, and certification visibility from line to loading dock.
-            </p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {companyFixture.complianceItems.map((item) => (
-                <div key={item} className="rounded-lg bg-on-primary/10 px-5 py-4 text-sm font-bold uppercase tracking-widest">
-                  {item}
-                </div>
-              ))}
+        </section>
+
+        <section className="mx-auto mb-32 max-w-[1440px] px-8">
+          <div className="relative overflow-hidden rounded-3xl bg-primary p-12 text-surface lg:p-24">
+            <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 opacity-10">
+              <MaterialIcon
+                name="handshake"
+                className="absolute -right-32 -top-32"
+                style={{ fontSize: '30rem', lineHeight: '1' }}
+              />
+            </div>
+            <div className="relative z-10 max-w-2xl">
+              <span className="mb-6 block font-label text-xs uppercase tracking-widest text-primary-fixed">
+                {companyFixture.supportEyebrow}
+              </span>
+              <h2 className="mb-8 font-headline text-5xl md:text-6xl">
+                Beyond the <span className="italic">Transaction.</span>
+              </h2>
+              <p className="mb-12 text-xl leading-relaxed opacity-90">
+                {companyFixture.supportDescription}
+              </p>
+              <div className="grid grid-cols-1 gap-8 border-t border-surface/20 pt-12 sm:grid-cols-2">
+                {companyFixture.supportHighlights.map(([title, copy]) => (
+                  <div key={title}>
+                    <span className="mb-2 block font-bold">{title}</span>
+                    <p className="text-sm opacity-70">{copy}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="bg-[#294f53] py-20 text-white">
-          <div className="mx-auto max-w-[1440px] px-6 md:px-8">
-            <h2 className="mb-10 text-center font-headline text-4xl font-bold">The Trust Journey</h2>
-            <div className="grid gap-6 md:grid-cols-4">
-              {companyFixture.journeyCards.map((item, index) => (
-                <div key={item} className="rounded-xl border border-white/10 bg-white/5 p-6 text-center">
-                  <p className="mb-3 font-headline text-2xl font-bold">{`0${index + 1}`}</p>
-                  <p className="text-sm uppercase tracking-[0.2em] text-white/80">{item}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-[1440px] px-6 py-24 md:px-8">
-          <div className="rounded-3xl bg-surface-container p-12 text-center">
-            <span className="mb-4 block font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">
-              After-sales Continuity
-            </span>
-            <h2 className="mb-6 font-headline text-5xl font-bold text-primary">
-              Support that outlives the shipment.
-            </h2>
-            <p className="mx-auto max-w-3xl text-on-surface-variant">
-              PRO-TAYLOR pairs every factory release with spare-parts planning, commissioning guidance, and a support rhythm tuned for distributor and hospitality timelines.
+        <section className="mx-auto max-w-[1440px] px-8 py-32">
+          <div className="mb-24 text-center">
+            <h2 className="font-headline text-5xl italic">The Human Precision.</h2>
+            <p className="mt-4 font-label text-xs uppercase tracking-widest text-secondary">
+              {companyFixture.leadershipEyebrow}
             </p>
           </div>
-        </section>
-
-        <section className="mx-auto max-w-[1440px] px-6 pb-24 md:px-8">
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-16 md:grid-cols-3">
             {companyFixture.leaders.map((leader) => (
-              <div key={leader.name} className="rounded-xl bg-surface-container-lowest p-8 shadow-sm">
-                <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary text-2xl font-bold text-on-primary">
-                  {leader.name
-                    .split(' ')
-                    .map((part) => part[0])
-                    .join('')}
+              <div key={leader.name} className="text-center">
+                <div className="mx-auto mb-8 h-48 w-48 grayscale transition-all duration-500 hover:grayscale-0">
+                  <img
+                    src={leader.image}
+                    alt={leader.name}
+                    className="h-full w-full rounded-full object-cover"
+                  />
                 </div>
-                <h3 className="font-headline text-3xl font-bold text-primary">{leader.name}</h3>
-                <p className="mt-2 text-xs font-bold uppercase tracking-[0.2em] text-secondary">{leader.role}</p>
-                <p className="mt-6 font-headline text-2xl italic text-on-surface-variant">
-                  “{leader.quote}”
+                <h5 className="font-headline text-2xl">{leader.name}</h5>
+                <p className="mb-4 font-label text-[10px] uppercase tracking-widest text-secondary">
+                  {leader.role}
+                </p>
+                <p className="text-sm italic text-on-surface-variant">
+                  &quot;{leader.quote}&quot;
                 </p>
               </div>
             ))}
