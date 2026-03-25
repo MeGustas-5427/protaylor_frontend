@@ -161,45 +161,89 @@ export const solutionFixture = {
     'Access high-precision industrial solutions designed for distributors and global OEMs. Our factory direct model ensures competitive margins without compromising on architectural-grade quality.',
   heroImage:
     'https://lh3.googleusercontent.com/aida-public/AB6AXuDMZa0y_ELIDlEncBf5E0pQEmppgE-v_V4fMfZ6jrnAPof056J1RmxOlM7W-dR_0SpSranuqCav_mftGwS8u0B5XTbPEKJyhimX_VMXtQNjdfIZchS6rAwPS7IbAjgXGMSGyOV00NAA8wBHtmtXAfSOVM1gG-eoJf7wdXc0uorXNMfchayLWpR4zY2becbwH2kn9nk-j13cnehnzGmTpaXql_1PKw2Nr9Ri2E_ET_82UJjq72y7faWnpf3Jx6YwHGLX0qUEnyjywhg',
-  recommendationCards: [
-    {
-      title: 'OEM Component Integration',
-      copy: 'Designed for manufacturers requiring sub-assemblies or specialized units that integrate into larger industrial ecosystems.',
-      recommendation: 'Recommended: PT-900 Series',
-      icon: 'settings_input_component',
-      tone: 'light',
-    },
-    {
-      title: 'Distribution Ready',
-      copy: 'Curated assortments, durable packaging, and sales-friendly documentation for market expansion partners.',
-      recommendation: 'Recommended: Retail Launch Kit',
-      icon: 'local_shipping',
-      tone: 'primary',
-    },
-    {
-      title: 'Private Label Programs',
-      copy: 'Low-friction co-branding options for premium distributors and hospitality-led portfolios.',
-      recommendation: 'Recommended: OEM Cosmetic Pack',
-      icon: 'brand_awareness',
-      tone: 'light',
-    },
+  heroQuote: 'Precision engineering at a scale that moves markets.',
+  heroQuoteLabel: 'Global Supply Lead',
+  strategicEyebrow: 'The Strategic Advantage',
+  strategicTitle: 'Tailored Machine Recommendations',
+  oemCard: {
+    title: 'OEM Component Integration',
+    copy:
+      'Designed for large-scale manufacturers requiring sub-assemblies or specialized units that integrate seamlessly into larger industrial ecosystems.',
+    recommendation: 'Recommended: PT-900 Series',
+    icon: 'settings_input_component',
+  },
+  distributionCard: {
+    title: 'Wholesale Distribution',
+    copy:
+      'Optimized for high-volume inventory turnover with localized support and plug-and-play installation for end-users.',
+    buttonLabel: 'Download Catalog',
+    icon: 'package_2',
+  },
+  privateLabelCard: {
+    title: 'Private Label Services',
+    copy:
+      "Customize chassis colors, branding, and software interfaces to maintain your brand's identity while leveraging our hardware.",
+    icon: 'branding_watermark',
+  },
+  benchmarksCard: {
+    title: 'Standard Spec Benchmarks',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDxzWAys1ZICGs2Vbz69FboeT6a_hj1gzVbjGR5wUGwmQFIQ4gxCr6ypYJUhoQsfI_UGoEUFbpVeNhV_PxPDAaM9tmuxAUI2Z63Ai0BzmXY3DrajwebI6RdWm7PdZIcriFT-jLJ7aoDDjUF1Um5vck3t6qhvCjusGvwOlK5Yv6W5wexK94zM_cW0QskdzLetJvuVH-v25BZ2Zrp4XW9H5WQ47mw6ukna32RGeRoOvB7H-R4avslOHCNs8t2ny_40i1rAoeuGTllv2E',
+    rows: [
+      ['Tolerance', '±0.005mm'],
+      ['Throughput', '240 units/hr'],
+      ['Power', 'Industrial 480V'],
+    ],
+  },
+  workflowEyebrow: 'Manufacturing Logic',
+  workflowTitle: 'A Seamless Integration for Business Growth',
+  workflowImages: [
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuAOMZEjRI9w_QURME6v2LX34yLnMOVvFVDFy_IYRxX7wrbyEX9lwCIIOwq69-azqVSQty0qKZHO5u9aRjqMeQ61tfFoOftHrRyfGxNDQ0VH93zuKVoZvj012HcrTOfIMz6WV-EB9EYvw1MDQrl3y30EDlDGHWH8afw7YZk9R_zBh8Kus4T0CPilgWRcazTA-NF3AJ2EzGsBh-ma1xXoL-tNZotStGf1ZJYth-b5AGQIRsQfQNe9_5R7rtL1_CaNuET0NfbCyd2-W7w',
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuAjMnJgb31tGYhLxLY3eF1rSYflN-KkEd2mURkMSu049WPXTx_Ek8z9qbvDc7vtinUTY-shYoPOaJDPrEd8uhu1yfNrNHZbwzU0nzYuqeJptMVzwGE-dTb6Av5MHcv4MeR-Bu9g_6UofiA3H6UaNFpl8mUzY8nD1s50fET90pZVamtCcu7itzlHwmRLl2u1divONodeDh8pTS3lLhQvLHrfw14KOcL_ZhbNTpOrTbHMBW0vB0rtGb-QEj6rj13dZoKQuvWslyf_LD4',
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuBNc9lkE-bKlvyvsXph0BoynrDLkEcgx0h-iWqtRggYmUeOmOoDiPRyCj1oaJFs8-2ZzHdP1tIgJ53WNKkQ23QDxn80cvA7JDrl5a3hJ8UVgVACzXlV-Z0OpPzMO6O4jQvCBN75on8ck1Rj07dP4q_k2wO-5bIunSz70rmK4-aYDbRh1Cb7TQpq7GKjgAgraqk7JSyQay1tq6oPFAhKTP1klHAuMjkYeLgVlyeYr2rbJtTX8MukOKxYZseUMqtNSrTKWuznU4wq2Bs',
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuD5kj7PUrjxaFfAVTIypL2qfGzmqI-YJkJE-PlF2IaBsSctgODfXVGzCyfB75nbpg-mGzPa-fOfYyr43str0v7MsfycnoRm5LmepG94rGB5Ll9d7y2YFHAKNfl_fuNDP8BAqNVyxhu65B8gak8fv76BBu_JJb88JCGTAsrnC8Uumu6TafQQq_8-Xm7ZeFSI7TgYs-WU_w3EXYD3QVsitFDUIQ1VqmBs42vf1-J9C-IOuyoH_U5eH7MylxYutiFBqZ_os9m68NQF9vU',
   ],
   workflowSteps: [
-    ['01', 'Brief Alignment', 'Commercial goals, market constraints, and target product tiers are aligned with engineering.'],
-    ['02', 'Configuration Matching', 'Recommended machine families, options, and QC checkpoints are selected for your channel.'],
-    ['03', 'Launch Planning', 'Lead time, export packing, and documentation are finalized before release.'],
+    [
+      '01',
+      'Technical Consultation',
+      'We evaluate your production requirements to recommend a hardware stack that aligns with your operational scale.',
+    ],
+    [
+      '02',
+      'OEM Customization',
+      'Integration of proprietary software, custom voltage configurations, and brand-specific structural adjustments.',
+    ],
+    [
+      '03',
+      'Volume Logistics',
+      'End-to-end export management, CE/UL certification compliance, and global maritime insurance coverage.',
+    ],
   ],
-  comparisonRows: [
-    ['OEM Program', 'Deep customization', 'Best for proprietary product lines'],
-    ['Wholesale Distribution', 'Ready-to-market assortments', 'Best for dealer expansion'],
-    ['Private Label', 'Brand-ready cosmetics', 'Best for premium reseller launches'],
-  ],
+  comparison: {
+    eyebrow: 'Strategic Choice',
+    title: 'Service Level Comparison',
+    columns: ['Feature', 'Wholesale Distribution', 'OEM Partner', 'Project Managed'],
+    rows: [
+      ['Min. Order Volume', '5 Units', '20 Units / Quarter', 'Case-by-Case'],
+      ['Customization', 'Standard Product', 'Full Hardware & Logo', 'Custom Engineering'],
+      ['Pricing Structure', 'Tiered Wholesale', 'Contract Manufacturing', 'Milestone-Based'],
+      ['Technical Support', 'Tier 1 Remote', 'Dedicated Engineer', 'On-Site Commissioning'],
+    ],
+  },
   stats: [
-    ['80+', 'Countries served'],
-    ['14-21', 'Business day lead time'],
-    ['24/7', 'Technical support window'],
-    ['15+', 'Years of export continuity'],
+    ['12k', 'Sq Meters Facility'],
+    ['450', 'Monthly Output'],
+    ['84', 'Countries Served'],
+    ['24h', 'Partner Support'],
   ],
+  cta: {
+    eyebrow: 'Initiate Partnership',
+    title: 'Secure your production line for the upcoming quarter.',
+    copy:
+      'Speak with our industrial solutions lead to discuss high-volume pricing and OEM integration timelines.',
+    buttonLabel: 'Contact Wholesale Desk',
+  },
 }
 
 export const resourcesFixture = {

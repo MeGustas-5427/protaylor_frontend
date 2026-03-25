@@ -186,7 +186,7 @@ export function CategoryPage() {
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     </Link>
-                    {product.badge ? (
+                    {'badge' in product && product.badge ? (
                       <div
                         className={`absolute left-4 top-4 rounded px-3 py-1 text-[10px] uppercase tracking-widest ${
                           product.badgeTone === 'primary'
