@@ -25,12 +25,36 @@ export const contactFixture = {
     },
   ],
   steps: [
-    ['01', 'Data Verification', 'Our system verifies your requirements and routes them to the relevant regional specialist.'],
-    ['02', 'Technical Consultation', 'An engineer will discuss machine specifications, configuration options, and OEM capabilities.'],
-    ['03', 'Formal Proposal', 'Receive a tailored quote including lead time, shipping estimates, and technical documents.'],
+    ['01', 'Data Verification', 'Our system verifies your requirements and assigns them to the relevant regional specialist.'],
+    ['02', 'Technical Consultation', 'An engineer will reach out to discuss machine specifications and OEM capabilities.'],
+    ['03', 'Formal Proposal', 'Receive a tailored quote including global shipping estimates and lead times.'],
   ],
+  form: {
+    machineOptions: [
+      'CNC Precision Milling Series',
+      'Automated Assembly Lines',
+      'Custom Hydraulic Solutions',
+      'Industrial Packaging Systems',
+    ],
+    checkboxTitle: 'OEM/ODM Support Inquiry',
+    checkboxCopy:
+      'Check this if you require custom branding or specialized factory modifications.',
+    messagePlaceholder: 'Describe your specific technical requirements or questions...',
+    buttonLabel: 'Send Inquiry',
+    legal: 'By submitting this form, you agree to our Privacy Policy and Data Handling terms.',
+  },
+  locationSection: {
+    eyebrow: 'Global Presence',
+    title: 'Visit Our Facilities',
+    copy:
+      'We welcome our clients to tour our manufacturing headquarters. Witness the precision of PRO-TAYLOR firsthand and meet the engineering team behind your projects.',
+    locations: [
+      ['Manufacturing Hub A', '102 Industrial Way, Tech Park, Shanghai'],
+      ['European Liaison Office', 'Kurfürstendamm 213, 10719 Berlin, Germany'],
+    ],
+  },
   facilityImage:
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuDMZa0y_ELIDlEncBf5E0pQEmppgE-v_V4fMfZ6jrnAPof056J1RmxOlM7W-dR_0SpSranuqCav_mftGwS8u0B5XTbPEKJyhimX_VMXtQNjdfIZchS6rAwPS7IbAjgXGMSGyOV00NAA8wBHtmtXAfSOVM1gG-eoJf7wdXc0uorXNMfchayLWpR4zY2becbwH2kn9nk-j13cnehnzGmTpaXql_1PKw2Nr9Ri2E_ET_82UJjq72y7faWnpf3Jx6YwHGLX0qUEnyjywhg',
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuAwibhmNtEjFd-6GpgdGfJQhQtItEvL0Vol8nepcybKK62cPFj6vbTFY0_RRv5Np8JvLNEy-IDBZqWVKPvyZMcbwxXZT5J7x0IsIYgccDsh7n86BPPPL79BfSfoZPQGKqAzA9LA1tkvBHMVBa4k6v-HNnRzeaN8Xk_cF9R8N6_a6J4R-key6sYNTTnuQm18c10SHS71KHieayHEEhB1uyz9hFaemd8O4h_C8SXT4xx1stdwE__f7fZTC23Pxnq3zgMaYcfALmRp6bc',
 }
 
 export const companyFixture = {
@@ -182,35 +206,86 @@ export const resourcesFixture = {
   title: 'PRO-TAYLOR | Journal & Resources',
   featured: {
     title: "The Architect's Guide to Industrial Precision.",
-    copy: 'In an era of rapid commoditization, the difference lies in the micron. We explore how to evaluate manufacturing partners for high-stakes projects.',
+    copy:
+      'In an era of rapid commoditization, the difference lies in the micron. We explore how to evaluate manufacturing partners for high-stakes aerospace projects.',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuBTtWjEWUIKWG20i-Iat4VcG0---H4tZSmZQ9o8Zsk6CjqZbdHLpc9QLvu91kz1PrIzB0WabRrVkNiT1JF-vk3B0-r-UXtmkr8-iSQNkrgmvQSf99imRI4IfyM7tAgbphhbWRz7bu-ycq1t1f_9nsMzgGbO6qM0onsJ134urkSi4_jJmBDvhG1CH4nejC57fkHqm7a8v0YH4vji6QX8Jz82F0OLolIANFcfVSQmYZKyx9TFLXccbFgS7Rf8esey6GnslzVOfoEKFhs',
     href: ROUTES.article,
+    publishedAt: 'Jan 24, 2024',
+    readTime: '12 Min Read',
   },
-  filters: ['All', 'Buying Guides', 'Factory Insights', 'OEM Strategy'],
+  filters: ['All Articles', 'Buying Guides', 'Comparisons', 'Maintenance', 'Industry Articles'],
+  resultsLabel: 'Displaying 24 Editorial Pieces',
   cards: [
     {
-      title: 'How to Choose the Right Soft Serve Machine',
-      copy: 'A structured framework for throughput, overrun, serviceability, and recovery speed.',
+      category: 'Comparisons',
+      title: 'Vertical vs Horizontal Machining: A Efficiency Audit',
+      publishedAt: 'Mar 12, 2024',
+      readTime: '8 Min Read',
       image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuBWLK5VQaLBPFglkZQERQgAJdBRQkEGzgYjaT0DD-ES2tVU3ZNAj0qZt3Ylp7qSpOyIps56emwyqvJJO1Ui7WK7L1EQEPJB6hS7RYQ0hH7qefjhgexjpIb6-reIUxis3_C48dtCISw6H27jisoXAn2ZFTGQmGciAaY_w_4ElZySG-nM-nCobZJ9Xu6LO-InLR9QMBUuk_hSYwgGSWbrKH8Y5agxPP9FIqhnBL4mIseMi0AthF4RQ0C1KN7VNrLbXbJgWU4ejdYjrwo',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuA-pcLVLn97tHogmx1fqbpccrt3BJDM-hDhrDHTYav_CxztUnPyDVGZpWvbywjo3xpgENVnyrb87W9IcaMtulZ9T1ysxQezwMnXWjN91WZe62fx0W_5VVQLBX4oddIuTuUa_QNFtEfUGM3gPRou_KbyC0NNcKiYEb1KZqsh3RMFwIu4agO8t8db1A0nZbHKCCG6lgTYE6AObMqH0WOu5xaTuH3CpbORQinLOB1sXFhJf3aKRoke1WYBHCfpTM7IRV9suN0R4YhpjiI',
       href: ROUTES.article,
     },
     {
-      title: 'Cooling Architecture for Premium Dessert Bars',
-      copy: 'How placement, ambient heat, and compressor configuration affect consistency.',
+      category: 'Maintenance',
+      title: 'The Longevity Blueprint: Preventive Maintenance for 2024',
+      publishedAt: 'Feb 28, 2024',
+      readTime: '15 Min Read',
       image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuC9WJ0LO_AucroguYqa1XrNh1ktqWWDyEux4OytCG0rUiKYuzPCmPKGzjFGHvetsgN8orAt81NtYn-XHWuZtc8ru-mb799CAAxFV-nlhQoWWTt3gNOFxrQpWGZT_g7OUyipJGTyGEewOWApZpy0Y_UFiTDFzwfqpqcGLpeFS9iyf9b2rmVSltfV4je3_kxLhv3yHLiMSTDZZWN48Bb2rb01MB2pUkzvQm3PBH-L32Q0fskV-0fdWlLc72FylV5GF4ROi47WBBVFqU0',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuCHcxBZHlryzaRjDHXLd5dJlCyYnrifnDDMcfJMWzFT6uqKHTcn9AORcVK5_IogyYOXIAhksRgK6-848-V2MZVOc_Lgy2rs474PK8skwjyI1M3hUNcN2wkKwSgdxuz8VrHI9FUeNj2l6P_1vUC7p3kRKIycl3lKNoIQD7YvoaiwVQFlyKL3609fDBWsJ4fd47PbFYa1QKHUi6iJzPHTn4qB-9DTqRuN7gS9-Bw0CYQ3JHByK0kuon5TDKSqQFBQuJW5NeN4U6XlwCE',
+      href: ROUTES.article,
+      stagger: true,
+    },
+    {
+      category: 'Industry Articles',
+      title: 'Global Supply Chains: Reshoring vs. Nearshoring',
+      publishedAt: 'Feb 15, 2024',
+      readTime: '10 Min Read',
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBxGqRYe48NNGJB_j1MpLblRStBaXdLlbENa-DX2y0yERedXkNL37udFNNSX2au-2-PI57bwR9dDhOEazwkWGyKwEOCKyK1hcnIIo0nccvGP8j2o6a0JfLgloyK5Dvdyne5jVh_zDAXv-LdQ2FoXiLnJNnDx7_si0rISe0o3frEpPR-2Qajy5MCdKkIR3VfbvdSaVls0pc2HIi0HzCGIDIykbRiJq2n0qi0iiKdJxMD9oxv-QAQ1X87JrfAdfzXY3PdhBysPqPTmAw',
       href: ROUTES.article,
     },
     {
-      title: 'Factory Notes on Stainless Chassis Finishing',
-      copy: 'What premium manufacturers control before export release.',
+      kind: 'editorial',
+      category: 'Editorial Choice',
+      title: 'Sustainable Casting: Moving Towards Zero-Waste Production Lines.',
+      copy:
+        'How PRO-TAYLOR is implementing closed-loop aluminum recycling in our secondary smelting facility.',
+      publishedAt: 'Feb 10, 2024',
+      readTime: '6 Min Read',
+      ctaLabel: 'Read Perspective',
+      href: ROUTES.article,
+    },
+    {
+      category: 'Buying Guides',
+      title: 'Digital Twins: Is Your Facility Ready for Industry 4.0?',
+      publishedAt: 'Jan 30, 2024',
+      readTime: '18 Min Read',
       image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuAIiZ4RtTMLVeyLSeNnoeG-vBbPlg4-4Cr9gLOrnYq1nhBY6PTCY8JiGKqDdsjrh8UQmEV4MSP11C-4xrJybNxaYsxHEd2rPOcN90zkmGVwMi6D6PqHF_DUYHNHi2Wb7Ldu2ZnwJnpKzqA1eYDW9dkrjm4V8hoqOOzlbhoWMaBVmcXRvdzTJUGa2nG3T8iH4jJ8Ja48rF3_8-lBYcbB94AKHQQ3SDdHWm5CqOPiKcb9wKd-CxOfE7-bDnwDWq3SLgZOWxWM1CudtQQ',
-      href: ROUTES.company,
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBKcr3ca-ewQsftNSxR9vFEuEupY-rcoeyc22fOoeeKOKI0_Ak_AJ3E7gCELEQVkdlfEVqXitl_6UXzbDlvJ1AwGWiTEM_YiZDM-NQbVddkZ3zUIUn5wCb4-6INwc57mM7aLQeGt5NOKQkkJI5gOS4l04GmqO_3yKXX9IsijDxoeXn8dDbTrrWxxgxf-cx5w6QAl7LgNEP_DwYq4zuwicLdiPt5X_dwLF-gGvvZwBs4IUqNqH6ClG7WcGcIoaG3QSo0-w68mO4Wgw8',
+      href: ROUTES.article,
+      stagger: true,
+    },
+    {
+      category: 'Industry Articles',
+      title: 'The Future of QC: AI-Integrated Visual Inspections',
+      publishedAt: 'Jan 15, 2024',
+      readTime: '5 Min Read',
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuDMq9zqnlAjt1lhk95wRHmkJ1MHrBijxMvWkNh-u5Gbv9TpFgQa5w5jiRKZw187V-RYs6tq-QeXFEnA9fpj_3SRAty8gnk6pu1SwzjcujuQjuWJ6dHYKtsDVuCesEVI2VB7TDGw8C-diOV3PAEYCI_peqt-VlgBSbeIh1w7GDhH-05JjorwLAGMkzHf0sRJO4gzb71uhKLAvoopnMNNAgVv5MxkY9rgGCZ3O0NYEAKC7HyoyYgjBgEw9td_o67XcwroJIdjFwBXk5g',
+      href: ROUTES.article,
     },
   ],
+  cta: {
+    eyebrow: 'Technical Literature',
+    title: 'Get the Full 2024 Equipment Catalog.',
+    copy:
+      'Over 400 pages of technical specifications, material performance charts, and manufacturing tolerances for our entire production line.',
+    fieldPlaceholder: 'Professional Email Address',
+    buttonLabel: 'Download PDF',
+    legal:
+      'By downloading, you agree to our privacy policy and industrial compliance standards.',
+  },
 }
 
 export const articleFixture = {
