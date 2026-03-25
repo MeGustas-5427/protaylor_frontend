@@ -19,19 +19,19 @@ export function CategoryPage() {
       />
       <TrustRibbon highlight="oem" topClassName="top-16" />
       <main className="pt-32">
-        <section className="mx-auto grid max-w-[1440px] gap-12 px-6 py-20 lg:grid-cols-12 lg:items-center md:px-8 lg:py-32">
-          <div className="space-y-8 lg:col-span-5">
-            <span className="block font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">
+        <section className="mx-auto mb-24 grid max-w-[1440px] gap-12 px-8 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-5">
+            <span className="mb-4 block font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">
               Precision Engineering
             </span>
-            <h1 className="font-headline text-5xl font-bold leading-tight tracking-tight text-primary md:text-7xl">
+            <h1 className="mb-6 font-headline text-6xl font-bold leading-tight tracking-tight text-primary md:text-7xl">
               Soft Serve <br />
               <span className="serif-italic font-normal">Ice Cream Machines</span>
             </h1>
-            <p className="max-w-md text-lg leading-relaxed text-on-surface-variant">
+            <p className="mb-8 max-w-md text-lg leading-relaxed text-on-surface-variant">
               {categoryFixture.description}
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex gap-4">
               <Link
                 href={ROUTES.product}
                 className="rounded-lg bg-primary px-8 py-4 font-medium text-on-primary shadow-lg shadow-primary/10"
@@ -57,7 +57,7 @@ export function CategoryPage() {
         </section>
 
         <section className="bg-surface-container-low py-24">
-          <div className="mx-auto max-w-[1440px] px-6 md:px-8">
+          <div className="mx-auto max-w-[1440px] px-8">
             <div className="mb-16">
               <h2 className="mb-4 font-headline text-4xl font-bold text-primary">
                 Engineered for Every Scale
@@ -71,15 +71,16 @@ export function CategoryPage() {
               {categoryFixture.audienceCards.map((card) => (
                 <div
                   key={card.title}
-                  className={`rounded-xl p-10 transition-all ${
+                  className={`min-h-[260px] rounded-lg p-10 ${
                     card.tone === 'primary'
-                      ? 'z-10 bg-primary text-on-primary shadow-2xl md:scale-105'
-                      : 'bg-surface-container-lowest hover:shadow-xl'
+                      ? 'z-10 bg-primary text-on-primary shadow-2xl md:[transform:scale(1.05)]'
+                      : 'bg-surface-container-lowest'
                   }`}
                 >
                   <MaterialIcon
                     name={card.icon}
-                    className={`mb-6 block text-4xl ${card.tone === 'primary' ? 'text-primary-fixed-dim' : 'text-secondary'}`}
+                    className={`mb-6 block ${card.tone === 'primary' ? 'text-on-primary' : 'text-secondary'}`}
+                    style={{ fontSize: '36px', lineHeight: '36px' }}
                   />
                   <h3 className="mb-4 font-headline text-2xl font-bold">{card.title}</h3>
                   <p
@@ -95,7 +96,7 @@ export function CategoryPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1440px] px-6 py-24 md:px-8">
+        <section className="mx-auto max-w-[1440px] px-8 py-24">
           <div className="mb-12 flex items-end justify-between">
             <div>
               <h2 className="mb-2 font-headline text-4xl font-bold text-primary">
@@ -106,11 +107,25 @@ export function CategoryPage() {
               </p>
             </div>
             <div className="hidden gap-2 md:flex">
-              <button className="rounded-full border border-outline-variant p-2 text-primary hover:bg-surface-container">
-                <MaterialIcon name="west" />
+              <button className="flex h-12 min-w-[41px] items-center justify-center rounded-xl border border-outline-variant px-2 text-primary hover:bg-surface-container">
+                <MaterialIcon
+                  name="west"
+                  style={{
+                    fontSize: '24px',
+                    lineHeight: '24px',
+                    fontVariationSettings: '"FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24',
+                  }}
+                />
               </button>
-              <button className="rounded-full border border-outline-variant p-2 text-primary hover:bg-surface-container">
-                <MaterialIcon name="east" />
+              <button className="flex h-12 min-w-[41px] items-center justify-center rounded-xl border border-outline-variant px-2 text-primary hover:bg-surface-container">
+                <MaterialIcon
+                  name="east"
+                  style={{
+                    fontSize: '24px',
+                    lineHeight: '24px',
+                    fontVariationSettings: '"FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24',
+                  }}
+                />
               </button>
             </div>
           </div>
@@ -152,85 +167,156 @@ export function CategoryPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1440px] px-6 pb-24 md:px-8">
-          <div className="grid gap-8 lg:grid-cols-3">
-            {categoryFixture.products.map((product) => (
-              <Link
-                key={product.name}
-                href={product.href}
-                className="group rounded-xl bg-surface-container-lowest p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl"
-              >
-                <div className="mb-6 aspect-[4/5] overflow-hidden rounded-xl bg-surface-container">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+        <section className="bg-surface py-24">
+          <div className="mx-auto max-w-[1440px] px-8">
+            <div className="mb-16 text-center">
+              <h2 className="mb-2 font-headline text-4xl font-bold text-primary">
+                Available Configurations
+              </h2>
+              <div className="mx-auto mt-4 h-1 w-12 bg-secondary" />
+            </div>
+            <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+              {categoryFixture.configurations.map((product) => (
+                <div key={product.name} className="group">
+                  <div className="relative mb-6 aspect-[4/5] overflow-hidden rounded-xl bg-surface-container-low">
+                    <Link href={product.href}>
+                      <img
+                        src={product.image}
+                        alt={product.alt}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </Link>
+                    {product.badge ? (
+                      <div
+                        className={`absolute left-4 top-4 rounded px-3 py-1 text-[10px] uppercase tracking-widest ${
+                          product.badgeTone === 'primary'
+                            ? 'bg-primary text-on-primary'
+                            : 'bg-secondary text-on-secondary'
+                        }`}
+                      >
+                        {product.badge}
+                      </div>
+                    ) : null}
+                  </div>
+                  <h3 className="mb-2 font-headline text-xl font-bold text-primary">
+                    <Link href={product.href}>{product.name}</Link>
+                  </h3>
+                  <p className="mb-6 text-sm text-on-surface-variant">{product.copy}</p>
+                  <div className="flex items-center justify-between">
+                    <Link href={product.href} className="font-bold text-primary">
+                      Request Quote
+                    </Link>
+                    <Link
+                      href={product.href}
+                      className="flex h-10 w-10 items-center justify-center rounded-xl border border-outline-variant transition-all hover:bg-primary hover:text-white"
+                    >
+                      <MaterialIcon
+                        name="arrow_forward"
+                        style={{
+                          fontSize: '14px',
+                          lineHeight: '20px',
+                          width: '14px',
+                          height: '20px',
+                          fontVariationSettings: '"FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24',
+                        }}
+                      />
+                    </Link>
+                  </div>
                 </div>
-                <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-secondary">{product.tag}</p>
-                <h3 className="mb-3 font-headline text-2xl font-bold text-primary">{product.name}</h3>
-                <p className="text-sm leading-relaxed text-on-surface-variant">{product.copy}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="mx-auto grid max-w-[1440px] gap-12 px-6 pb-24 md:px-8 lg:grid-cols-2 lg:items-center">
-          <div className="relative overflow-hidden rounded-2xl bg-surface-container-low">
-            <img src={categoryFixture.guide.image} alt="Buying guide" className="h-full w-full object-cover" />
-            <div className="absolute bottom-8 left-8 max-w-xs rounded-lg bg-surface-container-lowest p-6 shadow-xl">
-              <p className="font-headline text-2xl italic text-primary">
-                “The best machine is the one that matches your peak hour, not your quiet day.”
-              </p>
+              ))}
             </div>
           </div>
-          <div>
-            <span className="mb-4 block font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">
-              Buying Guide
-            </span>
-            <h2 className="mb-6 font-headline text-4xl font-bold text-primary">Match Throughput to Experience</h2>
-            <p className="mb-8 max-w-xl leading-relaxed text-on-surface-variant">
-              Evaluate output capacity, operator workflow, ambient conditions, and recovery speed
-              before deciding between countertop, floor-standing, and industrial formats.
-            </p>
-            <ol className="space-y-6">
-              <li><span className="mr-4 font-headline text-2xl font-bold text-primary">01</span><span className="text-on-surface-variant">Estimate peak-hour servings and queue pressure.</span></li>
-              <li><span className="mr-4 font-headline text-2xl font-bold text-primary">02</span><span className="text-on-surface-variant">Choose cooling architecture for your environment.</span></li>
-              <li><span className="mr-4 font-headline text-2xl font-bold text-primary">03</span><span className="text-on-surface-variant">Validate serviceability, spare-parts access, and export readiness.</span></li>
-            </ol>
+        </section>
+
+        <section className="bg-surface-container py-24">
+          <div className="mx-auto grid max-w-[1440px] items-center gap-20 px-8 lg:grid-cols-2">
+            <div className="relative">
+              <div className="aspect-square overflow-hidden rounded-2xl bg-surface-container-highest shadow-2xl">
+                <img
+                  src={categoryFixture.buyingGuide.image}
+                  alt="Technical Engineering"
+                  className="h-full w-full object-cover grayscale"
+                />
+              </div>
+              <div className="absolute -bottom-10 -right-10 max-w-[280px] rounded-xl bg-secondary p-8 text-on-secondary shadow-xl">
+                <p className="mb-2 font-headline text-xl italic">{categoryFixture.buyingGuide.quote}</p>
+                <p className="text-[10px] uppercase tracking-widest opacity-80">
+                  {categoryFixture.buyingGuide.quoteBy}
+                </p>
+              </div>
+            </div>
+            <div>
+              <h2 className="mb-8 font-headline text-4xl font-bold text-primary">
+                What to Look For: <br />
+                <span className="serif-italic font-normal">Buying Guide</span>
+              </h2>
+              <div className="space-y-10">
+                {categoryFixture.buyingGuide.factors.map((factor) => (
+                  <div key={factor.number} className="flex gap-6">
+                    <span className="font-headline text-3xl font-bold text-secondary">
+                      {factor.number}
+                    </span>
+                    <div>
+                      <h4 className="mb-2 text-lg font-bold text-primary">{factor.title}</h4>
+                      <p className="text-sm leading-relaxed text-on-surface-variant">
+                        {factor.copy}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
-        <section className="mx-auto grid max-w-[1440px] gap-12 px-6 pb-24 md:px-8 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="rounded-2xl bg-surface-container p-10">
-            <span className="mb-4 block font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">
-              Resources
-            </span>
-            <h2 className="mb-6 font-headline text-4xl font-bold text-primary">Continue the Evaluation</h2>
-            <p className="mb-8 max-w-xl leading-relaxed text-on-surface-variant">
-              Explore our decision framework for soft serve machine selection or request a tailored
-              recommendation from our engineering team.
-            </p>
-            <Link href={ROUTES.article} className="inline-flex items-center gap-2 border-b border-primary pb-1 text-sm font-bold uppercase tracking-widest text-primary">
-              Read the Buying Guide
-              <MaterialIcon name="arrow_forward" className="text-sm" />
-            </Link>
-          </div>
-          <div className="space-y-4">
-            <h2 className="font-headline text-3xl font-bold text-primary">Frequently Asked Questions</h2>
-            {categoryFixture.faqs.map((faq) => (
-              <details key={faq.question} className="group rounded-lg bg-surface-container-low p-6">
-                <summary className="flex list-none items-center justify-between text-lg font-bold">
-                  {faq.question}
-                  <MaterialIcon name="expand_more" className="transition-transform group-open:rotate-180" />
-                </summary>
-                <p className="mt-4 leading-relaxed text-on-surface-variant">{faq.answer}</p>
-              </details>
-            ))}
+        <section className="mx-auto max-w-[1440px] px-8 py-24">
+          <div className="grid gap-16 lg:grid-cols-12">
+            <div className="lg:col-span-4">
+              <h2 className="mb-6 font-headline text-3xl font-bold text-primary">
+                Expert Resources
+              </h2>
+              <div className="space-y-4">
+                {categoryFixture.expertResources.map((resource) => (
+                  <Link
+                    key={resource.title}
+                    href={resource.href}
+                    className="group block rounded-lg bg-surface-container-low p-6 transition-all hover:bg-surface-container"
+                  >
+                    <h4 className="mb-1 font-bold text-primary">{resource.title}</h4>
+                    <p className="text-xs text-on-surface-variant">{resource.copy}</p>
+                    <span className="mt-4 inline-block text-xs font-bold uppercase tracking-widest text-secondary transition-transform group-hover:translate-x-1">
+                      {resource.cta}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div className="lg:col-span-8">
+              <h2 className="mb-6 font-headline text-3xl font-bold text-primary">
+                Common Inquiries
+              </h2>
+              <div className="space-y-6">
+                {categoryFixture.commonInquiries.map((faq) => (
+                  <div key={faq.question} className="border-b border-outline-variant/20 pb-6">
+                    <h4 className="mb-2 font-bold text-primary">{faq.question}</h4>
+                    <p className="text-sm text-on-surface-variant">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       </main>
       <SiteFooter />
+      <div className="fixed bottom-8 right-8 z-[60] hidden md:block">
+        <Link
+          href={ROUTES.contact}
+          className="group flex items-center gap-3 rounded-full bg-secondary px-8 py-4 text-on-secondary shadow-2xl transition-all hover:scale-105 active:scale-95"
+        >
+          <MaterialIcon name="mail" className="transition-transform group-hover:rotate-12" />
+          <span className="font-bold tracking-tight">{categoryFixture.floatingCta}</span>
+        </Link>
+      </div>
     </>
   )
 }

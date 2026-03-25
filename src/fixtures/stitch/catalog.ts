@@ -53,53 +53,91 @@ export const categoryFixture = {
       phase: 'Three (380V)',
     },
   ],
-  products: [
+  configurations: [
     {
-      name: 'ICM-T836 Twin-System',
-      tag: 'Flagship / Twin Twist',
+      name: 'T-Elite 200 Series',
+      badge: 'Best Seller',
+      badgeTone: 'primary',
       image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuBWLK5VQaLBPFglkZQERQgAJdBRQkEGzgYjaT0DD-ES2tVU3ZNAj0qZt3Ylp7qSpOyIps56emwyqvJJO1Ui7WK7L1EQEPJB6hS7RYQ0hH7qefjhgexjpIb6-reIUxis3_C48dtCISw6H27jisoXAn2ZFTGQmGciAaY_w_4ElZySG-nM-nCobZJ9Xu6LO-InLR9QMBUuk_hSYwgGSWbrKH8Y5agxPP9FIqhnBL4mIseMi0AthF4RQ0C1KN7VNrLbXbJgWU4ejdYjrwo',
-      copy: 'A dual-compressor powerhouse designed for high-output commercial environments.',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuC967tLsc6tq_r99W0GTOXv5c68l7oSqUJnbYnvC4zx9rnSbXzq8gu5xxTRe12y_7wtTlPrM0BnZdeiRi7gtB8OENsNnJkfJbr8gMDJ2G68jGEw_6j5n4DiJeo3_8ZyUbQ9ied3qclCcqPFn8lewMzZQGVJGkl7aSRQkXv6moDfqe4pPjjqHzAXFklp6tdeMlRDoF4ZgHBFXq55LewiGq0bS805yCDUU-ykDRVd0_xqBniJTbtmxB6iHCR1UxuWFoC49D7o_nWYS9o',
+      alt: 'Commercial Ice Cream Machine',
+      copy: 'Twin twist floor standing model with intelligent touch control and gravity feed system.',
       href: ROUTES.product,
     },
     {
-      name: 'Taylor-C100 Elite',
-      tag: 'Countertop / Compact',
+      name: 'C-Compact 100',
       image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuCkoPe7py_9EYM9Mq7csZUsJmpTfrC1eJpMIAZnAnECk4Oyi3LYWA6F2yMS76hQqXXtZEcsxxhHbxA3EkVyKgTsQXs4nDMGffwa887eq0l1Ehtv8LrOHQBtZNbc3mzshEPVAoQeO9Jbn9C5tVvn85i7LiUloP_CS2T4_s5w3j2EGLje2viTpMZPmryCTkinCm6fmfw9XaeMW3LOEf4rDJ48-tmvSRyZS8V0HEZdRB13jaVTRMn12cJZ7cKYTqcV5o8L6nJdWJxAtso',
-      copy: 'A compact single-flavor format for premium boutique counters and dessert bars.',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAmwklGOxZ7e1C9X3aldb5tKCXMDh_n2OA4IMha3_n3i7fIyC-wiNvE9EiinUpLo1Mnpxc5I1upJurPdSnVSxoFpAHR9-IQafv8Depoei0iLAohU6cjN5BbKeSoPrdaKArSmGZlQ16AQv34Egb9bChx7O90y4WBp0NNCG8xMl3k5L4UYREkXuG2tdB28nyOFhjocV4GNSRELgga4fKaaa2w2mcOp8xLGMt5lmoU-1uzfTdIexD56p4q3CvvR7xMFMH2omUuhGCj-P0',
+      alt: 'Compact Countertop Machine',
+      copy: 'High-efficiency single flavor unit designed for boutique kiosks and bar-top service.',
       href: ROUTES.product,
     },
     {
-      name: 'Taylor-X900 Max',
-      tag: 'Industrial / High Output',
+      name: 'X-Industrial 900',
+      badge: 'High Capacity',
+      badgeTone: 'secondary',
       image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuDAeSHWLK1T2cdVBtJIaEFOyGoRTjOWAL-kfEzq7Cckw6f4naxF_gWxXBVpFzICyrLhW9YxUwESk6t-P-cO4QbfRS8pDgzvN5WjY8lbZLT9MnAMQIMUcaqc0Nmnn8w6pxefrLURLXVKThwvBNzrcnyL_CYTyhV0K6GonjK33ptj-cIl5DjkLHmICmd3K5P45tE_FPRxdQGvnvw-ZO4HwxM0sVlNbZ3e0t5hzri97Go-4XgZFrp5H5vp24P6yG-5B8-_GD_Ec7qzmPE',
-      copy: 'Built for 24/7 service windows with maximum recovery speed and operator control.',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuCAw48T7eCxfViOxPL04IfGNiLYPp3VtmybNgUvqQ5bUYUstrMB4rAq1BkAxZxr-py_BWS7gjej45tIsCHbtCxrk47_gGTYAPQoFg2ZLA0-bbR650gOXbDN7nhQM3JOUiioBoVWzeJXpHAguNWee82td9zWqMBnstylYSm0S1iE5GH6A3Ol_KKTtTp6gANS9L5PkrRPju8TtJUkMtiVV01AG4iywmcKCoyhVmtS4P-hCBPpxRto9y6tdL-BRUxwwV_Fu83a6LvdeU0',
+      alt: 'Industrial Grade Machine',
+      copy: 'Massive output capabilities with heat-treatment cleaning cycles for reduced maintenance.',
       href: ROUTES.product,
     },
   ],
-  guide: {
+  buyingGuide: {
     image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuD3UVrC2H4HleSZyHNuFZg9KDD6I6XsRZCjoaIxEUI1qRaaJY4-jYyOLSonDgmO1S4AsFL9h8_hM1TVKZctpALRwKCy9dkFB_ZCfM2As2A54IRtzUu6BI94sxUo_xeL-wG4mDukZKAmlX22rvn8CZDDr65xTezFNYHVD9eXGv9Nd8WF_DFf9l9xHfdOEKQ80Ku9Dc8_U1a5imJN4Q5BU7CKk2xVseBI1AJ6h4feconWiatrySjkDoEVTO81rWzA1lv-pMBdFkCNWi8',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDH748o06q9Lh-L_GmaWPkKgBehskf9IAt7ocS_vcJI7Iu34eqYBeyJae7xkokydkezqtc6M6hvaeeq1Dzke6-lQq6kRjd_wNyzJpiPDxOweeJ_3VDPg-M1f2n7f1JU-ADyuJiZ888fvLXcMMaSIyWzlifoXUMp_hWdXj-pesrZXyLWysCdsRj-hcpxo4-eQnPYx_iYIWUBnF7dVd2n510hbPHWBVjz9VMgaJdsiBhuZ9CAN6qmqE6jFrDSZ5aPinm_ncUCUBzFaNg',
+    quote: '"Precision is the difference between profit and waste."',
+    quoteBy: '— Lead Engineer, Pro-Taylor',
+    factors: [
+      {
+        number: '01',
+        title: 'Overrun Control',
+        copy: 'Ensure the machine provides consistent air incorporation. Higher overrun (up to 50%) increases profit margins and improves product creaminess.',
+      },
+      {
+        number: '02',
+        title: 'Recovery Time',
+        copy: 'In high-traffic environments, the speed at which the machine returns product to serve temperature after a draw is critical for throughput.',
+      },
+      {
+        number: '03',
+        title: 'Cleaning Complexity',
+        copy: "Look for 'Simplify-Wash' technologies or heat-treatment cycles that extend intervals between manual deep cleans from 3 days to 14 days.",
+      },
+    ],
   },
-  faqs: [
+  expertResources: [
     {
-      question: 'Which model is best for a high-volume QSR environment?',
-      answer:
-        'For sustained peak windows, prioritize twin-system floor models with independent refrigeration circuits and high hopper reserve.',
+      title: 'Profitability Calculator',
+      copy: 'Estimate ROI based on your expected daily volume.',
+      cta: 'Access Tool →',
+      href: ROUTES.resources,
     },
     {
-      question: 'Should I choose air-cooled or water-cooled equipment?',
-      answer:
-        'Air-cooled systems fit most retail stores; water-cooled machines are preferable when ambient heat or continuous heavy load is a constraint.',
-    },
-    {
-      question: 'Do you provide technical catalogs and spec sheets?',
-      answer:
-        'Yes. Every flagship model can be matched with a spec sheet, dimensional drawing, and consultation from our engineering team.',
+      title: 'Maintenance Guide',
+      copy: 'Daily and weekly checklist for machine longevity.',
+      cta: 'Download PDF →',
+      href: ROUTES.article,
     },
   ],
+  commonInquiries: [
+    {
+      question: 'What is the difference between gravity and pump machines?',
+      answer:
+        'Gravity machines use natural flow to fill cylinders, resulting in denser product. Pump machines inject air under pressure, creating a lighter texture and higher profitability due to increased overrun.',
+    },
+    {
+      question: 'Can these machines handle vegan/dairy-free mixes?',
+      answer:
+        'Yes, our high-torque motors and adjustable cooling settings allow for perfect consistency with almond, oat, and coconut based soft serve mixes.',
+    },
+    {
+      question: 'What is the standard lead time for factory orders?',
+      answer:
+        'Standard configurations ship within 14 business days. Custom OEM branding or specialized electrical requirements typically require 6-8 weeks for precision fabrication.',
+    },
+  ],
+  floatingCta: 'Request Production Quote',
 } as const
 
 export const productFixture = {
