@@ -17,7 +17,7 @@ export const homePageData = {
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuAKN-_XMe7FErFvuKCejgrCGiabgrYxB92_TaxvTjc9IC3LEHledgPpQSkJXZTQebfshetpW8saFNoQtHlQkfAkGzqGr0i6rmNXDjGwSueSUOZIFilzBSBLg15srV4ukxB4K7BJfouKXkV0laFC-HiskgB9giqhoP1uG2MiOX6EAswR9f-8iMBrtqdiM4N5FN5atEsWTWx-MHKW7srI1Br4tLUJ20OL7PVJaWXmn7S3pGUrMV7w49QEa472X9eD4beEzu-jnnd94lg',
     cta: 'Explore Specifications',
-    href: ROUTES.category,
+    href: ROUTES.products,
   },
   mobileHighlights: [
     {
@@ -58,7 +58,7 @@ export const homePageData = {
       title: 'Shop & Cafe',
       copy: 'Boutique equipment designed for precision, aesthetics, and reliability.',
       cta: 'Retail Catalog',
-      href: ROUTES.category,
+      href: ROUTES.solutionCafe,
       image:
         'https://lh3.googleusercontent.com/aida-public/AB6AXuDlGPqjCbjV3pBQOTHdH7hQs92mg-cBEgFxxutbC4clJRz8Kj41RapIJV1-EbQvAEkPzrxb_5ej3ifFHccSXBRtKLCKPLLDKC1PpW8t8BtSSfIWATCVW1_p1cpKTXiXC_i_DgggSF1dpMBDSWd1bpVA63SpkcbGlekxXRIAje88tj6XTmAW2dB3vPe4KYYywFQxGpGsIHOLscE_6Ol5D_srNZPc0d78AfZE-7Wc7xn4CCfwZHSryrXzOnc-XvZT9su4VSKYh7PsZGI',
       tone: 'bg-surface-container',
@@ -78,21 +78,21 @@ export const homePageData = {
       copy: 'Rapid freezing systems for high-output popsicle production.',
       image:
         'https://lh3.googleusercontent.com/aida-public/AB6AXuCHFtdjFtTlOUnAq7s6zw5-QF0dDhmXxLRxoCK3QU2MJCjjXSWgyHjfyE9-drgrX_NAWcI3286CMEhBfX5rxqAnk6kZPmB-9GC5HBlkWbToVCXXHlXlroOCLuot4pYJmt8GFLgOVubuzz0Ty4H4-r9r3bCpZy9JCtVl1CyR5mra0S_4cXyD4AQtIdPsmLYoDSKnMCRJ3XsllUhq9-5h6GBur2b-6jxiU8jcNVDSzyOrLFQcz26KaAMTmN6TgUI2q7wsG4lhEWfMVS4',
-      href: ROUTES.category,
+      href: ROUTES.categoryIceLolly,
     },
     {
       title: 'Slush',
       copy: 'Dual-tank versatility with precise temperature consistency.',
       image:
         'https://lh3.googleusercontent.com/aida-public/AB6AXuAj4IY_ZfFQAxfZGmLNrUGmu2YkCymdckTkhqOzBjsaPJhdHP5uAf908TvUv7TRF6SVNt5OfzzzIqmrcl5z6HpoHCNcVLsrfW-5NIx1tC04QtYdBNXl7_0ZJGs4DN07AP8QWpcKpBzPRcYvb7kyDpeW5JGgop0PHXUFaF0zDHRF6e_0A_ZzxGUFRNvXBuobZ7fxUKGScIlxvx-UY4CWg1oNvw85ZQcd_4_qhwjq0h_wcmziHYR60j4IBOSTAgs6ctwrTiwUrnw2xMc',
-      href: ROUTES.category,
+      href: ROUTES.categorySlush,
     },
     {
       title: 'Gelato',
       copy: 'The traditional vertical batch freezer, re-engineered for 2024.',
       image:
         'https://lh3.googleusercontent.com/aida-public/AB6AXuD3UVrC2H4HleSZyHNuFZg9KDD6I6XsRZCjoaIxEUI1qRaaJY4-jYyOLSonDgmO1S4AsFL9h8_hM1TVKZctpALRwKCy9dkFB_ZCfM2As2A54IRtzUu6BI94sxUo_xeL-wG4mDukZKAmlX22rvn8CZDDr65xTezFNYHVD9eXGv9Nd8WF_DFf9l9xHfdOEKQ80Ku9Dc8_U1a5imJN4Q5BU7CKk2xVseBI1AJ6h4feconWiatrySjkDoEVTO81rWzA1lv-pMBdFkCNWi8',
-      href: ROUTES.category,
+      href: ROUTES.categoryGelato,
     },
   ],
   valuePoints: [

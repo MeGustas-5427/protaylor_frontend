@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { SolutionPage } from '@/components/solution/solution-page'
-import { solutionFixture } from '@/fixtures/stitch/content'
+import { getSolutionFixtureBySlug, solutionFixtures } from '@/fixtures/stitch/content'
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -9,27 +9,29 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
+  const solution = getSolutionFixtureBySlug(slug)
 
-  if (slug !== solutionFixture.slug) {
+  if (!solution) {
     return {}
   }
 
   return {
-    title: 'Commercial, Wholesale & OEM',
-    description: solutionFixture.description,
+    title: solution.overviewTitle,
+    description: solution.description,
   }
 }
 
 export function generateStaticParams() {
-  return [{ slug: solutionFixture.slug }]
+  return solutionFixtures.map((solution) => ({ slug: solution.slug }))
 }
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params
+  const solution = getSolutionFixtureBySlug(slug)
 
-  if (slug !== solutionFixture.slug) {
+  if (!solution) {
     notFound()
   }
 
-  return <SolutionPage />
+  return <SolutionPage solution={solution} />
 }

@@ -2,6 +2,18 @@ import { ROUTES } from '@/fixtures/stitch/site'
 
 export const categoryFixture = {
   slug: 'soft-serve-machines',
+  heroEyebrow: 'Precision Engineering',
+  heroLineOne: 'Soft Serve',
+  heroLineTwo: 'Ice Cream Machines',
+  heroPrimaryLabel: 'View Series',
+  heroPrimaryHref: ROUTES.product,
+  heroSecondaryLabel: 'Technical Catalog',
+  heroSecondaryHref: ROUTES.article,
+  overviewName: 'Soft Ice Cream',
+  modelCount: '42 Models',
+  overviewImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuA3xXp9gYBhkKD5wQ1UYrDAKFzQ_B5-_pUMru9FBp4D3SQqVmxs4tR9PIkkrgbSI1JyO7P3D6UjJNigZblE7DLwz7z8F2ZWbL2sZkPMaQ9anWCNuu1YiL4ZuEXC4apRQVyq-izc_wUiO008wGVx1jSbFDdIDlIeSZFVOplWMMpp3G45n8qCF-ywXq0_Gil-YA4_5DIBKzibKRo_e_ITz397EsA5-fjfESFBlVwNaPND0ZQE8S1MIrV79Tq155ZLRyCn-Vlzyl8WssE',
+  overviewAlt: 'Soft ice cream product category overview',
   title: 'Soft Serve Ice Cream Machines',
   description:
     'High-capacity, floor-standing and countertop solutions engineered for consistent texture and rapid recovery times. Designed for high-traffic commercial environments.',
@@ -222,4 +234,265 @@ export const productFixture = {
         'Yes. The clean stainless execution and controlled operational noise make it appropriate for premium dessert bars and hospitality counters.',
     },
   ],
+} as const
+
+export const iceLollyCategoryFixture = {
+  ...categoryFixture,
+  slug: 'ice-lolly-machines',
+  heroLineOne: 'Ice Lolly',
+  heroLineTwo: 'Production Machines',
+  heroPrimaryHref: ROUTES.contact,
+  overviewName: 'Ice Lolly',
+  modelCount: '28 Models',
+  overviewImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuCSUa9c9h-Y-OcvxuV87ynNRYkJ4MKH14y6LmdFMxSFWVeWvVrJMoc2Tp6Yrtr8KSqhNUfHwMiLql8fIbvJRtmT-6L0SjX0SRIgnJuN8M-40ZEgPAGhAiC1LKxkhMlO2PCnQNYVIuoea8G3TIkrZdEOhJpmncNQ2wNQlw8oi6Z-J0fzz4eN61AK-v4bRG0-UtlOCXRFVOL-fmbbckY65YGWYxwkCu9y23OXj2IeLqtzY2xg5XHzL11Nl2i3ulkLbmQ96NcQ7_lgjk0',
+  overviewAlt: 'Ice lolly product category overview',
+  title: 'Ice Lolly Machines',
+  description:
+    'Rapid brine-tank freezing systems, mold handling lines, and demolding equipment built for frozen novelty brands and high-output production schedules.',
+  heroImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuCSUa9c9h-Y-OcvxuV87ynNRYkJ4MKH14y6LmdFMxSFWVeWvVrJMoc2Tp6Yrtr8KSqhNUfHwMiLql8fIbvJRtmT-6L0SjX0SRIgnJuN8M-40ZEgPAGhAiC1LKxkhMlO2PCnQNYVIuoea8G3TIkrZdEOhJpmncNQ2wNQlw8oi6Z-J0fzz4eN61AK-v4bRG0-UtlOCXRFVOL-fmbbckY65YGWYxwkCu9y23OXj2IeLqtzY2xg5XHzL11Nl2i3ulkLbmQ96NcQ7_lgjk0',
+  configurations: categoryFixture.configurations.map((configuration) => ({
+    ...configuration,
+    href: ROUTES.contact,
+  })),
+  floatingCta: 'Request Ice Lolly Quote',
+} as const
+
+export const slushCategoryFixture = {
+  ...categoryFixture,
+  slug: 'slush-freezer-machines',
+  heroLineOne: 'Slush',
+  heroLineTwo: 'Freezer Machines',
+  heroPrimaryHref: ROUTES.contact,
+  overviewName: 'Slush',
+  modelCount: '15 Models',
+  overviewImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuDR5V3LeOGZf-vy0c_RctWFWuif9npy4YlcO0mgV-ece9PwkviaIzAi4iwPWROXMKweH2QlTNW3J4suFvaOdpLfP4tphct4S-8YPx1ZqRV4H8MujP68AHt7Lt3-dinCoY-vNe7MIY3cSpa3s52c8rQCylcmYnR8-SRuWF-wrxwhykv4aBppWLKsAbjE2FSIqyaIwmAg1hxZUYvRej3dw5ghZnC8kEeqLr52qZD4Zm34-SGJWi_saaX9DqbmQYpTD2YOCVezTr9qj2o',
+  overviewAlt: 'Slush freezer product category overview',
+  title: 'Slush Freezer Machines',
+  description:
+    'Durable auger-driven slush and frozen beverage systems developed for fast-moving beverage programs, amusement venues, and convenience retail.',
+  heroImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuDR5V3LeOGZf-vy0c_RctWFWuif9npy4YlcO0mgV-ece9PwkviaIzAi4iwPWROXMKweH2QlTNW3J4suFvaOdpLfP4tphct4S-8YPx1ZqRV4H8MujP68AHt7Lt3-dinCoY-vNe7MIY3cSpa3s52c8rQCylcmYnR8-SRuWF-wrxwhykv4aBppWLKsAbjE2FSIqyaIwmAg1hxZUYvRej3dw5ghZnC8kEeqLr52qZD4Zm34-SGJWi_saaX9DqbmQYpTD2YOCVezTr9qj2o',
+  configurations: categoryFixture.configurations.map((configuration) => ({
+    ...configuration,
+    href: ROUTES.contact,
+  })),
+  floatingCta: 'Request Slush Machine Quote',
+} as const
+
+export const gelatoCategoryFixture = {
+  ...categoryFixture,
+  slug: 'gelato-batch-freezers',
+  heroLineOne: 'Gelato',
+  heroLineTwo: 'Batch Freezers',
+  heroPrimaryHref: ROUTES.contact,
+  overviewName: 'Gelato',
+  modelCount: '36 Models',
+  overviewImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuBNLtcGo1taIKNBfav4T2IldFaXBizwMFp6rK7tjB2VymOYKHVvVUILUkVZyx1MrVe-RadcYDKJ5LwK2PU9bmVJ5Iz9SgzuwdfayvV2t2XlJ-1ZKRtXaFoUDbWFHB6xW6banPxuGE8FAzpHdbIEyHaxGmY00B8DokIoXnip1yCpmsouM-DF37OSLEMo4W8zxMefnALKPuXt5DfIiU_0Izc8CqFvgjUEKuw3JY0MeBjVMQdKHlIwLSzt-UHmcvQb0Iwt3dmpy_FG0GY',
+  overviewAlt: 'Gelato batch freezer product category overview',
+  title: 'Gelato Batch Freezers',
+  description:
+    'Low-speed, high-control batch freezers designed for artisanal gelato labs, premium dessert programs, and texture-first frozen dessert production.',
+  heroImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuBNLtcGo1taIKNBfav4T2IldFaXBizwMFp6rK7tjB2VymOYKHVvVUILUkVZyx1MrVe-RadcYDKJ5LwK2PU9bmVJ5Iz9SgzuwdfayvV2t2XlJ-1ZKRtXaFoUDbWFHB6xW6banPxuGE8FAzpHdbIEyHaxGmY00B8DokIoXnip1yCpmsouM-DF37OSLEMo4W8zxMefnALKPuXt5DfIiU_0Izc8CqFvgjUEKuw3JY0MeBjVMQdKHlIwLSzt-UHmcvQb0Iwt3dmpy_FG0GY',
+  configurations: categoryFixture.configurations.map((configuration) => ({
+    ...configuration,
+    href: ROUTES.contact,
+  })),
+  floatingCta: 'Request Gelato System Quote',
+} as const
+
+export const frozenDrinkCategoryFixture = {
+  ...categoryFixture,
+  slug: 'multifunction-frozen-drink-machines',
+  heroLineOne: 'Multifunction',
+  heroLineTwo: 'Frozen Drink Machines',
+  heroPrimaryHref: ROUTES.contact,
+  overviewName: 'Multifunction',
+  modelCount: '54 Models',
+  overviewImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuApEAGJZuRPwAhgTwjHxGBJLx5jFpGvH_bKlnrhzmhapF4XUMyTuPkbXsSoLQyzAkgexz5tdPwU6d8u4K--kOqfzjZLDGsmKjIcl6fh1ZyfZpxTkVTwG-DOnN905UCxA76-tjGNrIOJx0JavTp9JqMTp_3BRd68ERqwQs9bU710y0tE4O9IuFJNRzJHJiVBePyc3lSTomnaAmBJxj_hrhEYnSVc8CBlwGBIfBnkK17f8KPoSvp6Z0LaZokI7jRYHxk3gmVMQXYUim4',
+  overviewAlt: 'Multifunction frozen drink product category overview',
+  title: 'Multifunction Frozen Drink Machines',
+  description:
+    'Hybrid beverage systems for granita, frozen cocktails, and mixed-format dessert menus where menu flexibility matters as much as capacity.',
+  heroImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuApEAGJZuRPwAhgTwjHxGBJLx5jFpGvH_bKlnrhzmhapF4XUMyTuPkbXsSoLQyzAkgexz5tdPwU6d8u4K--kOqfzjZLDGsmKjIcl6fh1ZyfZpxTkVTwG-DOnN905UCxA76-tjGNrIOJx0JavTp9JqMTp_3BRd68ERqwQs9bU710y0tE4O9IuFJNRzJHJiVBePyc3lSTomnaAmBJxj_hrhEYnSVc8CBlwGBIfBnkK17f8KPoSvp6Z0LaZokI7jRYHxk3gmVMQXYUim4',
+  configurations: categoryFixture.configurations.map((configuration) => ({
+    ...configuration,
+    href: ROUTES.contact,
+  })),
+  floatingCta: 'Request Frozen Drink Quote',
+} as const
+
+export const iceMakersCategoryFixture = {
+  ...categoryFixture,
+  slug: 'ice-makers-related-equipment',
+  heroLineOne: 'Ice Makers',
+  heroLineTwo: 'Related Equipment',
+  heroPrimaryHref: ROUTES.contact,
+  overviewName: 'Ice Makers',
+  modelCount: '22 Models',
+  overviewImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuD4Xj984hT85QDHtiVVPlOE6tcNvdwe8lvnsM4GyOpFdDLQiOYe6LlAotVmIyU8pwWJri3Upzgs4L0eUK_rMznXW8Ai0ggrhpqjm7ejwx2QFx31jvW5_-Khsy4JMaSytzSPu2y1xXMqyprEoJlC8lWjNA3teB76ELdzQuD8soLt-xMX2Z40vQtrHiwlIHdGRtzMB_QPA8Aoy2l9mYAVBghD-jC495R6XnV393vPnf4ZIog2jZbK0PeBqCVScGiFyA3KF3dsr8EWXI8',
+  overviewAlt: 'Ice makers and related equipment product category overview',
+  title: 'Ice Makers & Related Equipment',
+  description:
+    'Supporting systems for ice generation, holding, and refrigerated prep infrastructure built to complement beverage and dessert production lines.',
+  heroImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuD4Xj984hT85QDHtiVVPlOE6tcNvdwe8lvnsM4GyOpFdDLQiOYe6LlAotVmIyU8pwWJri3Upzgs4L0eUK_rMznXW8Ai0ggrhpqjm7ejwx2QFx31jvW5_-Khsy4JMaSytzSPu2y1xXMqyprEoJlC8lWjNA3teB76ELdzQuD8soLt-xMX2Z40vQtrHiwlIHdGRtzMB_QPA8Aoy2l9mYAVBghD-jC495R6XnV393vPnf4ZIog2jZbK0PeBqCVScGiFyA3KF3dsr8EWXI8',
+  configurations: categoryFixture.configurations.map((configuration) => ({
+    ...configuration,
+    href: ROUTES.contact,
+  })),
+  floatingCta: 'Request Ice Equipment Quote',
+} as const
+
+export const categoryFixtures = [
+  categoryFixture,
+  iceLollyCategoryFixture,
+  slushCategoryFixture,
+  gelatoCategoryFixture,
+  frozenDrinkCategoryFixture,
+  iceMakersCategoryFixture,
+] as const
+
+export type CategoryFixture = (typeof categoryFixtures)[number]
+
+export function getCategoryFixtureBySlug(slug: string) {
+  return categoryFixtures.find((category) => category.slug === slug)
+}
+
+export const productFixtures = [productFixture] as const
+
+export type ProductFixture = (typeof productFixtures)[number]
+
+export function getProductFixtureBySlug(categorySlug: string, productSlug: string) {
+  return productFixtures.find(
+    (product) =>
+      product.categorySlug === categorySlug &&
+      product.slug === productSlug,
+  )
+}
+
+export const productsOverviewFixture = {
+  eyebrow: 'Manufacturing Excellence',
+  title: 'Precision-Engineered Frozen Dessert Systems',
+  description:
+    'Explore our master collection of commercial equipment, designed for high-volume production and architectural durability. Serving 20+ categories and 300+ machine models globally.',
+  primaryCtaLabel: 'Request Master Catalog',
+  primaryCtaHref: ROUTES.contact,
+  secondaryCtaLabel: 'Compare Equipment Lines',
+  secondaryCtaHref: ROUTES.category,
+  heroImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuApnMncHh1Oq6eRIN27y8fEGYJneuQiZlFUNH8lCOD-h_7r1lNOfUO2MyCcVBJ75H7BHTzNSnGrOt67pplbM7NYi4e-PVC8vqcg39BVW8P_YJsZsQTjyNtnF1X1B6Dp1zVgr4uO-JHhdB7uKs8iNmg6P3f77O3g0uvc-NQ3kZXHy44iFLUqLvlYplHIGwuRtb9db_K4PF8oKNxD27oDher1itUYkLQlizdx4sDdWgi5eoHKg7Sp5H23AeDCylesKLXUBdSpBfMwQIo',
+  heroAlt: 'Featured PRO-TAYLOR soft serve machine',
+  featuredLabel: 'Featured Model',
+  featuredTitle: 'The PT-900 High-Output Series',
+  categories: categoryFixtures.map((category) => ({
+    name: category.overviewName,
+    count: category.modelCount,
+    image: category.overviewImage,
+    alt: category.overviewAlt,
+    href: `/products/${category.slug}`,
+  })),
+  buyerPaths: [
+    {
+      title: 'Distributors & Wholesale',
+      copy:
+        'High-volume sourcing with preferential tier pricing and localized spare-parts support.',
+      href: ROUTES.solutionDistributor,
+      tone: 'primary',
+    },
+    {
+      title: 'OEM & Private Label',
+      copy:
+        'Bespoke manufacturing solutions for proprietary equipment lines under your brand.',
+      href: ROUTES.solution,
+      tone: 'secondary',
+    },
+    {
+      title: 'Cafe & Dessert Business',
+      copy:
+        'Curated selections for boutique operations and compact retail footprints.',
+      href: ROUTES.solutionCafe,
+      tone: 'outline',
+    },
+  ],
+  selectionGuide: {
+    columns: ['Metric', 'Soft Serve', 'Ice Lolly', 'Slush'],
+    rows: [
+      ['Output Capacity', '18-60L / Hour', '2,000-10,000 Pcs / Day', '12-45L / Batch'],
+      ['Footprint', 'Countertop / Floor', 'Industrial Floor', 'Countertop Only'],
+      ['Overrun Control', 'Precision (Gravity/Pump)', 'N/A (Solid Mold)', 'Fixed Agitation'],
+      ['Maintenance Scale', 'Daily Cleaning', 'Weekly Deep-Clean', 'Rinse & Sanitize'],
+    ],
+  },
+  spotlight: {
+    eyebrow: 'Series Spotlight',
+    title: 'The New PT-900 Series',
+    copy:
+      'Redefining high-volume soft serve production with dual-compressor cooling and intelligent texture-mapping software. Built for the most demanding global environments.',
+    href: ROUTES.product,
+    ctaLabel: 'Read Technical Profile',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuBEyj7Y2LVhgTbY4beRO2lphdDY3kJr1fyCVMLTXxOtsIBiHNFDSFhZ-37z6DiXqRBWGwT_2boa5hjgPBwJ9wzrxwDeG5W0T-zhrm1Vd0evUA1QUivkMeixd24Fmk-KbfQ9sT7pqxOAdpuVvsVWZAQXxL0s-dDYZl_vtnkHf8eGqjzrMcSNK_GHP_hxYZW_YtJKucXdlpazsm0_S57etAkXchRTukCJDEGN93qIIpOEA2KIVTd_p3jjF4C3XumebLMiiD9pZL4yMsU',
+  },
+  resources: [
+    {
+      eyebrow: 'Logistics',
+      title: "The Distributor's Guide to Importing High-Volume Equipment",
+      copy:
+        'A technical breakdown of compliance standards, freight optimization, and tariff navigation for commercial machinery.',
+      href: ROUTES.resources,
+    },
+    {
+      eyebrow: 'Maintenance',
+      title: 'Maximizing Uptime: Seasonal Service Protocols for Soft Serve Units',
+      copy:
+        'Professional maintenance schedules that extend machine lifespan through preventive calibration.',
+      href: ROUTES.article,
+    },
+  ],
+  faqs: [
+    {
+      question: 'What are the standard lead times for bulk orders?',
+      answer:
+        'Standard manufacturing for batch orders typically ranges from 15 to 30 days. High-volume OEM projects may require 45-60 days depending on component customization.',
+      defaultOpen: true,
+    },
+    {
+      question: 'Do you provide CE and UL certification documentation?',
+      answer:
+        'All PRO-TAYLOR equipment is CE certified as standard. UL and NSF certifications are available for specific models designated for the North American market.',
+    },
+    {
+      question: 'What is your global warranty policy for distributors?',
+      answer:
+        'We offer a 1-year comprehensive warranty on parts, with an extended 3-year warranty on compressors and spare-parts support for bulk orders.',
+    },
+    {
+      question: 'Can machines be customized for local power standards?',
+      answer:
+        'Yes, our engineering team configures equipment for 110V/60Hz, 220V/50-60Hz, or 3-phase power requirements for international deployments.',
+    },
+  ],
+  cta: {
+    title: 'Ready to scale your production?',
+    copy:
+      'Speak with a manufacturing specialist today to discuss your technical requirements and custom volume pricing.',
+    contactOptions: [
+      { label: 'Email Engineering', href: ROUTES.contact, icon: 'mail' },
+      { label: 'Direct WhatsApp', href: ROUTES.contact, icon: 'chat' },
+    ],
+    form: {
+      companyPlaceholder: 'Company Name',
+      businessTypeOptions: ['Distributor', 'OEM Project', 'Retail Chain'],
+      volumePlaceholder: 'Estimated Monthly Volume',
+      submitLabel: 'Submit Manufacturing Inquiry',
+    },
+  },
 } as const

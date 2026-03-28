@@ -5,10 +5,14 @@ import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
 import { TrustRibbon } from '@/components/layout/trust-ribbon'
 import { MaterialIcon } from '@/components/ui/material-icon'
-import { categoryFixture } from '@/fixtures/stitch/catalog'
+import type { CategoryFixture } from '@/fixtures/stitch/catalog'
 import { ROUTES } from '@/fixtures/stitch/site'
 
-export function CategoryPage() {
+type CategoryPageProps = {
+  category: CategoryFixture
+}
+
+export function CategoryPage({ category }: CategoryPageProps) {
   return (
     <>
       <SiteHeader
@@ -22,34 +26,34 @@ export function CategoryPage() {
         <section className="mx-auto mb-24 grid max-w-[1440px] gap-12 px-8 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-5">
             <span className="mb-4 block font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">
-              Precision Engineering
+              {category.heroEyebrow}
             </span>
             <h1 className="mb-6 font-headline text-6xl font-bold leading-tight tracking-tight text-primary md:text-7xl">
-              Soft Serve <br />
-              <span className="serif-italic font-normal">Ice Cream Machines</span>
+              {category.heroLineOne} <br />
+              <span className="serif-italic font-normal">{category.heroLineTwo}</span>
             </h1>
             <p className="mb-8 max-w-md text-lg leading-relaxed text-on-surface-variant">
-              {categoryFixture.description}
+              {category.description}
             </p>
             <div className="flex gap-4">
               <Link
-                href={ROUTES.product}
+                href={category.heroPrimaryHref}
                 className="rounded-lg bg-primary px-8 py-4 font-medium text-on-primary shadow-lg shadow-primary/10"
               >
-                View Series
+                {category.heroPrimaryLabel}
               </Link>
               <Link
-                href={ROUTES.article}
+                href={category.heroSecondaryHref}
                 className="rounded-lg border border-outline-variant px-8 py-4 font-medium text-primary transition-colors hover:bg-surface-container"
               >
-                Technical Catalog
+                {category.heroSecondaryLabel}
               </Link>
             </div>
           </div>
           <div className="relative h-[600px] overflow-hidden rounded-2xl bg-surface-container-low shadow-2xl lg:col-span-7">
             <img
-              src={categoryFixture.heroImage}
-              alt="Commercial Soft Serve Machine"
+              src={category.heroImage}
+              alt={category.title}
               className="absolute inset-0 h-full w-full object-cover opacity-90 mix-blend-multiply"
             />
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent" />
@@ -68,7 +72,7 @@ export function CategoryPage() {
               </p>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
-              {categoryFixture.audienceCards.map((card) => (
+              {category.audienceCards.map((card) => (
                 <div
                   key={card.title}
                   className={`min-h-[260px] rounded-lg p-10 ${
@@ -142,7 +146,7 @@ export function CategoryPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline-variant/10">
-                {categoryFixture.comparisonRows.map((row, index) => (
+                {category.comparisonRows.map((row, index) => (
                   <tr
                     key={row.model}
                     className={index === 1 ? 'bg-surface-container-low/50' : 'hover:bg-surface-container-low'}
@@ -156,7 +160,10 @@ export function CategoryPage() {
                     <td className="py-8">{row.cooling}</td>
                     <td className="py-8">{row.phase}</td>
                     <td className="py-8 text-right">
-                      <Link href={ROUTES.product} className="text-sm font-bold text-primary underline underline-offset-4">
+                      <Link
+                        href={category.heroPrimaryHref}
+                        className="text-sm font-bold text-primary underline underline-offset-4"
+                      >
                         Spec Sheet
                       </Link>
                     </td>
@@ -176,7 +183,7 @@ export function CategoryPage() {
               <div className="mx-auto mt-4 h-1 w-12 bg-secondary" />
             </div>
             <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-              {categoryFixture.configurations.map((product) => (
+              {category.configurations.map((product) => (
                 <div key={product.name} className="group">
                   <div className="relative mb-6 aspect-[4/5] overflow-hidden rounded-xl bg-surface-container-low">
                     <Link href={product.href}>
@@ -233,15 +240,15 @@ export function CategoryPage() {
             <div className="relative">
               <div className="aspect-square overflow-hidden rounded-2xl bg-surface-container-highest shadow-2xl">
                 <img
-                  src={categoryFixture.buyingGuide.image}
+                  src={category.buyingGuide.image}
                   alt="Technical Engineering"
                   className="h-full w-full object-cover grayscale"
                 />
               </div>
               <div className="absolute -bottom-10 -right-10 max-w-[280px] rounded-xl bg-secondary p-8 text-on-secondary shadow-xl">
-                <p className="mb-2 font-headline text-xl italic">{categoryFixture.buyingGuide.quote}</p>
+                <p className="mb-2 font-headline text-xl italic">{category.buyingGuide.quote}</p>
                 <p className="text-[10px] uppercase tracking-widest opacity-80">
-                  {categoryFixture.buyingGuide.quoteBy}
+                  {category.buyingGuide.quoteBy}
                 </p>
               </div>
             </div>
@@ -251,7 +258,7 @@ export function CategoryPage() {
                 <span className="serif-italic font-normal">Buying Guide</span>
               </h2>
               <div className="space-y-10">
-                {categoryFixture.buyingGuide.factors.map((factor) => (
+                {category.buyingGuide.factors.map((factor) => (
                   <div key={factor.number} className="flex gap-6">
                     <span className="font-headline text-3xl font-bold text-secondary">
                       {factor.number}
@@ -276,7 +283,7 @@ export function CategoryPage() {
                 Expert Resources
               </h2>
               <div className="space-y-4">
-                {categoryFixture.expertResources.map((resource) => (
+                {category.expertResources.map((resource) => (
                   <Link
                     key={resource.title}
                     href={resource.href}
@@ -296,7 +303,7 @@ export function CategoryPage() {
                 Common Inquiries
               </h2>
               <div className="space-y-6">
-                {categoryFixture.commonInquiries.map((faq) => (
+                {category.commonInquiries.map((faq) => (
                   <div key={faq.question} className="border-b border-outline-variant/20 pb-6">
                     <h4 className="mb-2 font-bold text-primary">{faq.question}</h4>
                     <p className="text-sm text-on-surface-variant">{faq.answer}</p>
@@ -311,10 +318,10 @@ export function CategoryPage() {
       <div className="fixed bottom-8 right-8 z-[60] hidden md:block">
         <Link
           href={ROUTES.contact}
-          className="group flex items-center gap-3 rounded-full bg-secondary px-8 py-4 text-on-secondary shadow-2xl transition-all hover:scale-105 active:scale-95"
-        >
-          <MaterialIcon name="mail" className="transition-transform group-hover:rotate-12" />
-          <span className="font-bold tracking-tight">{categoryFixture.floatingCta}</span>
+            className="group flex items-center gap-3 rounded-full bg-secondary px-8 py-4 text-on-secondary shadow-2xl transition-all hover:scale-105 active:scale-95"
+          >
+            <MaterialIcon name="mail" className="transition-transform group-hover:rotate-12" />
+          <span className="font-bold tracking-tight">{category.floatingCta}</span>
         </Link>
       </div>
     </>

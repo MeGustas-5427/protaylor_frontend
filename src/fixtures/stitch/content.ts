@@ -156,6 +156,16 @@ export const companyFixture = {
 
 export const solutionFixture = {
   slug: 'commercial-wholesale-oem',
+  heroEyebrow: 'Wholesale & OEM Partners',
+  primaryCtaLabel: 'Partner With Us',
+  primaryCtaHref: ROUTES.contact,
+  secondaryCtaLabel: 'View Factory Capacity',
+  secondaryCtaHref: ROUTES.company,
+  overviewTitle: 'Commercial, Wholesale & OEM',
+  overviewDescription:
+    'Scalable production units designed for high-volume manufacturing and private label consistency.',
+  overviewImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuAB8v_4nM0DJiwanRyFvW-Zs3dwRa_pl6xUGw7qvbnkxoAB2vTGZTDlPIMOI8zoIoev6wK1MKiCAyQ7n-fiBGLtF2Dh2bhl5k7FqAmNXGKiYp4fNUoXej2j7iGQb7W9cMkD27BIvqVr37WJXTBnVvK6WK7XHQ--LtiJOb0i9VhipYtIhDeRGY6C4EM4LGiNiEudqnre-3lHYDcCbn-TXDGEeWo7n2gkJu7RGSK3XKENihcEgbbIOUVYFoyZ-YBApTK8BnvRFlnITa8',
   title: "Scale your Business with PRO-TAYLOR's Manufacturing Expertise",
   description:
     'Access high-precision industrial solutions designed for distributors and global OEMs. Our factory direct model ensures competitive margins without compromising on architectural-grade quality.',
@@ -245,6 +255,317 @@ export const solutionFixture = {
     buttonLabel: 'Contact Wholesale Desk',
   },
 }
+
+export const cafeSolutionFixture = {
+  ...solutionFixture,
+  slug: 'shop-cafe-dessert-business',
+  heroEyebrow: 'Retail & Boutique Operations',
+  primaryCtaLabel: 'Plan Your Store Setup',
+  overviewTitle: 'Shop, Cafe & Dessert Business',
+  overviewDescription:
+    'Countertop and floor-standing solutions optimized for small footprints and rapid service.',
+  overviewImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuCtaCdHvBlXulqxgOoWuY8ybh23M46B4yeieuLPDNMgWemS5r1kaa60otHMJxvuPi6nuc70ginZ3usfFbJs7iy5gc7APqSSww8xOWJFYHtw9ruGj7Bshl3AAFG-Zarw97I7PncZ3n7xLH2XexB4TsQkEbb8jQbE6cbZ1omqMThwPXVL-05LFk1mnZYBWaCyalRkw-lzDgmYbK3QBItX5CnKZHwWXKqqq88cAte-cvan7bnvsl-OhtsKho9JPwxP5JtSE4BhxRGZ2UU',
+  title: 'Compact Systems for Boutique Dessert Operations',
+  description:
+    'Curated equipment stacks for cafes, dessert bars, and compact hospitality counters where frontage, consistency, and service rhythm matter equally.',
+  strategicTitle: 'Tailored Storefront Recommendations',
+  oemCard: {
+    ...solutionFixture.oemCard,
+    title: 'Compact Countertop Selection',
+    copy:
+      'Optimized for artisan storefronts that need compact service footprints, easy operator training, and premium texture control.',
+    recommendation: 'Recommended: C-Compact Series',
+  },
+  distributionCard: {
+    ...solutionFixture.distributionCard,
+    title: 'Retail Launch Packages',
+    copy:
+      'Curated machine bundles, startup documentation, and merchandising guidance for boutique dessert businesses.',
+    buttonLabel: 'Download Startup Kit',
+  },
+  privateLabelCard: {
+    ...solutionFixture.privateLabelCard,
+    title: 'Store Branding Support',
+    copy:
+      "Tailor fascia accents, menu UI language, and visible finish details so the equipment feels native to your brand environment.",
+  },
+  workflowTitle: 'A Dessert Counter Built for Repeatable Service',
+  comparison: {
+    ...solutionFixture.comparison,
+    columns: ['Feature', 'Starter Shop', 'Flagship Cafe', 'Dessert Chain'],
+    rows: [
+      ['Footprint', 'Countertop', 'Counter + Back Prep', 'Mixed Store Formats'],
+      ['Throughput Need', 'Low / Medium', 'Medium / High', 'High / Peak Rush'],
+      ['Recommended Cooling', 'Air Cooled', 'Air or Water', 'Hybrid / High Output'],
+      ['Support Level', 'Remote Setup', 'Operator Training', 'Fleet Planning'],
+    ],
+  },
+  stats: [
+    ['18+', 'Store Formats'],
+    ['3m', 'Typical Counter Width'],
+    ['48h', 'Launch Support'],
+    ['24/7', 'Video Guidance'],
+  ],
+  cta: {
+    ...solutionFixture.cta,
+    title: 'Launch your next dessert counter with confidence.',
+    buttonLabel: 'Talk to a Retail Specialist',
+  },
+} as const
+
+export const hospitalitySolutionFixture = {
+  ...solutionFixture,
+  slug: 'hospitality-buffet',
+  heroEyebrow: 'Hospitality Service Programs',
+  primaryCtaLabel: 'Discuss Hospitality Deployment',
+  overviewTitle: 'Hospitality & Buffet',
+  overviewDescription:
+    'Self-service interfaces and high-durability systems for hotels, resorts, and corporate dining.',
+  overviewImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuC1yavR6vuTbNPunOTuJaGpSAwtrCm_3kj2B6kUrfbg0B-Mblca_3f1hUs8bhN6Hkfcr6MkttktMPWqU4qBvNxJSj4gN4v2K0vR9MXw_HKVS05JPc36n15Un7jie5guSSKKhmo0XeC-zi0Xpn4TPFQya3rOthvekSj87lcHqIXj2qlq4DgstXnEhYfbjxyDMKLkw1QIoOooI1YBcbYXdiCzXvWfrb7KOpPxPc6jhpgkAO58Y6Z0htMWHmAF34CqXmDg_kblu-1KRw0',
+  title: 'Front-of-House Hospitality Systems with Silent Precision',
+  description:
+    'Refined buffet and hospitality deployments designed for visible service environments, breakfast corridors, and premium guest-facing installations.',
+  strategicTitle: 'Hospitality-Grade System Recommendations',
+  oemCard: {
+    ...solutionFixture.oemCard,
+    title: 'Guest-Facing Service Units',
+    copy:
+      'Quiet mechanical performance, hygienic detailing, and visible stainless execution built for premium hospitality experiences.',
+    recommendation: 'Recommended: H-Series Buffet Line',
+  },
+  distributionCard: {
+    ...solutionFixture.distributionCard,
+    title: 'Multi-Site Hotel Rollouts',
+    copy:
+      'Deployment planning for resort groups and hotel operators requiring standardized guest experience across properties.',
+    buttonLabel: 'Download Hospitality Pack',
+  },
+  workflowTitle: 'A Buffet Workflow That Protects Guest Experience',
+  stats: [
+    ['85dB-', 'Noise Discipline'],
+    ['120+', 'Hotels Served'],
+    ['3', 'Installation Modes'],
+    ['24h', 'Spare Parts Response'],
+  ],
+  cta: {
+    ...solutionFixture.cta,
+    title: 'Secure hospitality-ready equipment for your next opening.',
+    buttonLabel: 'Contact Hospitality Desk',
+  },
+} as const
+
+export const distributorSolutionFixture = {
+  ...solutionFixture,
+  slug: 'distributor-import-program',
+  heroEyebrow: 'Global Distribution Programs',
+  primaryCtaLabel: 'Open Distributor Discussion',
+  overviewTitle: 'Distributor / Import Program',
+  overviewDescription:
+    'Comprehensive support including technical documentation, spares, and priority shipping for global partners.',
+  overviewImage:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuD2uZD5G61-FAdaj7XqT33jIvicGoXqvVICJxNdaTz2Ogy0ypgAyOAk0unfpq-zyUksTH-PTjtXBtaAE-bYaniO4bDCCJfGSquGE6op67P_Y28hl4eH9_m2yVn8EBxTIyC8lCGFEVEowfa8O2470BU2x6bVMNDyW3Pi3CR8UyD9MdVBz7XLHwDOrrVfcfA-TwuNz6gdKiC-dQIHQNobH_kxa3RK5wmDgInpsU9g1SfXskLS_zFVZwQYHfRiKav0VuwG3i5zA-CLdSA',
+  title: 'Import Programs Built for Regional Equipment Distribution',
+  description:
+    'A factory-direct distribution model that combines export logistics, localized spares, and technical documentation for regional partners.',
+  strategicTitle: 'Distribution-Focused Equipment Paths',
+  oemCard: {
+    ...solutionFixture.oemCard,
+    title: 'Inventory-Ready Core Series',
+    copy:
+      'Balanced model families engineered to simplify stocking strategy, spare-parts planning, and distributor onboarding.',
+    recommendation: 'Recommended: D-Line Portfolio',
+  },
+  distributionCard: {
+    ...solutionFixture.distributionCard,
+    title: 'Import Margin Planning',
+    copy:
+      'Commercial structures designed around stocking efficiency, freight consolidation, and regional aftersales readiness.',
+    buttonLabel: 'Download Distributor Deck',
+  },
+  workflowTitle: 'A Distribution Pipeline Optimized for Margin and Uptime',
+  stats: [
+    ['84', 'Countries Served'],
+    ['12', 'Regional Hubs'],
+    ['2%', 'Spare Parts Buffer'],
+    ['24h', 'Quote Turnaround'],
+  ],
+  cta: {
+    ...solutionFixture.cta,
+    title: 'Secure your next container program with factory-direct support.',
+    buttonLabel: 'Contact Import Desk',
+  },
+} as const
+
+export const solutionFixtures = [
+  solutionFixture,
+  cafeSolutionFixture,
+  hospitalitySolutionFixture,
+  distributorSolutionFixture,
+] as const
+
+export type SolutionFixture = (typeof solutionFixtures)[number]
+
+export function getSolutionFixtureBySlug(slug: string) {
+  return solutionFixtures.find((solution) => solution.slug === slug)
+}
+
+export const solutionsOverviewFixture = {
+  hero: {
+    eyebrow: 'Precision Engineering',
+    title: 'Industrial Solutions for Every Commercial Scale',
+    copy:
+      'PRO-TAYLOR serves as the mechanical foundation for global beverage and dessert brands. We provide the high-performance hardware that transforms vision into repeatable excellence, from artisan cafes to massive OEM production lines.',
+    primaryCtaLabel: 'Discuss Your Project',
+    primaryCtaHref: ROUTES.contact,
+    secondaryCtaLabel: 'Explore Product Categories',
+    secondaryCtaHref: ROUTES.products,
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuCijGJFXKrbiwtCsDUhW4kqW5FUGeyNdUjoTO6NYszV3uUevOc-PzTKUUxVBy8xknc524DnsEqi7q6iq-cVhYi0_wNOh_ymOMdRJcd-NG3LNVU6s06RDh-7Ij8BCTptAg15t1fvxdIKoKp45yYnmeFbB2ZlsWBsqRqQLIB8PGi0iVST9JujmktY27aItGyYJ21_aFtWDPsFK3sTYIUIpIVxpP5zyqxO3lZjvt7bzeszp9T9wD34mmS1BgbJMppbBubU9WXEXrl2xZA',
+    alt: 'Industrial kitchen overview',
+  },
+  entryTitle: 'Select Your Industry Path',
+  entryCopy: 'Tailored engineering clusters for specific business objectives.',
+  entryCards: solutionFixtures.map((solution) => ({
+    title: solution.overviewTitle,
+    copy: solution.overviewDescription,
+    image: solution.overviewImage,
+    href: `/solutions/${solution.slug}`,
+  })),
+  matrix: {
+    title: 'The PRO-TAYLOR Matrix',
+    copy:
+      'Our equipment selection is guided by four strategic pillars, ensuring your investment aligns with operational reality.',
+    items: [
+      {
+        eyebrow: 'Buyer Profile',
+        title: 'Targeted Engineering',
+        copy:
+          'We differentiate between end-users seeking ease of use and OEM buyers requiring mechanical modularity for proprietary integration.',
+      },
+      {
+        eyebrow: 'Environment',
+        title: 'Countertop vs Floor',
+        copy:
+          'Spatial constraints define our cooling system choices, from compact urban counters to water-cooled industrial lines.',
+      },
+      {
+        eyebrow: 'Output',
+        title: 'Capacity Targets',
+        copy:
+          'From 18L/h boutique service to 60L/h+ continuous-flow systems for high-traffic environments.',
+      },
+      {
+        eyebrow: 'Integration',
+        title: 'Equipment Synergy',
+        copy:
+          'Machine families share internal components to simplify maintenance and parts inventory across fleets.',
+      },
+    ],
+  },
+  ecosystems: [
+    {
+      icon: 'icecream',
+      title: 'Soft Serve',
+      copy: 'High-overrun air pumps for creamy texture and rapid recovery.',
+      href: ROUTES.category,
+    },
+    {
+      icon: 'kitchen',
+      title: 'Gelato',
+      copy: 'Low-speed batch freezers for dense, artisanal flavor profiles.',
+      href: ROUTES.categoryGelato,
+    },
+    {
+      icon: 'liquor',
+      title: 'Slush & Beverage',
+      copy: 'Durable auger systems designed for high-sugar beverage programs.',
+      href: ROUTES.categorySlush,
+    },
+    {
+      icon: 'ac_unit',
+      title: 'Ice Lolly',
+      copy: 'Immersion brine systems for high-speed frozen novelty production.',
+      href: ROUTES.categoryIceLolly,
+    },
+  ],
+  oemSupport: {
+    eyebrow: 'Factory-Direct Advantage',
+    title: 'Your Brand, Our Foundation.',
+    copy:
+      "We don't just sell machines; we manufacture competitive advantages. Our OEM program allows beverage distributors and appliance brands to launch high-performance frozen equipment without the capital risk of R&D.",
+    linkLabel: 'View OEM Technical Capabilities',
+    linkHref: ROUTES.solution,
+    points: [
+      {
+        icon: 'architecture',
+        title: 'Custom Housing & Controls',
+        copy:
+          "Modify aesthetics and UI to match your brand's existing equipment ecosystem.",
+      },
+      {
+        icon: 'history_edu',
+        title: 'White Label Documentation',
+        copy:
+          "Custom-printed manuals and safety technical sheets in your brand's identity.",
+      },
+      {
+        icon: 'verified',
+        title: 'Compliance Readiness',
+        copy:
+          'Factory assistance with ETL, CE, and SASO certification pathing for large orders.',
+      },
+    ],
+  },
+  trustStrip: [
+    { icon: 'public', label: 'Global Logistics' },
+    { icon: 'verified_user', label: 'ISO 9001 Certified' },
+    { icon: 'local_shipping', label: 'Sea & Air Export' },
+    { icon: 'engineering', label: 'In-House R&D' },
+  ],
+  resources: [
+    {
+      title: 'Selection Guide 2024',
+      copy: 'A technical framework for choosing capacity vs footprint.',
+      href: ROUTES.resources,
+    },
+    {
+      title: 'Import Logistics FAQ',
+      copy: 'Understand shipping terms, duties, and container optimization.',
+      href: ROUTES.resources,
+    },
+  ],
+  faqs: [
+    {
+      question: 'What is the typical lead time for a standard container order?',
+      answer:
+        'Standard factory lead times range from 21 to 35 days depending on machine complexity and order volume. OEM customizations can add an additional 14 days for sampling and approval.',
+      defaultOpen: true,
+    },
+    {
+      question: 'Do you provide on-site technical training?',
+      answer:
+        'We offer digital masterclasses and live video support as standard. For regional distributors ordering 50+ units annually, we can arrange advanced technician certification.',
+    },
+    {
+      question: 'Are components compatible with European voltage standards?',
+      answer:
+        'Yes, machines can be built with 220V/50Hz, 110V/60Hz, or 220V/60Hz configurations upon request.',
+    },
+  ],
+  cta: {
+    title: 'Secure your production line',
+    copy:
+      'Speak with a solution engineer to map our equipment to your business objectives. Global shipping quotes provided within 24 hours.',
+    form: {
+      namePlaceholder: 'Full Name',
+      emailPlaceholder: 'Business Email',
+      submitLabel: 'Initiate Consultation',
+      note: 'Average response time: 4 business hours.',
+    },
+  },
+} as const
 
 export const resourcesFixture = {
   title: 'PRO-TAYLOR | Journal & Resources',

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { CategoryListingPage } from '@/components/product/category-listing-page'
+
+import { CategoryGuidePage } from '@/components/product/category-guide-page'
 import { getProductCategoryBySlug, productCategories } from '@/fixtures/stitch/product-catalog'
 
 type PageProps = {
@@ -18,8 +19,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${category.name} | PRO-TAYLOR`,
-    description: category.listing.description,
+    title: `${category.name} Guide | PRO-TAYLOR`,
+    description: category.guide.description,
   }
 }
 
@@ -35,5 +36,5 @@ export default async function Page({ params }: PageProps) {
     notFound()
   }
 
-  return <CategoryListingPage category={category} />
+  return <CategoryGuidePage category={category} />
 }
