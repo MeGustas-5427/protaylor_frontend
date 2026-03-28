@@ -6,18 +6,28 @@ import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
 import { TrustRibbon } from '@/components/layout/trust-ribbon'
 import { MaterialIcon } from '@/components/ui/material-icon'
-import type { ProductCategoryRecord } from '@/fixtures/stitch/product-catalog'
+import type { ProductCategoryRecord, ProductListingCard } from '@/fixtures/stitch/product-catalog'
 
 type CategoryListingPageProps = {
   category: ProductCategoryRecord
 }
 
-function cardCtaLabel(href: string) {
-  return href.startsWith('/products/') ? 'View Details' : 'Request Quote'
+function badgeClasses(tone: ProductListingCard['badgeTone']) {
+  if (tone === 'primary') {
+    return 'bg-[#4e616e] text-[#f2f8ff]'
+  }
+
+  if (tone === 'surface') {
+    return 'bg-[#dee4da] text-[#4e616e]'
+  }
+
+  return 'bg-[#77584e] text-[#fff7f5]'
 }
 
 export function CategoryListingPage({ category }: CategoryListingPageProps) {
   const listing = category.listing
+  const featuredProducts = listing.products.filter((product) => !product.muted)
+  const mutedProducts = listing.products.filter((product) => product.muted)
 
   return (
     <>
@@ -25,226 +35,229 @@ export function CategoryListingPage({ category }: CategoryListingPageProps) {
         activeSection="products"
         navTone="serif"
         searchMode="pill"
-        searchPlaceholder={`Search ${category.name}`}
+        searchPlaceholder="Search PRO-TAYLOR"
       />
-      <TrustRibbon highlight="oem" topClassName="top-16" />
+      <TrustRibbon highlight="oem" topClassName="top-16" neutralDesktop />
 
       <main className="bg-[#fafaf5] pb-24 pt-36">
-        <section className="mx-auto max-w-[1440px] px-8 py-16">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_390px]">
-            <div className="max-w-4xl">
-              <p className="font-label text-xs font-bold uppercase tracking-[0.2em] text-[#77584e]">
+        <header className="mx-auto max-w-[1440px] px-8 pt-12 xl:px-12">
+          <div className="mb-16 grid items-end gap-8 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <span className="mb-4 block font-label text-xs font-bold uppercase tracking-[0.2em] text-[#77584e]">
                 {listing.eyebrow}
-              </p>
-              <h1 className="mt-5 max-w-4xl font-headline text-5xl font-bold italic leading-[1.02] tracking-tight text-[#2e342d] md:text-6xl">
+              </span>
+              <h1 className="font-headline text-5xl font-extrabold italic leading-[1.02] tracking-tight text-[#2e342d] md:text-6xl">
                 {listing.title}
               </h1>
-              <p className="mt-8 max-w-3xl font-sans text-[18px] leading-[29px] text-[#5b6159]">
+              <p className="mt-6 max-w-xl font-body text-lg leading-relaxed font-light text-[#5b6159]">
                 {listing.description}
               </p>
-              <p className="mt-6 max-w-2xl font-sans text-sm leading-6 text-[#767c74]">
-                {listing.trustLine}
-              </p>
-              <div className="mt-10 flex flex-wrap gap-4">
+            </div>
+
+            <div className="flex flex-col items-start gap-6 lg:col-span-5 lg:items-end">
+              <div className="flex items-center gap-3 rounded-lg bg-[#ffffff] px-4 py-2 shadow-sm">
+                <MaterialIcon
+                  icon="verified"
+                  className="text-[#4e616e]"
+                  size={22}
+                  lineHeight={22}
+                  style={{ fontVariationSettings: '"FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24' }}
+                />
+                <span className="font-body text-sm font-medium uppercase tracking-[0.08em] text-[#4e616e]">
+                  {listing.badgeLabel}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap gap-4">
                 <Link
                   href={listing.primaryCtaHref}
-                  className="inline-flex min-h-12 items-center justify-center rounded-md bg-[#4e616e] px-6 py-3 font-sans text-sm font-bold uppercase tracking-[0.14em] text-[#f2f8ff]"
+                  className="inline-flex min-h-14 items-center justify-center rounded-sm bg-[#4e616e] px-8 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-[#f2f8ff] transition-transform duration-200 hover:-translate-y-0.5"
                 >
                   {listing.primaryCtaLabel}
                 </Link>
                 <Link
                   href={listing.secondaryCtaHref}
-                  className="inline-flex min-h-12 items-center justify-center rounded-md border border-[#d9dbd0] px-6 py-3 font-sans text-sm font-bold uppercase tracking-[0.14em] text-[#4e616e]"
+                  className="inline-flex min-h-14 items-center justify-center rounded-sm border border-[#767c74] px-8 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-[#4e616e] transition-colors duration-200 hover:bg-[#f3f4ee]"
                 >
                   {listing.secondaryCtaLabel}
                 </Link>
               </div>
             </div>
-
-            <aside className="rounded-[14px] bg-[#f3f4ee] p-8 shadow-[0_18px_48px_rgba(46,52,45,0.06)]">
-              <div className="overflow-hidden rounded-[10px]">
-                <img
-                  src={category.image}
-                  alt={category.imageAlt}
-                  className="h-[220px] w-full object-cover"
-                />
-              </div>
-              <div className="mt-6 rounded-[10px] border border-[#e3e4d9] bg-[#fafaf5] p-5">
-                <p className="font-headline text-xl italic text-[#2e342d]">
-                  {listing.countSummary}
-                </p>
-                <p className="mt-2 font-sans text-sm leading-6 text-[#767c74]">
-                  {listing.controlSummary}
-                </p>
-              </div>
-            </aside>
           </div>
-        </section>
+        </header>
 
-        <section className="mx-auto max-w-[1440px] px-8">
-          <div className="rounded-[14px] border border-[#e3e4d9] bg-[#f8f8f2] p-6">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex flex-wrap items-center gap-4">
+        <section className="sticky top-[104px] z-30 mb-8 border-y border-[#ecefe7] bg-[#fafaf5]/95 backdrop-blur-md">
+          <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-6 px-8 py-4 xl:px-12">
+            <div className="flex items-center gap-8">
+              <div className="flex flex-col">
+                <span className="font-label text-[10px] font-bold uppercase tracking-[0.2em] text-[#77584e]">
+                  {listing.controlLabel}
+                </span>
                 <span className="font-headline text-xl italic text-[#2e342d]">
                   {listing.countSummary}
                 </span>
-                <span className="font-sans text-sm text-[#767c74]">
-                  {listing.controlSummary}
-                </span>
               </div>
 
-              <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
-                <div className="flex flex-wrap gap-2">
-                  {listing.filters.map((filter, index) => (
-                    <button
-                      key={filter}
-                      type="button"
-                      className={`rounded-full border px-4 py-2 font-sans text-xs font-bold uppercase tracking-[0.14em] transition-colors ${
-                        index === 0
-                          ? 'border-[#4e616e] bg-[#4e616e] text-[#f2f8ff]'
-                          : 'border-[#d9dbd0] text-[#4e616e]'
-                      }`}
-                    >
-                      {filter}
-                    </button>
-                  ))}
-                </div>
+              <div className="hidden h-8 w-px bg-[#dee4da] lg:block" />
 
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <div className="flex min-h-12 min-w-[260px] items-center rounded-md border border-[#d9dbd0] bg-white px-4">
-                    <MaterialIcon icon="search" className="text-[#4e616e]" size={18} lineHeight={18} />
-                    <span className="ml-3 font-sans text-sm text-[#8f968e]">
-                      Search model series
-                    </span>
-                  </div>
-                  <div className="flex min-h-12 items-center gap-3 rounded-md border border-[#d9dbd0] bg-white px-4">
-                    <span className="font-sans text-xs font-medium uppercase tracking-[0.14em] text-[#767c74]">
-                      Sort By
-                    </span>
-                    <select className="border-none bg-transparent font-sans text-sm text-[#2e342d] outline-none">
-                      {listing.sortOptions.map((option) => (
-                        <option key={option}>{option}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
+              <div className="flex gap-4 overflow-x-auto py-2 hide-scrollbar">
+                {listing.filters.map((filter) => (
+                  <button
+                    key={filter}
+                    type="button"
+                    className="flex items-center gap-2 whitespace-nowrap font-body text-xs font-bold uppercase tracking-[0.02em] text-[#5b6159] transition-colors duration-200 hover:text-[#4e616e]"
+                  >
+                    <span>{filter}</span>
+                    <MaterialIcon icon="expand_more" className="text-[#5b6159]" size={16} lineHeight={16} />
+                  </button>
+                ))}
               </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <span className="font-body text-xs font-medium text-[#767c74]">{listing.sortLabel}</span>
+              <select className="cursor-pointer border-none bg-transparent pr-6 font-body text-xs font-bold uppercase tracking-[0.14em] text-[#4e616e] outline-none">
+                {listing.sortOptions.map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
+              </select>
             </div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1440px] px-8 py-14">
-          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {listing.products.map((product, index) => (
+        <section className="mx-auto max-w-[1440px] px-8 pb-24 xl:px-12">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+            {featuredProducts.map((product) => (
               <article
                 key={product.name}
-                className={`overflow-hidden rounded-[14px] border border-[#e3e4d9] ${
-                  product.tone === 'technical' ? 'bg-[#f3f4ee]' : 'bg-white'
-                } shadow-[0_18px_48px_rgba(46,52,45,0.04)]`}
+                className="group overflow-hidden rounded-lg bg-white transition-all duration-300 hover:shadow-[0px_24px_48px_-12px_rgba(46,52,45,0.08)]"
               >
-                <div className="aspect-[4/3] overflow-hidden bg-[#eef1e8]">
+                <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-[#f3f4ee] p-12">
                   <img
                     src={product.image}
                     alt={product.imageAlt}
-                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.03]"
+                    className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                   />
+                  {product.badge ? (
+                    <div className="absolute left-4 top-4">
+                      <span className={`px-3 py-1 font-label text-[10px] font-bold uppercase tracking-[0.2em] ${badgeClasses(product.badgeTone)}`}>
+                        {product.badge}
+                      </span>
+                    </div>
+                  ) : null}
                 </div>
-                <div className="p-7">
-                  <div className="flex items-start justify-between gap-4">
-                    <h2 className="font-headline text-[28px] font-bold leading-8 text-[#2e342d]">
+
+                <div className="p-8">
+                  <div className="mb-2 flex items-start justify-between gap-4">
+                    <h2 className="font-headline text-2xl font-bold text-[#2e342d]">
                       {product.name}
                     </h2>
-                    <span className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-[#4e616e]">
-                      {index < 3 ? `Series ${index + 1}` : 'Tech'}
-                    </span>
+                    {product.seriesLabel ? (
+                      <span className="font-mono text-xs font-bold text-[#4e616e]">
+                        {product.seriesLabel}
+                      </span>
+                    ) : null}
                   </div>
-                  <p className="mt-4 font-sans text-base leading-[26px] text-[#5b6159]">
-                    {product.subtitle}
+
+                  <p className="mb-6 font-body text-sm leading-relaxed text-[#5b6159]">
+                    {product.description}
                   </p>
 
-                  <ul className="mt-6 flex flex-wrap gap-2">
-                    {product.specs.map((spec) => (
-                      <li
-                        key={spec}
-                        className="rounded-full bg-[#f3f4ee] px-3 py-1.5 font-sans text-xs font-medium text-[#4e616e]"
-                      >
-                        {spec}
-                      </li>
-                    ))}
-                  </ul>
+                  {product.metrics ? (
+                    <div className="mb-8 grid grid-cols-3 gap-4">
+                      {product.metrics.map((metric, index) => (
+                        <div
+                          key={metric.label}
+                          className={`${index < product.metrics!.length - 1 ? 'border-r border-[#ecefe7]' : ''} px-0 pr-4 first:pl-0`}
+                        >
+                          <span className="mb-1 block font-label text-[10px] font-bold uppercase tracking-[0.18em] text-[#77584e]">
+                            {metric.label}
+                          </span>
+                          <span className="font-body text-sm font-medium text-[#2e342d]">
+                            {metric.value}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
 
-                  <p className="mt-5 font-sans text-sm font-medium text-[#77584e]">
-                    {product.bestFor}
+                  <Link
+                    href={product.href}
+                    className="inline-flex w-full items-center justify-center rounded-sm bg-[#dee4da] py-3 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-[#4e616e] transition-all duration-200 hover:bg-[#4e616e] hover:text-[#f2f8ff]"
+                  >
+                    View Technical Specs
+                  </Link>
+                </div>
+              </article>
+            ))}
+
+            {mutedProducts.map((product) => (
+              <article
+                key={product.name}
+                className="hidden overflow-hidden rounded-lg bg-white opacity-80 transition-all duration-300 hover:shadow-[0px_24px_48px_-12px_rgba(46,52,45,0.08)] xl:block"
+              >
+                <div className="aspect-[4/3] bg-[#f3f4ee] p-12 grayscale">
+                  <img src={product.image} alt={product.imageAlt} className="h-full w-full object-contain" />
+                </div>
+                <div className="p-8">
+                  <h3 className="font-headline text-2xl font-bold text-[#767c74]">
+                    {product.name}
+                  </h3>
+                  <p className="mt-4 font-body text-sm text-[#5b6159]">
+                    {product.description}
                   </p>
-
-                  <div className="mt-8 flex items-center justify-between border-t border-[#ecefe7] pt-5">
-                    <Link
-                      href={product.href}
-                      className="font-sans text-base font-bold text-[#4e616e]"
-                    >
-                      {cardCtaLabel(product.href)}
-                    </Link>
-                    <Link
-                      href={product.href}
-                      className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-[#d9dbd0] bg-[#fafaf5]"
-                      aria-label={cardCtaLabel(product.href)}
-                    >
-                      <MaterialIcon icon="arrow_forward" className="text-[#2e342d]" size={14} lineHeight={20} />
-                    </Link>
-                  </div>
                 </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1440px] px-8 py-12">
-          <div className="rounded-[18px] border border-[#e3e4d9] bg-[#fafaf5] p-10">
-            <div className="mb-8 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+        <section className="mx-auto mb-24 max-w-[1440px] px-8 xl:px-12">
+          <div className="rounded-xl bg-[#f3f4ee] p-10 xl:p-12">
+            <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div>
-                <h2 className="font-headline text-4xl font-bold text-[#2e342d]">
+                <h2 className="font-headline text-3xl font-bold text-[#2e342d]">
                   {listing.comparisonTitle}
                 </h2>
-                <p className="mt-3 font-sans text-sm tracking-[0.02em] text-[#767c74]">
-                  Select the right series tier before moving into product detail pages.
+                <p className="mt-2 font-body text-sm tracking-[0.02em] text-[#5b6159]">
+                  {listing.comparisonCopy}
                 </p>
               </div>
+
+              <Link
+                href={listing.comparisonCtaHref}
+                className="inline-flex items-center gap-2 font-body text-xs font-bold uppercase tracking-[0.2em] text-[#4e616e]"
+              >
+                <span>{listing.comparisonCtaLabel}</span>
+                <MaterialIcon icon="arrow_forward" className="text-[#4e616e]" size={20} lineHeight={20} />
+              </Link>
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
+              <table className="w-full border-collapse text-left">
                 <thead>
-                  <tr className="border-b border-[#d9dbd0]">
-                    <th className="py-4 text-left font-label text-[11px] font-bold uppercase tracking-[0.18em] text-[#77584e]">
-                      Model Series
-                    </th>
-                    <th className="py-4 text-left font-label text-[11px] font-bold uppercase tracking-[0.18em] text-[#77584e]">
-                      Output
-                    </th>
-                    <th className="py-4 text-left font-label text-[11px] font-bold uppercase tracking-[0.18em] text-[#77584e]">
-                      Cooling
-                    </th>
-                    <th className="py-4 text-left font-label text-[11px] font-bold uppercase tracking-[0.18em] text-[#77584e]">
-                      Footprint
-                    </th>
-                    <th className="py-4 text-left font-label text-[11px] font-bold uppercase tracking-[0.18em] text-[#77584e]">
-                      Best For
-                    </th>
+                  <tr className="border-b-2 border-[#77584e]/20">
+                    {listing.comparisonColumns.map((column) => (
+                      <th
+                        key={column}
+                        className="py-4 font-label text-[10px] font-bold uppercase tracking-[0.2em] text-[#77584e]"
+                      >
+                        {column}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
-                <tbody>
-                  {listing.comparisonRows.map((row, index) => (
-                    <tr
-                      key={row.series}
-                      className={`border-b border-[#ecefe7] ${index % 2 === 1 ? 'bg-[#f7f8f2]' : ''}`}
-                    >
-                      <td className="py-5 pr-4 font-headline text-[26px] font-bold text-[#4e616e]">
-                        {row.series}
+                <tbody className="divide-y divide-[#ecefe7]">
+                  {listing.comparisonRows.map((row) => (
+                    <tr key={row.feature} className="transition-colors hover:bg-[#ecefe7]">
+                      <td className="py-5 font-body text-sm font-semibold text-[#2e342d]">
+                        {row.feature}
                       </td>
-                      <td className="py-5 pr-4 font-sans text-base text-[#2e342d]">{row.output}</td>
-                      <td className="py-5 pr-4 font-sans text-base text-[#2e342d]">{row.cooling}</td>
-                      <td className="py-5 pr-4 font-sans text-base text-[#2e342d]">{row.footprint}</td>
-                      <td className="py-5 font-sans text-base text-[#5b6159]">{row.bestFor}</td>
+                      {row.values.map((value) => (
+                        <td key={`${row.feature}-${value}`} className="py-5 font-body text-sm text-[#5b6159]">
+                          {value}
+                        </td>
+                      ))}
                     </tr>
                   ))}
                 </tbody>
@@ -253,82 +266,144 @@ export function CategoryListingPage({ category }: CategoryListingPageProps) {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1440px] px-8 py-12">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-            <article className="rounded-[18px] bg-[#4e616e] p-10 text-[#f2f8ff]">
-              <p className="font-label text-xs font-bold uppercase tracking-[0.2em] text-[#d7e0e7]">
-                {listing.supportEyebrow}
-              </p>
-              <h2 className="mt-4 max-w-2xl font-headline text-4xl font-bold italic leading-tight">
-                {listing.supportTitle}
+        <section className="mx-auto mb-24 max-w-[1440px] px-8 xl:px-12">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+            <div className="lg:col-span-6">
+              <h2 className="mb-8 font-headline text-4xl font-bold italic text-[#2e342d]">
+                {listing.operationalTitle}
               </h2>
-              <p className="mt-6 max-w-2xl font-sans text-lg leading-[29px] text-[#f2f8ffcc]">
-                {listing.supportCopy}
-              </p>
-              <ul className="mt-8 space-y-3">
-                {listing.supportBullets.map((bullet) => (
-                  <li key={bullet} className="flex items-start gap-3 font-sans text-sm leading-6 text-[#f2f8ff]">
-                    <MaterialIcon icon="check_circle" className="mt-0.5 text-[#f2f8ff]" size={16} lineHeight={16} />
-                    <span>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-
-            <article className="rounded-[18px] bg-[#eef1e8] p-10">
-              <h3 className="font-headline text-3xl font-bold italic text-[#2e342d]">
-                {listing.insightsTitle}
-              </h3>
-              <div className="mt-8 space-y-6">
-                {listing.insightCards.map((card) => (
-                  <div key={card.title} className="border-t border-[#d9dbd0] pt-5 first:border-t-0 first:pt-0">
-                    <h4 className="font-sans text-base font-bold uppercase tracking-[0.08em] text-[#77584e]">
-                      {card.title}
-                    </h4>
-                    <p className="mt-3 font-sans text-sm leading-6 text-[#5b6159]">
-                      {card.copy}
-                    </p>
+              <div className="space-y-8">
+                {listing.operationalSegments.map((segment) => (
+                  <div key={segment.title} className="flex gap-6">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded bg-[#77584e]/10">
+                      <MaterialIcon
+                        icon={segment.icon ?? 'storefront'}
+                        className="text-[#77584e]"
+                        size={26}
+                        lineHeight={26}
+                      />
+                    </div>
+                    <div>
+                      <h3 className="mb-2 font-body text-sm font-bold uppercase tracking-[0.18em] text-[#2e342d]">
+                        {segment.title}
+                      </h3>
+                      <p className="font-body text-sm leading-relaxed text-[#5b6159]">
+                        {segment.copy}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
-              <div className="mt-10 flex flex-col gap-3">
-                <Link
-                  href={listing.supportPrimaryHref}
-                  className="inline-flex min-h-12 items-center justify-center rounded-md bg-[#fafaf5] px-5 py-3 font-sans text-sm font-bold uppercase tracking-[0.14em] text-[#4e616e]"
-                >
-                  {listing.supportPrimaryLabel}
-                </Link>
-                <Link
-                  href={listing.supportSecondaryHref}
-                  className="inline-flex min-h-12 items-center justify-center rounded-md border border-[#cfd5cb] px-5 py-3 font-sans text-sm font-bold uppercase tracking-[0.14em] text-[#4e616e]"
-                >
-                  {listing.supportSecondaryLabel}
-                </Link>
-              </div>
-            </article>
+            </div>
+
+            <div className="bg-[#ecefe7] p-12 lg:col-span-6 lg:border-l-4 lg:border-[#77584e]">
+              <h3 className="mb-6 font-label text-xs font-bold uppercase tracking-[0.3em] text-[#77584e]">
+                {listing.buyingFactorsTitle}
+              </h3>
+              <ul className="space-y-6">
+                {listing.buyingFactors.map((factor) => (
+                  <li key={factor.title} className="flex items-start gap-4">
+                    <MaterialIcon
+                      icon={factor.icon ?? 'bolt'}
+                      className="mt-0.5 text-[#4e616e]"
+                      size={24}
+                      lineHeight={24}
+                    />
+                    <div className="text-sm">
+                      <strong className="mb-1 block font-body text-sm text-[#2e342d]">
+                        {factor.title}
+                      </strong>
+                      <span className="font-body text-sm leading-relaxed text-[#5b6159]">
+                        {factor.copy}
+                      </span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1440px] px-8 py-12">
-          <div className="rounded-[22px] bg-[#eef1e8] p-12 lg:flex lg:items-end lg:justify-between lg:gap-12">
-            <div className="max-w-3xl">
-              <h2 className="font-headline text-5xl font-bold italic leading-tight text-[#2e342d]">
-                {listing.ctaTitle}
+        <section className="mx-auto mb-24 max-w-[1440px] px-8 xl:px-12">
+          <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
+            <div>
+              <h2 className="mb-8 font-headline text-3xl font-bold text-[#2e342d]">
+                {listing.insightsTitle}
               </h2>
-              <p className="mt-6 font-sans text-lg leading-[29px] text-[#5b6159]">
-                {listing.ctaCopy}
-              </p>
+              <div className="space-y-4">
+                {listing.insightFaqs.map((faq) => (
+                  <details
+                    key={faq.question}
+                    className="group cursor-pointer rounded bg-[#f3f4ee] p-4"
+                  >
+                    <summary className="flex list-none items-center justify-between font-body text-xs font-bold uppercase tracking-[0.18em] text-[#2e342d]">
+                      <span>{faq.question}</span>
+                      <MaterialIcon
+                        icon="expand_more"
+                        className="transition-transform duration-200 group-open:rotate-180"
+                        size={20}
+                        lineHeight={20}
+                      />
+                    </summary>
+                    <p className="mt-4 font-body text-sm leading-relaxed text-[#5b6159]">
+                      {faq.answer}
+                    </p>
+                  </details>
+                ))}
+              </div>
             </div>
-            <div className="mt-8 flex flex-col gap-3 lg:mt-0 lg:min-w-[280px]">
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {listing.resourceCards.map((card) => (
+                <article
+                  key={card.title}
+                  className="border border-[#ecefe7] bg-white p-6 transition-colors duration-200 hover:border-[#77584e]/30"
+                >
+                  <MaterialIcon
+                    icon={card.icon ?? 'description'}
+                    className="mb-4 text-[#77584e]"
+                    size={26}
+                    lineHeight={26}
+                  />
+                  <h3 className="mb-2 font-body text-xs font-bold uppercase tracking-[0.18em] text-[#2e342d]">
+                    {card.title}
+                  </h3>
+                  <p className="mb-4 font-body text-[11px] leading-[1.65] text-[#5b6159]">
+                    {card.copy}
+                  </p>
+                  <Link
+                    href={card.ctaHref}
+                    className="inline-flex items-center gap-1 font-body text-[10px] font-black uppercase tracking-[0.18em] text-[#4e616e]"
+                  >
+                    <span>{card.ctaLabel}</span>
+                    {card.ctaIcon ? (
+                      <MaterialIcon icon={card.ctaIcon} className="text-[#4e616e]" size={16} lineHeight={16} />
+                    ) : null}
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-[1440px] px-8 xl:px-12">
+          <div className="rounded-xl bg-[#4e616e] px-12 py-16 text-center text-[#f2f8ff]">
+            <h2 className="font-headline text-4xl text-[#f2f8ff]">
+              {listing.ctaTitle}
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl font-body text-base font-light leading-relaxed text-[#f2f8ffcc]">
+              {listing.ctaCopy}
+            </p>
+            <div className="mt-10 flex flex-col justify-center gap-4 md:flex-row">
               <Link
                 href={listing.ctaPrimaryHref}
-                className="inline-flex min-h-12 items-center justify-center rounded-md bg-[#4e616e] px-6 py-3 font-sans text-sm font-bold uppercase tracking-[0.14em] text-[#f2f8ff]"
+                className="inline-flex min-h-14 items-center justify-center rounded-sm bg-[#f2f8ff] px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-[#4e616e]"
               >
                 {listing.ctaPrimaryLabel}
               </Link>
               <Link
                 href={listing.ctaSecondaryHref}
-                className="inline-flex min-h-12 items-center justify-center rounded-md border border-[#cfd5cb] px-6 py-3 font-sans text-sm font-bold uppercase tracking-[0.14em] text-[#4e616e]"
+                className="inline-flex min-h-14 items-center justify-center rounded-sm border border-[#f2f8ff]/30 px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-[#f2f8ff]"
               >
                 {listing.ctaSecondaryLabel}
               </Link>

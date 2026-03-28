@@ -1,14 +1,19 @@
 import { ROUTES } from '@/fixtures/stitch/site'
 
 export type ProductListingCard = {
+  badge?: string
+  badgeTone?: 'secondary' | 'surface' | 'primary'
   name: string
-  subtitle: string
-  specs: string[]
-  bestFor: string
+  seriesLabel?: string
+  description: string
+  metrics?: Array<{
+    label: string
+    value: string
+  }>
   href: string
   image: string
   imageAlt: string
-  tone?: 'default' | 'technical'
+  muted?: boolean
 }
 
 export type ProductCategoryRecord = {
@@ -23,36 +28,50 @@ export type ProductCategoryRecord = {
     eyebrow: string
     title: string
     description: string
-    trustLine: string
+    badgeLabel: string
     primaryCtaLabel: string
     primaryCtaHref: string
     secondaryCtaLabel: string
     secondaryCtaHref: string
+    controlLabel: string
     countSummary: string
-    controlSummary: string
     filters: string[]
+    sortLabel: string
     sortOptions: string[]
     products: ProductListingCard[]
     comparisonTitle: string
+    comparisonCopy: string
+    comparisonCtaLabel: string
+    comparisonCtaHref: string
+    comparisonColumns: string[]
     comparisonRows: Array<{
-      series: string
-      output: string
-      cooling: string
-      footprint: string
-      bestFor: string
+      feature: string
+      values: string[]
     }>
-    supportEyebrow: string
-    supportTitle: string
-    supportCopy: string
-    supportBullets: string[]
-    supportPrimaryLabel: string
-    supportPrimaryHref: string
-    supportSecondaryLabel: string
-    supportSecondaryHref: string
-    insightsTitle: string
-    insightCards: Array<{
+    operationalTitle: string
+    operationalSegments: Array<{
       title: string
       copy: string
+      icon?: string
+    }>
+    buyingFactorsTitle: string
+    buyingFactors: Array<{
+      title: string
+      copy: string
+      icon?: string
+    }>
+    insightsTitle: string
+    insightFaqs: Array<{
+      question: string
+      answer: string
+    }>
+    resourceCards: Array<{
+      icon?: string
+      title: string
+      copy: string
+      ctaLabel: string
+      ctaHref: string
+      ctaIcon?: string
     }>
     ctaTitle: string
     ctaCopy: string
@@ -146,61 +165,82 @@ export function buildCategoryGuideHref(slug: string) {
 
 const softServeCards: ProductListingCard[] = [
   {
-    name: 'ICM-T836 Twin-System',
-    subtitle: 'Dual-hopper flagship for high-throughput dessert bars.',
-    specs: ['36-40 L/H', 'Air + Pre-cooling', '2 x 6.5 L'],
-    bestFor: 'Best for high-traffic QSR',
+    badge: 'High-Traffic QSR',
+    badgeTone: 'secondary',
+    name: 'ICM-T836 Twin Twist',
+    seriesLabel: 'Series 8',
+    description:
+      'High-volume production for QSR and flagship franchises. Advanced dual-system isolation.',
+    metrics: [
+      { label: 'Output', value: '45 L/hr' },
+      { label: 'Hopper', value: '2 x 6.5L' },
+      { label: 'Cooling', value: 'Air + Pre' },
+    ],
     href: ROUTES.product,
-    image: '/product-detail-main.png',
-    imageAlt: 'ICM-T836 twin-system soft serve machine',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuBn01u7n-hnusZbMt0058n-QmYYrHNsdXMjJwsp7FJHcMxMm8i7J5OL956WzazEW8-mYpn3erGOHtR0pJrhulnchsDzwb9ak6sB17ZfogrUo1lj5RXT-rUUSkExr37jUJpZRfq1i0XAxWBbD933t0_ZaPoYxapeehAdFwVjUw3bI4UEc3_FNnWl8nQjbiwcmf9hz8_8pd2xIualZIvf4uzBNHiUb_AUCOPOlZGG6dfB5HgJ2T6qMKgNbb24VGEvl0xyRqCRom7hnNI',
+    imageAlt: 'Industrial Soft Serve Machine',
   },
   {
-    name: 'ICM-T520 Compact',
-    subtitle: 'Compact footprint with quick recovery for boutique counters.',
-    specs: ['18-24 L/H', 'Air Cooled', 'Single Flavor'],
-    bestFor: 'Best for boutiques and kiosks',
+    badge: 'Boutique',
+    badgeTone: 'surface',
+    name: 'ICM-C12 Compact Single',
+    seriesLabel: 'Series 1',
+    description:
+      'Precision-tuned for small batches. Low-noise operation for curated cafe environments.',
+    metrics: [
+      { label: 'Output', value: '18 L/hr' },
+      { label: 'Hopper', value: '1 x 8.0L' },
+      { label: 'Cooling', value: 'Air Only' },
+    ],
     href: ROUTES.contact,
-    image: '/product-detail-detail-1.png',
-    imageAlt: 'Compact countertop soft serve machine',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuC7znYWwophyTS_og3tDDvjCxzaYeatnVu_yauCitp-WwNg2b3TqrDXnuIinyv1pD-yKKjinLI9bK6IjVEE5e-QDClmz1-XbuEVIKBbGGhU5zHiYTv-Drr-23xPUqSrN9V0tt0AwnyRPmzPXxSqFdq4P7skuqG_cvPTR5ItWMT-J5T_OG2nU9iyNxt5-XHOHf1LS2sa88LJsSJmY5OwkqtzfRNFS2v8C7PmX_1VePoNO7-NjuwNMqOkogXrGihbCBYDpfd7xhBtUgE',
+    imageAlt: 'Countertop Soft Serve Machine',
   },
   {
-    name: 'ICM-T930 Triple Output',
-    subtitle: 'Premium three-flavor architecture for premium hospitality service.',
-    specs: ['55-70 L/H', 'Water Hybrid', '3 Flavor'],
-    bestFor: 'Best for hotels and buffet service',
+    badge: 'Industrial',
+    badgeTone: 'primary',
+    name: 'ICM-X900 Turbo Series',
+    seriesLabel: 'Series X',
+    description:
+      'Continuous production capacity for amusement parks and industrial food courts.',
+    metrics: [
+      { label: 'Output', value: '95 L/hr' },
+      { label: 'Hopper', value: '2 x 15L' },
+      { label: 'Cooling', value: 'Water/Air' },
+    ],
     href: ROUTES.contact,
-    image: '/product-detail-detail-2.png',
-    imageAlt: 'Three-flavor soft serve machine',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAc0-KsreTc_wGen3WGxABWKA1spfY90ZeYAjI6BwVADevGkdxqvOec89W1ZW8H3nf_5PJaK_e5oYxL0CaFk3WXuPrKoJMUyqCvF6CzdlsYL61Js9O1VvnZz1scPWY6vQMPri5fvhHjyo5w576ex4NDV6CSHUtB8HdTSdqRcVuoYKEeO8HmP0oFKU-NlXg7_DQ_z5agPRiw-6rQekHyvSOKWt95JYjQqaaGyiqQsa8_N1Ej-fkq2ecCC3GbUJwWMxhajy75sfsfLhE',
+    imageAlt: 'Industrial Ice Cream Unit',
   },
   {
-    name: 'ICM-S Pasteurizing Series',
-    subtitle: 'Integrated sanitation cycle for lower manual cleaning load.',
-    specs: ['Pasteurizing', 'Heat Treatment', 'Night Mode'],
-    bestFor: 'Best for chain operators',
+    name: 'ICM-T500 Pro',
+    description: 'Discover the standard in mid-range production.',
     href: ROUTES.contact,
-    image: '/product-detail-similar-1.png',
-    imageAlt: 'Pasteurizing soft serve series',
-    tone: 'technical',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuB4PylyQ9zQKPExrw2j00GLpkPhTy2WoHHA7KoDd-nJcqTTNn2rwt2bvEXOGer1LcOZjzM7zKMUo-rBQeVPpcLJEYPrIb-GFa-dzgIRfatSoJSBg_UkaDqaRbhFASKrSK4pIwvovl3NwJlD3IzfAjvawD_jaFPF71QDTg0RJvFDJOr5e07GlpkIWOiMpYhZQwj09W6VNKZLFQyvYcC9csSHwKI1W7qKa0LUo7OsgGT8pekgvO7iil0I2z-ejrG-cD4C9b3BWkyTljc',
+    imageAlt: 'Generic machinery',
+    muted: true,
   },
   {
-    name: 'ICM-X Industrial Series',
-    subtitle: 'Heavy-duty frame and export-ready voltage packages.',
-    specs: ['Industrial 380V', 'High Output', 'OEM Ready'],
-    bestFor: 'Best for distributors and OEM',
+    name: 'ICM-S100 Eco',
+    description: 'Energy efficient series for sustainable retail.',
     href: ROUTES.contact,
-    image: '/product-detail-similar-2.png',
-    imageAlt: 'Industrial soft serve series',
-    tone: 'technical',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuCfPzDN_pcoalFJeCD7Ebn-6yXtn3OpxHppQ05v0_Kat8v-uVUgEPWvnrD9RZsvaC41FKMfcDUo4QirCn7BtjQfEoFBRB3OpQjPOH5dLH7CKv9UEmoQczI5P_n5zF4CuGjNR6TB3E3IU91TyM1MbXpaV5iJkC3oUWpnSDt0fm34-dyI_nzvJ_EGxROKYXEwVuHoGOJR1ADLf1EDF8WKrS5MJD3l_QGvW3n11lAdhrvPMXgOf-bz-oAQ2JhhEQXgZTYDy94W-ot4K6U',
+    imageAlt: 'Generic machinery',
+    muted: true,
   },
   {
-    name: 'ICM-C Counter Series',
-    subtitle: 'Elegant front-of-house soft serve for premium dessert concepts.',
-    specs: ['Countertop', 'Quiet Operation', 'Compact Body'],
-    bestFor: 'Best for front counter deployment',
+    name: 'ICM-V Series',
+    description: 'Vertical gravity-fed series for dense footprints.',
     href: ROUTES.contact,
-    image: '/product-detail-similar-3.png',
-    imageAlt: 'Countertop soft serve series',
-    tone: 'technical',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAyyZnrR6pJnrlAiVa2hyUW1HZpcypJNPmmtko46AHRpkzJ1PFDabJbXeOaEBL-Ku8d4wjBy7LL32wdkf8XjQJoT-2vkEYGwvp_QEvaBAoj9FNb2KkLrX30jJa3FJpxGqEybd95JTOIjagyDpT_cAdM4FHbwtX2ISO8rnev8ItarwOSJjdMhG3QFzp4_TSkkWbrY5bJ2AgYFk7QKPpEfkuBzb2qpfdYDSZRy-uom9lO2U8IZgw3uIbuwS4_bMqsFdM7kFX9vZhiaW8',
+    imageAlt: 'Generic machinery',
+    muted: true,
   },
 ]
 
@@ -212,61 +252,73 @@ function genericCards(
 ): ProductListingCard[] {
   return [
     {
+      badge: 'Core',
+      badgeTone: 'surface',
       name: `${prefix}-120 Core`,
-      subtitle: 'Entry platform for compact commercial deployment.',
-      specs: ['Entry Tier', 'Compact Footprint', '220V Ready'],
-      bestFor,
+      seriesLabel: 'Series 1',
+      description: 'Entry platform for compact commercial deployment.',
+      metrics: [
+        { label: 'Output', value: 'Entry Tier' },
+        { label: 'Hopper', value: 'Compact' },
+        { label: 'Cooling', value: 'Air' },
+      ],
       href: ROUTES.contact,
       image,
       imageAlt,
     },
     {
+      badge: 'Flexible',
+      badgeTone: 'surface',
       name: `${prefix}-320 Flex`,
-      subtitle: 'Balanced throughput and footprint for mixed-service programs.',
-      specs: ['Mid Volume', 'Flexible Output', 'Export Ready'],
-      bestFor: `Best for growing ${bestFor.toLowerCase()}`,
+      seriesLabel: 'Series 3',
+      description: 'Balanced throughput and footprint for mixed-service programs.',
+      metrics: [
+        { label: 'Output', value: 'Mid Volume' },
+        { label: 'Hopper', value: 'Flexible' },
+        { label: 'Cooling', value: 'Hybrid' },
+      ],
       href: ROUTES.contact,
       image,
       imageAlt,
     },
     {
+      badge: 'Industrial',
+      badgeTone: 'primary',
       name: `${prefix}-680 Pro`,
-      subtitle: 'High-output commercial unit for extended operating windows.',
-      specs: ['High Output', 'Industrial Controls', '380V Option'],
-      bestFor: 'Best for volume-driven operations',
+      seriesLabel: 'Series X',
+      description: 'High-output commercial unit for extended operating windows.',
+      metrics: [
+        { label: 'Output', value: 'High Output' },
+        { label: 'Hopper', value: 'Large' },
+        { label: 'Cooling', value: 'Water/Air' },
+      ],
       href: ROUTES.contact,
       image,
       imageAlt,
     },
     {
       name: `${prefix} OEM Platform`,
-      subtitle: 'Configurable architecture for private-label or distributor supply.',
-      specs: ['OEM Ready', 'Custom Voltage', 'Brand Integration'],
-      bestFor: 'Best for OEM programs',
+      description: 'Configurable architecture for private-label or distributor supply.',
       href: ROUTES.contact,
       image,
       imageAlt,
-      tone: 'technical',
+      muted: true,
     },
     {
       name: `${prefix} Export Series`,
-      subtitle: 'Built for containerized shipment and distributor rollout.',
-      specs: ['Seaworthy Pack', 'CE Support', 'Docs Included'],
-      bestFor: 'Best for global importers',
+      description: 'Built for containerized shipment and distributor rollout.',
       href: ROUTES.contact,
       image,
       imageAlt,
-      tone: 'technical',
+      muted: true,
     },
     {
       name: `${prefix} Signature Line`,
-      subtitle: 'Premium finish and customer-facing deployment quality.',
-      specs: ['Quiet Operation', 'Premium Finish', 'Retail Ready'],
-      bestFor: 'Best for front-of-house placement',
+      description: `Premium finish tuned for ${bestFor.toLowerCase()}.`,
       href: ROUTES.contact,
       image,
       imageAlt,
-      tone: 'technical',
+      muted: true,
     },
   ]
 }
@@ -284,10 +336,10 @@ function createCategoryRecord(options: {
   guideDescription: string
   bestFor: string
   cards?: ProductListingCard[]
+  listingOverrides?: Partial<ProductCategoryRecord['listing']>
   guideOverrides?: Partial<ProductCategoryRecord['guide']>
 }) {
   const href = buildCategoryHref(options.slug)
-  const guideHref = buildCategoryGuideHref(options.slug)
   const cards = options.cards ?? genericCards(options.shortLabel, options.image, options.imageAlt, options.bestFor)
 
   return {
@@ -299,78 +351,104 @@ function createCategoryRecord(options: {
     image: options.image,
     imageAlt: options.imageAlt,
     listing: {
-      eyebrow: 'MODEL SERIES INDEX',
+      eyebrow: 'PRECISION ENGINEERED',
       title: options.name,
       description: options.listingDescription,
-      trustLine: `Factory-direct sourcing support for ${options.countLabel.toLowerCase()} within this category.`,
+      badgeLabel: '50+ Models for Every Scale',
       primaryCtaLabel: 'Request Quote',
       primaryCtaHref: ROUTES.contact,
       secondaryCtaLabel: 'Download Category Catalog',
       secondaryCtaHref: ROUTES.resources,
+      controlLabel: 'Catalog Range',
       countSummary: options.countLabel,
-      controlSummary: 'Filter by output, footprint, cooling, and buyer fit.',
-      filters: ['All Models', 'Compact', 'High Output', 'OEM Ready', 'Export Fit'],
-      sortOptions: ['Featured', 'Output Capacity', 'Footprint', 'Best for Buyer Type'],
+      filters: ['Output Capacity', 'Cooling System', 'Footprint', 'Buyer Type'],
+      sortLabel: 'Sort By:',
+      sortOptions: ['Performance (High to Low)', 'Compactness', 'Newest Series'],
       products: cards,
       comparisonTitle: 'Technical Comparison',
+      comparisonCopy: 'Select up to 4 models to compare electrical and physical footprints.',
+      comparisonCtaLabel: 'Open Full Comparison Matrix',
+      comparisonCtaHref: ROUTES.contact,
+      comparisonColumns: ['Feature / Specs', 'Compact Series', `${options.shortLabel} Mainline`, 'Turbo Industrial'],
       comparisonRows: [
         {
-          series: `${options.shortLabel}-120`,
-          output: 'Entry / Compact',
-          cooling: 'Air Cooled',
-          footprint: 'Counter / Small Footprint',
-          bestFor: 'Boutique operations',
+          feature: 'Cleaning Interval',
+          values: ['Daily', '3-Day Cycle', '14-Day (Heat Treat)'],
         },
         {
-          series: `${options.shortLabel}-320`,
-          output: 'Mid-Volume',
-          cooling: 'Hybrid',
-          footprint: 'Floor / Flexible',
-          bestFor: 'General commercial service',
+          feature: 'Electrical Requirement',
+          values: ['220V Single Phase', '220V Three Phase', '380V Industrial'],
         },
         {
-          series: `${options.shortLabel}-680`,
-          output: 'High-Output',
-          cooling: 'Water / Hybrid',
-          footprint: 'Industrial Floor',
-          bestFor: 'Chains and distributors',
+          feature: 'Refrigerant Type',
+          values: ['R404A', 'R448A High-Eff', 'R452A Multi-Zone'],
         },
       ],
-      supportEyebrow: 'Tailored for Operational Excellence',
-      supportTitle: `Beyond the Spec Sheet for ${options.name}`,
-      supportCopy:
-        'Use this layer to narrow product families quickly, then move into the guide or detail pages for deeper technical evaluation.',
-      supportBullets: [
-        'Factory-direct lead time planning and export paperwork support',
-        'OEM and voltage customization handled at quotation stage',
-        'Application-first guidance for distributors, chains, and hospitality buyers',
+      operationalTitle: 'Tailored for Operational Excellence',
+      operationalSegments: [
+        {
+          title: 'Boutique & Specialty',
+          copy: 'Lower volume requirements focused on artisanal texture and recipe flexibility. Ideal for independent operators.',
+          icon: 'storefront',
+        },
+        {
+          title: 'Franchise & QSR',
+          copy: 'High-uptime, consistent output, and simplified cleaning protocols for multi-unit operators requiring standardization.',
+          icon: 'restaurant_menu',
+        },
       ],
-      supportPrimaryLabel: 'Open Category Guide',
-      supportPrimaryHref: guideHref,
-      supportSecondaryLabel: 'Talk to Sales',
-      supportSecondaryHref: ROUTES.contact,
+      buyingFactorsTitle: 'Key Buying Factors',
+      buyingFactors: [
+        {
+          title: 'Energy Optimization',
+          copy: 'Inverter compressors reduce idle-state consumption while keeping recovery performance stable.',
+          icon: 'bolt',
+        },
+        {
+          title: 'Global Compliance',
+          copy: 'CE-ready documentation and export packaging are aligned before you finalize the shortlist.',
+          icon: 'security',
+        },
+      ],
       insightsTitle: 'Operator Insights',
-      insightCards: [
+      insightFaqs: [
         {
-          title: 'Throughput First',
-          copy: 'Start by identifying how many servings or units your peak window must sustain without quality drop-off.',
+          question: 'How is output recovery measured?',
+          answer:
+            'Recovery is measured by the machine’s ability to return the product to serving temperature after a high-draw period.',
         },
         {
-          title: 'Export Fit',
-          copy: 'Voltage, cooling, and crate dimensions should be screened before you shortlist final models.',
+          question: 'Warranty & Global Support',
+          answer:
+            'Standard compressor and parts coverage are backed by a distributor-oriented global support network.',
+        },
+      ],
+      resourceCards: [
+        {
+          icon: 'description',
+          title: '2024 Pricing Guide',
+          copy: 'A comprehensive look at operational costs and ROI projections.',
+          ctaLabel: 'Download PDF',
+          ctaHref: ROUTES.resources,
+          ctaIcon: 'download',
         },
         {
-          title: 'Support Layer',
-          copy: 'Choose between an immediate quote path and a guide path depending on how much education your buyer still needs.',
+          icon: 'precision_manufacturing',
+          title: 'Installation Specs',
+          copy: 'Pre-installation checklist for electrical and plumbing planning.',
+          ctaLabel: 'Technical Portal',
+          ctaHref: ROUTES.resources,
+          ctaIcon: 'open_in_new',
         },
       ],
       ctaTitle: 'Partner with Precision',
       ctaCopy:
-        'Need a shortlist, distributor quote, or OEM consultation? Our team can match the right series to your operating reality.',
-      ctaPrimaryLabel: 'Request Category Quote',
+        'Every operation has unique variables. Our engineering team provides complimentary technical consultations to ensure your equipment selection matches your output reality.',
+      ctaPrimaryLabel: 'Request Technical Consultation',
       ctaPrimaryHref: ROUTES.contact,
-      ctaSecondaryLabel: 'View Category Guide',
-      ctaSecondaryHref: guideHref,
+      ctaSecondaryLabel: 'Chat with Sales Engineering',
+      ctaSecondaryHref: ROUTES.contact,
+      ...options.listingOverrides,
     },
     guide: {
       eyebrow: 'CATEGORY GUIDE',
@@ -545,6 +623,105 @@ export const productCategories = [
       'Understand when soft serve equipment is the right category, how to choose within it, and when to move directly into series comparison.',
     bestFor: 'dessert shops and QSR operators',
     cards: softServeCards,
+    listingOverrides: {
+      eyebrow: 'Precision Engineered',
+      title: 'Soft Serve Machinery',
+      description:
+        'High-performance production systems engineered for consistency, rapid recovery, and modular scalability. Our technical series defines the standard for modern frozen dessert operations.',
+      badgeLabel: '50+ Models for Every Scale',
+      primaryCtaLabel: 'Request Quote',
+      primaryCtaHref: ROUTES.contact,
+      secondaryCtaLabel: 'Download Category Catalog',
+      secondaryCtaHref: ROUTES.resources,
+      controlLabel: 'Catalog Range',
+      countSummary: '24 Models Available',
+      filters: ['Output Capacity', 'Cooling System', 'Footprint', 'Buyer Type'],
+      sortLabel: 'Sort By:',
+      sortOptions: ['Performance (High to Low)', 'Compactness', 'Newest Series'],
+      comparisonTitle: 'Technical Comparison',
+      comparisonCopy: 'Select up to 4 models to compare electrical and physical footprints.',
+      comparisonCtaLabel: 'Open Full Comparison Matrix',
+      comparisonCtaHref: ROUTES.contact,
+      comparisonColumns: ['Feature / Specs', 'Compact Series', 'Twin Twist', 'Turbo Industrial'],
+      comparisonRows: [
+        {
+          feature: 'Cleaning Interval',
+          values: ['Daily', '3-Day Cycle', '14-Day (Heat Treat)'],
+        },
+        {
+          feature: 'Electrical Requirement',
+          values: ['220V Single Phase', '220V Three Phase', '380V Industrial'],
+        },
+        {
+          feature: 'Refrigerant Type',
+          values: ['R404A', 'R448A High-Eff', 'R452A Multi-Zone'],
+        },
+      ],
+      operationalTitle: 'Tailored for Operational Excellence',
+      operationalSegments: [
+        {
+          title: 'Boutique & Specialty',
+          copy: 'Lower volume requirements focused on artisanal texture and recipe flexibility. Ideal for gelato shops and independent bakeries.',
+          icon: 'storefront',
+        },
+        {
+          title: 'Franchise & QSR',
+          copy: 'High-uptime, consistent output, and simplified cleaning protocols for multi-unit operators requiring standardization.',
+          icon: 'restaurant_menu',
+        },
+      ],
+      buyingFactorsTitle: 'Key Buying Factors',
+      buyingFactors: [
+        {
+          title: 'Energy Optimization',
+          copy: 'Pro-Taylor machines utilize inverter compressors reducing power consumption by 30% during idle states.',
+          icon: 'bolt',
+        },
+        {
+          title: 'Global Compliance',
+          copy: 'NSF, ETL, and CE certified components for seamless integration into international food safety frameworks.',
+          icon: 'security',
+        },
+      ],
+      insightsTitle: 'Operator Insights',
+      insightFaqs: [
+        {
+          question: 'How is output recovery measured?',
+          answer:
+            "Recovery is measured by the machine's ability to return the product to serving temperature after a high-draw period. Our Series 8 machines feature a 2.5-minute recovery window.",
+        },
+        {
+          question: 'Warranty & Global Support',
+          answer:
+            'Standard 3-year compressor warranty and 1-year parts coverage, supported by our global network of certified technicians.',
+        },
+      ],
+      resourceCards: [
+        {
+          icon: 'description',
+          title: '2024 Pricing Guide',
+          copy: 'A comprehensive look at operational costs and ROI projections.',
+          ctaLabel: 'Download PDF',
+          ctaHref: ROUTES.resources,
+          ctaIcon: 'download',
+        },
+        {
+          icon: 'precision_manufacturing',
+          title: 'Installation Specs',
+          copy: 'Pre-installation checklist for electrical and plumbing plumbing.',
+          ctaLabel: 'Technical Portal',
+          ctaHref: ROUTES.resources,
+          ctaIcon: 'open_in_new',
+        },
+      ],
+      ctaTitle: 'Partner with Precision',
+      ctaCopy:
+        'Every operation has unique variables. Our engineering team provides complimentary technical consultations to ensure your equipment selection matches your output reality.',
+      ctaPrimaryLabel: 'Request Technical Consultation',
+      ctaPrimaryHref: ROUTES.contact,
+      ctaSecondaryLabel: 'Chat with Sales Engineering',
+      ctaSecondaryHref: ROUTES.contact,
+    },
     guideOverrides: {
       heroImage:
         'https://lh3.googleusercontent.com/aida-public/AB6AXuDb7O0FdXFsfqJX67k4v_RyThdhxQqJTaZuHx2UilSGAN8doaLLclTworQE_nfkOADjAg1eag8j8jR3CQwyYwmzFv0Jj_EymQUNrzNNgSJO5IQkhzHMw0KujW_m0Z505uTSlpfdKKDvP8ZaZg9_KCl6eFmdfkheowqPXIQeAx2Ah51W4fwDMsC8394c3TvcEu4RHGzwbNNo_pRl6BrdMXSp0lxWL4VAFHhGbL0Ke-mloDJ62CSfFYVZIubQ1UEUPsYCrQu5zUkGeQs',
