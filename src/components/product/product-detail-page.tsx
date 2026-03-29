@@ -126,8 +126,8 @@ export function ProductDetailPage({ product }: ProductDetailPageProps) {
 
       <main className="bg-[#fafaf5] pb-24">
         <section className="mx-auto max-w-[1376px] px-8 pt-[128px] xl:px-0">
-          <div className="grid grid-cols-[782.66px_545.34px] gap-12">
-            <div>
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
+            <div className="lg:col-span-7">
               <div className="overflow-hidden rounded-[8px]">
                 <Image
                   src="/product-detail-main.png"
@@ -175,7 +175,7 @@ export function ProductDetailPage({ product }: ProductDetailPageProps) {
               </div>
             </div>
 
-            <div className="pt-[2px]">
+            <div className="pt-[2px] lg:col-span-5 xl:pl-1">
               <div className="space-y-8">
                 <div>
                   <p className="font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-[#77584e]">
