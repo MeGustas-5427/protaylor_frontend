@@ -6,10 +6,16 @@ import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
 import { TrustRibbon } from '@/components/layout/trust-ribbon'
 import { MaterialIcon } from '@/components/ui/material-icon'
-import type { ProductCategoryRecord, ProductListingCard } from '@/fixtures/stitch/product-catalog'
+import {
+  buildCategoryHref,
+  type ProductCategoryRecord,
+  type ProductListingCard,
+  type ProductPagination,
+} from '@/fixtures/stitch/product-catalog'
 
 type CategoryListingPageProps = {
   category: ProductCategoryRecord
+  pagination: ProductPagination
 }
 
 function badgeClasses(tone: ProductListingCard['badgeTone']) {
@@ -24,10 +30,14 @@ function badgeClasses(tone: ProductListingCard['badgeTone']) {
   return 'bg-[#77584e] text-[#fff7f5]'
 }
 
-export function CategoryListingPage({ category }: CategoryListingPageProps) {
+function buildPageHref(categorySlug: string, pageNumber: number) {
+  const baseHref = buildCategoryHref(categorySlug)
+  return pageNumber <= 1 ? baseHref : `${baseHref}?page=${pageNumber}`
+}
+
+export function CategoryListingPage({ category, pagination }: CategoryListingPageProps) {
   const listing = category.listing
-  const featuredProducts = listing.products.filter((product) => !product.muted)
-  const mutedProducts = listing.products.filter((product) => product.muted)
+  const pageNumbers = Array.from({ length: pagination.totalPages }, (_, index) => index + 1)
 
   return (
     <>
@@ -94,7 +104,7 @@ export function CategoryListingPage({ category }: CategoryListingPageProps) {
                   {listing.controlLabel}
                 </span>
                 <span className="font-headline text-xl italic text-[#2e342d]">
-                  {listing.countSummary}
+                  {pagination.totalProducts} Models Available
                 </span>
               </div>
 
@@ -105,7 +115,8 @@ export function CategoryListingPage({ category }: CategoryListingPageProps) {
                   <button
                     key={filter}
                     type="button"
-                    className="flex items-center gap-2 whitespace-nowrap font-body text-xs font-bold uppercase tracking-[0.02em] text-[#5b6159] transition-colors duration-200 hover:text-[#4e616e]"
+                    disabled
+                    className="flex cursor-default items-center gap-2 whitespace-nowrap font-body text-xs font-bold uppercase tracking-[0.02em] text-[#5b6159] opacity-90"
                   >
                     <span>{filter}</span>
                     <MaterialIcon icon="expand_more" className="text-[#5b6159]" size={16} lineHeight={16} />
@@ -116,20 +127,23 @@ export function CategoryListingPage({ category }: CategoryListingPageProps) {
 
             <div className="flex items-center gap-4">
               <span className="font-body text-xs font-medium text-[#767c74]">{listing.sortLabel}</span>
-              <select className="cursor-pointer border-none bg-transparent pr-6 font-body text-xs font-bold uppercase tracking-[0.14em] text-[#4e616e] outline-none">
-                {listing.sortOptions.map((option) => (
-                  <option key={option}>{option}</option>
-                ))}
-              </select>
+              <button
+                type="button"
+                disabled
+                className="inline-flex cursor-default items-center gap-2 border-none bg-transparent font-body text-xs font-bold uppercase tracking-[0.14em] text-[#4e616e] opacity-90"
+              >
+                <span>{listing.sortOptions[0]}</span>
+                <MaterialIcon icon="expand_more" className="text-[#4e616e]" size={16} lineHeight={16} />
+              </button>
             </div>
           </div>
         </section>
 
         <section className="mx-auto max-w-[1440px] px-8 pb-24 xl:px-12">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {featuredProducts.map((product) => (
+            {pagination.products.map((product) => (
               <article
-                key={product.name}
+                key={product.slug}
                 className="group overflow-hidden rounded-lg bg-white transition-all duration-300 hover:shadow-[0px_24px_48px_-12px_rgba(46,52,45,0.08)]"
               >
                 <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-[#f3f4ee] p-12">
@@ -190,25 +204,60 @@ export function CategoryListingPage({ category }: CategoryListingPageProps) {
                 </div>
               </article>
             ))}
+          </div>
 
-            {mutedProducts.map((product) => (
-              <article
-                key={product.name}
-                className="hidden overflow-hidden rounded-lg bg-white opacity-80 transition-all duration-300 hover:shadow-[0px_24px_48px_-12px_rgba(46,52,45,0.08)] xl:block"
+          <div className="mt-12 flex flex-col gap-6 border-t border-[#ecefe7] pt-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="font-body text-sm text-[#5b6159]">
+              Showing <span className="font-semibold text-[#2e342d]">{pagination.startItem}-{pagination.endItem}</span> of{' '}
+              <span className="font-semibold text-[#2e342d]">{pagination.totalProducts}</span> models
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              <Link
+                href={buildPageHref(category.slug, pagination.currentPage - 1)}
+                aria-disabled={pagination.currentPage === 1}
+                className={`inline-flex h-11 items-center justify-center rounded border px-5 font-body text-xs font-bold uppercase tracking-[0.14em] ${
+                  pagination.currentPage === 1
+                    ? 'pointer-events-none border-[#ecefe7] text-[#a5aaa2]'
+                    : 'border-[#d6dbd1] text-[#4e616e] transition-colors hover:border-[#4e616e]'
+                }`}
               >
-                <div className="aspect-[4/3] bg-[#f3f4ee] p-12 grayscale">
-                  <img src={product.image} alt={product.imageAlt} className="h-full w-full object-contain" />
-                </div>
-                <div className="p-8">
-                  <h3 className="font-headline text-2xl font-bold text-[#767c74]">
-                    {product.name}
-                  </h3>
-                  <p className="mt-4 font-body text-sm text-[#5b6159]">
-                    {product.description}
-                  </p>
-                </div>
-              </article>
-            ))}
+                Prev
+              </Link>
+
+              <div className="flex items-center gap-2">
+                {pageNumbers.map((pageNumber) => (
+                  <Link
+                    key={pageNumber}
+                    href={buildPageHref(category.slug, pageNumber)}
+                    aria-current={pageNumber === pagination.currentPage ? 'page' : undefined}
+                    className={`inline-flex h-11 min-w-11 items-center justify-center rounded border px-4 font-body text-sm font-semibold ${
+                      pageNumber === pagination.currentPage
+                        ? 'border-[#4e616e] bg-[#4e616e] text-[#f2f8ff]'
+                        : 'border-[#d6dbd1] text-[#4e616e] transition-colors hover:border-[#4e616e]'
+                    }`}
+                  >
+                    {pageNumber}
+                  </Link>
+                ))}
+              </div>
+
+              <Link
+                href={buildPageHref(category.slug, pagination.currentPage + 1)}
+                aria-disabled={pagination.currentPage === pagination.totalPages}
+                className={`inline-flex h-11 items-center justify-center rounded border px-5 font-body text-xs font-bold uppercase tracking-[0.14em] ${
+                  pagination.currentPage === pagination.totalPages
+                    ? 'pointer-events-none border-[#ecefe7] text-[#a5aaa2]'
+                    : 'border-[#d6dbd1] text-[#4e616e] transition-colors hover:border-[#4e616e]'
+                }`}
+              >
+                Next
+              </Link>
+
+              <span className="ml-2 font-body text-xs font-medium uppercase tracking-[0.14em] text-[#767c74]">
+                Page {pagination.currentPage} of {pagination.totalPages}
+              </span>
+            </div>
           </div>
         </section>
 

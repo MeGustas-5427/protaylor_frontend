@@ -13,7 +13,7 @@ export type ProductListingCard = {
   href: string
   image: string
   imageAlt: string
-  muted?: boolean
+  slug: string
 }
 
 export type ProductCategoryRecord = {
@@ -163,164 +163,437 @@ export function buildCategoryGuideHref(slug: string) {
   return `/products/${slug}/guide`
 }
 
-const softServeCards: ProductListingCard[] = [
+export const CATEGORY_PRODUCTS_PER_PAGE = 12
+
+type ProductCardSeed = Omit<ProductListingCard, 'href' | 'slug'> & {
+  slug?: string
+}
+
+export type ProductPagination = {
+  currentPage: number
+  totalPages: number
+  totalProducts: number
+  pageSize: number
+  startItem: number
+  endItem: number
+  products: ProductListingCard[]
+}
+
+export type ProductFixture = {
+  categorySlug: string
+  slug: string
+  title: string
+  series: string
+  description: string
+}
+
+export function buildProductHref(categorySlug: string, productSlug: string) {
+  return `/products/${categorySlug}/${productSlug}`
+}
+
+function slugifyProductName(name: string) {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+function createProductCard(categorySlug: string, seed: ProductCardSeed): ProductListingCard {
+  const slug = seed.slug ?? slugifyProductName(seed.name)
+
+  return {
+    ...seed,
+    slug,
+    href: buildProductHref(categorySlug, slug),
+  }
+}
+
+function createProductCards(categorySlug: string, seeds: ProductCardSeed[]) {
+  return seeds.map((seed) => createProductCard(categorySlug, seed))
+}
+
+const softServeImages = {
+  flagship:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuBn01u7n-hnusZbMt0058n-QmYYrHNsdXMjJwsp7FJHcMxMm8i7J5OL956WzazEW8-mYpn3erGOHtR0pJrhulnchsDzwb9ak6sB17ZfogrUo1lj5RXT-rUUSkExr37jUJpZRfq1i0XAxWBbD933t0_ZaPoYxapeehAdFwVjUw3bI4UEc3_FNnWl8nQjbiwcmf9hz8_8pd2xIualZIvf4uzBNHiUb_AUCOPOlZGG6dfB5HgJ2T6qMKgNbb24VGEvl0xyRqCRom7hnNI',
+  compact:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuC7znYWwophyTS_og3tDDvjCxzaYeatnVu_yauCitp-WwNg2b3TqrDXnuIinyv1pD-yKKjinLI9bK6IjVEE5e-QDClmz1-XbuEVIKBbGGhU5zHiYTv-Drr-23xPUqSrN9V0tt0AwnyRPmzPXxSqFdq4P7skuqG_cvPTR5ItWMT-J5T_OG2nU9iyNxt5-XHOHf1LS2sa88LJsSJmY5OwkqtzfRNFS2v8C7PmX_1VePoNO7-NjuwNMqOkogXrGihbCBYDpfd7xhBtUgE',
+  industrial:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuAc0-KsreTc_wGen3WGxABWKA1spfY90ZeYAjI6BwVADevGkdxqvOec89W1ZW8H3nf_5PJaK_e5oYxL0CaFk3WXuPrKoJMUyqCvF6CzdlsYL61Js9O1VvnZz1scPWY6vQMPri5fvhHjyo5w576ex4NDV6CSHUtB8HdTSdqRcVuoYKEeO8HmP0oFKU-NlXg7_DQ_z5agPRiw-6rQekHyvSOKWt95JYjQqaaGyiqQsa8_N1Ej-fkq2ecCC3GbUJwWMxhajy75sfsfLhE',
+  versatile:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuB4PylyQ9zQKPExrw2j00GLpkPhTy2WoHHA7KoDd-nJcqTTNn2rwt2bvEXOGer1LcOZjzM7zKMUo-rBQeVPpcLJEYPrIb-GFa-dzgIRfatSoJSBg_UkaDqaRbhFASKrSK4pIwvovl3NwJlD3IzfAjvawD_jaFPF71QDTg0RJvFDJOr5e07GlpkIWOiMpYhZQwj09W6VNKZLFQyvYcC9csSHwKI1W7qKa0LUo7OsgGT8pekgvO7iil0I2z-ejrG-cD4C9b3BWkyTljc',
+  vertical:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuCfPzDN_pcoalFJeCD7Ebn-6yXtn3OpxHppQ05v0_Kat8v-uVUgEPWvnrD9RZsvaC41FKMfcDUo4QirCn7BtjQfEoFBRB3OpQjPOH5dLH7CKv9UEmoQczI5P_n5zF4CuGjNR6TB3E3IU91TyM1MbXpaV5iJkC3oUWpnSDt0fm34-dyI_nzvJ_EGxROKYXEwVuHoGOJR1ADLf1EDF8WKrS5MJD3l_QGvW3n11lAdhrvPMXgOf-bz-oAQ2JhhEQXgZTYDy94W-ot4K6U',
+  gravity:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuAyyZnrR6pJnrlAiVa2hyUW1HZpcypJNPmmtko46AHRpkzJ1PFDabJbXeOaEBL-Ku8d4wjBy7LL32wdkf8XjQJoT-2vkEYGwvp_QEvaBAoj9FNb2KkLrX30jJa3FJpxGqEybd95JTOIjagyDpT_cAdM4FHbwtX2ISO8rnev8ItarwOSJjdMhG3QFzp4_TSkkWbrY5bJ2AgYFk7QKPpEfkuBzb2qpfdYDSZRy-uom9lO2U8IZgw3uIbuwS4_bMqsFdM7kFX9vZhiaW8',
+} as const
+
+const softServeCards = createProductCards('soft-serve-machines', [
   {
+    slug: 'icm-t836-twin-system-soft-serve-machine',
     badge: 'High-Traffic QSR',
     badgeTone: 'secondary',
     name: 'ICM-T836 Twin Twist',
     seriesLabel: 'Series 8',
-    description:
-      'High-volume production for QSR and flagship franchises. Advanced dual-system isolation.',
+    description: 'High-volume production for QSR and flagship franchises. Advanced dual-system isolation.',
     metrics: [
       { label: 'Output', value: '45 L/hr' },
       { label: 'Hopper', value: '2 x 6.5L' },
       { label: 'Cooling', value: 'Air + Pre' },
     ],
-    href: ROUTES.product,
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBn01u7n-hnusZbMt0058n-QmYYrHNsdXMjJwsp7FJHcMxMm8i7J5OL956WzazEW8-mYpn3erGOHtR0pJrhulnchsDzwb9ak6sB17ZfogrUo1lj5RXT-rUUSkExr37jUJpZRfq1i0XAxWBbD933t0_ZaPoYxapeehAdFwVjUw3bI4UEc3_FNnWl8nQjbiwcmf9hz8_8pd2xIualZIvf4uzBNHiUb_AUCOPOlZGG6dfB5HgJ2T6qMKgNbb24VGEvl0xyRqCRom7hnNI',
-    imageAlt: 'Industrial Soft Serve Machine',
+    image: softServeImages.flagship,
+    imageAlt: 'Industrial soft serve machine',
   },
   {
     badge: 'Boutique',
     badgeTone: 'surface',
     name: 'ICM-C12 Compact Single',
     seriesLabel: 'Series 1',
-    description:
-      'Precision-tuned for small batches. Low-noise operation for curated cafe environments.',
+    description: 'Precision-tuned for small batches. Low-noise operation for curated cafe environments.',
     metrics: [
       { label: 'Output', value: '18 L/hr' },
       { label: 'Hopper', value: '1 x 8.0L' },
       { label: 'Cooling', value: 'Air Only' },
     ],
-    href: ROUTES.contact,
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuC7znYWwophyTS_og3tDDvjCxzaYeatnVu_yauCitp-WwNg2b3TqrDXnuIinyv1pD-yKKjinLI9bK6IjVEE5e-QDClmz1-XbuEVIKBbGGhU5zHiYTv-Drr-23xPUqSrN9V0tt0AwnyRPmzPXxSqFdq4P7skuqG_cvPTR5ItWMT-J5T_OG2nU9iyNxt5-XHOHf1LS2sa88LJsSJmY5OwkqtzfRNFS2v8C7PmX_1VePoNO7-NjuwNMqOkogXrGihbCBYDpfd7xhBtUgE',
-    imageAlt: 'Countertop Soft Serve Machine',
+    image: softServeImages.compact,
+    imageAlt: 'Compact countertop soft serve machine',
   },
   {
     badge: 'Industrial',
     badgeTone: 'primary',
     name: 'ICM-X900 Turbo Series',
     seriesLabel: 'Series X',
-    description:
-      'Continuous production capacity for amusement parks and industrial food courts.',
+    description: 'Continuous production capacity for amusement parks and industrial food courts.',
     metrics: [
       { label: 'Output', value: '95 L/hr' },
       { label: 'Hopper', value: '2 x 15L' },
       { label: 'Cooling', value: 'Water/Air' },
     ],
-    href: ROUTES.contact,
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAc0-KsreTc_wGen3WGxABWKA1spfY90ZeYAjI6BwVADevGkdxqvOec89W1ZW8H3nf_5PJaK_e5oYxL0CaFk3WXuPrKoJMUyqCvF6CzdlsYL61Js9O1VvnZz1scPWY6vQMPri5fvhHjyo5w576ex4NDV6CSHUtB8HdTSdqRcVuoYKEeO8HmP0oFKU-NlXg7_DQ_z5agPRiw-6rQekHyvSOKWt95JYjQqaaGyiqQsa8_N1Ej-fkq2ecCC3GbUJwWMxhajy75sfsfLhE',
-    imageAlt: 'Industrial Ice Cream Unit',
+    image: softServeImages.industrial,
+    imageAlt: 'High-output industrial soft serve machine',
   },
   {
+    badge: 'Best Margin',
+    badgeTone: 'surface',
     name: 'ICM-T500 Pro',
-    description: 'Discover the standard in mid-range production.',
-    href: ROUTES.contact,
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuB4PylyQ9zQKPExrw2j00GLpkPhTy2WoHHA7KoDd-nJcqTTNn2rwt2bvEXOGer1LcOZjzM7zKMUo-rBQeVPpcLJEYPrIb-GFa-dzgIRfatSoJSBg_UkaDqaRbhFASKrSK4pIwvovl3NwJlD3IzfAjvawD_jaFPF71QDTg0RJvFDJOr5e07GlpkIWOiMpYhZQwj09W6VNKZLFQyvYcC9csSHwKI1W7qKa0LUo7OsgGT8pekgvO7iil0I2z-ejrG-cD4C9b3BWkyTljc',
-    imageAlt: 'Generic machinery',
-    muted: true,
+    seriesLabel: 'Series 5',
+    description: 'Balanced twin-twist platform for regional chains needing faster recovery without industrial utilities.',
+    metrics: [
+      { label: 'Output', value: '30 L/hr' },
+      { label: 'Hopper', value: '2 x 5.5L' },
+      { label: 'Cooling', value: 'Air' },
+    ],
+    image: softServeImages.versatile,
+    imageAlt: 'Mid-volume soft serve machine',
   },
   {
+    badge: 'Energy Smart',
+    badgeTone: 'surface',
     name: 'ICM-S100 Eco',
-    description: 'Energy efficient series for sustainable retail.',
-    href: ROUTES.contact,
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCfPzDN_pcoalFJeCD7Ebn-6yXtn3OpxHppQ05v0_Kat8v-uVUgEPWvnrD9RZsvaC41FKMfcDUo4QirCn7BtjQfEoFBRB3OpQjPOH5dLH7CKv9UEmoQczI5P_n5zF4CuGjNR6TB3E3IU91TyM1MbXpaV5iJkC3oUWpnSDt0fm34-dyI_nzvJ_EGxROKYXEwVuHoGOJR1ADLf1EDF8WKrS5MJD3l_QGvW3n11lAdhrvPMXgOf-bz-oAQ2JhhEQXgZTYDy94W-ot4K6U',
-    imageAlt: 'Generic machinery',
-    muted: true,
+    seriesLabel: 'Series S',
+    description: 'Single-flavor energy-saving unit for compact service counters and low-labor dessert concepts.',
+    metrics: [
+      { label: 'Output', value: '16 L/hr' },
+      { label: 'Hopper', value: '1 x 7.0L' },
+      { label: 'Cooling', value: 'Air' },
+    ],
+    image: softServeImages.vertical,
+    imageAlt: 'Energy efficient soft serve machine',
   },
   {
+    badge: 'Dense Texture',
+    badgeTone: 'surface',
     name: 'ICM-V Series',
-    description: 'Vertical gravity-fed series for dense footprints.',
-    href: ROUTES.contact,
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAyyZnrR6pJnrlAiVa2hyUW1HZpcypJNPmmtko46AHRpkzJ1PFDabJbXeOaEBL-Ku8d4wjBy7LL32wdkf8XjQJoT-2vkEYGwvp_QEvaBAoj9FNb2KkLrX30jJa3FJpxGqEybd95JTOIjagyDpT_cAdM4FHbwtX2ISO8rnev8ItarwOSJjdMhG3QFzp4_TSkkWbrY5bJ2AgYFk7QKPpEfkuBzb2qpfdYDSZRy-uom9lO2U8IZgw3uIbuwS4_bMqsFdM7kFX9vZhiaW8',
-    imageAlt: 'Generic machinery',
-    muted: true,
+    seriesLabel: 'Series V',
+    description: 'Vertical gravity-fed architecture for premium dense texture and simplified operator training.',
+    metrics: [
+      { label: 'Output', value: '24 L/hr' },
+      { label: 'Hopper', value: '1 x 10L' },
+      { label: 'Cooling', value: 'Air' },
+    ],
+    image: softServeImages.gravity,
+    imageAlt: 'Gravity-fed soft serve machine',
   },
-]
+  {
+    name: 'ICM-D420 Duo Air',
+    seriesLabel: 'Series 4',
+    description: 'Dual-flavor air-pump unit for dessert kiosks balancing overrun control and compact footprint.',
+    metrics: [
+      { label: 'Output', value: '26 L/hr' },
+      { label: 'Hopper', value: '2 x 4.5L' },
+      { label: 'Cooling', value: 'Air' },
+    ],
+    image: softServeImages.compact,
+    imageAlt: 'Dual-flavor air-pump soft serve machine',
+  },
+  {
+    name: 'ICM-P280 Pump Craft',
+    seriesLabel: 'Series P',
+    description: 'Pump-fed countertop machine tuned for premium swirl texture in boutique concept stores.',
+    metrics: [
+      { label: 'Output', value: '20 L/hr' },
+      { label: 'Hopper', value: '1 x 8.5L' },
+      { label: 'Cooling', value: 'Air' },
+    ],
+    image: softServeImages.compact,
+    imageAlt: 'Pump-fed countertop soft serve machine',
+  },
+  {
+    name: 'ICM-H560 Heat Treat',
+    seriesLabel: 'Series H',
+    description: 'Heat-treatment cleaning cycle reduces manual wash labor for busy franchised dessert programs.',
+    metrics: [
+      { label: 'Output', value: '38 L/hr' },
+      { label: 'Hopper', value: '2 x 6.0L' },
+      { label: 'Cooling', value: 'Air + Pre' },
+    ],
+    image: softServeImages.flagship,
+    imageAlt: 'Heat-treatment soft serve machine',
+  },
+  {
+    name: 'ICM-W700 Water Quiet',
+    seriesLabel: 'Series W',
+    description: 'Water-cooled chassis for premium hospitality counters where acoustic comfort matters.',
+    metrics: [
+      { label: 'Output', value: '42 L/hr' },
+      { label: 'Hopper', value: '2 x 6.5L' },
+      { label: 'Cooling', value: 'Water' },
+    ],
+    image: softServeImages.industrial,
+    imageAlt: 'Water-cooled soft serve machine',
+  },
+  {
+    name: 'ICM-K240 Kiosk Duo',
+    seriesLabel: 'Series K',
+    description: 'Narrow-depth dual-flavor configuration for island kiosks and mall concession footprints.',
+    metrics: [
+      { label: 'Output', value: '24 L/hr' },
+      { label: 'Hopper', value: '2 x 4.2L' },
+      { label: 'Cooling', value: 'Air' },
+    ],
+    image: softServeImages.versatile,
+    imageAlt: 'Kiosk soft serve machine',
+  },
+  {
+    name: 'ICM-F680 Franchise Max',
+    seriesLabel: 'Series F',
+    description: 'Standardized twin-twist package created for multi-store franchise rollouts and operator handoff.',
+    metrics: [
+      { label: 'Output', value: '48 L/hr' },
+      { label: 'Hopper', value: '2 x 8.0L' },
+      { label: 'Cooling', value: 'Air + Pre' },
+    ],
+    image: softServeImages.flagship,
+    imageAlt: 'Franchise-grade soft serve machine',
+  },
+  {
+    name: 'ICM-L210 Lab Counter',
+    seriesLabel: 'Series L',
+    description: 'R&D-friendly platform for test kitchens and premium labs validating new mix recipes.',
+    metrics: [
+      { label: 'Output', value: '12 L/hr' },
+      { label: 'Hopper', value: '1 x 6.0L' },
+      { label: 'Cooling', value: 'Air' },
+    ],
+    image: softServeImages.compact,
+    imageAlt: 'Laboratory countertop soft serve machine',
+  },
+  {
+    name: 'ICM-M320 Multi Twist',
+    seriesLabel: 'Series M',
+    description: 'Mid-volume platform with quick flavor transition routines and stable texture for dessert bars.',
+    metrics: [
+      { label: 'Output', value: '28 L/hr' },
+      { label: 'Hopper', value: '2 x 5.0L' },
+      { label: 'Cooling', value: 'Air' },
+    ],
+    image: softServeImages.versatile,
+    imageAlt: 'Multi-twist soft serve machine',
+  },
+  {
+    name: 'ICM-R800 Resort Twin',
+    seriesLabel: 'Series R',
+    description: 'Front-of-house ready stainless finish tailored to hotels, buffets, and leisure destinations.',
+    metrics: [
+      { label: 'Output', value: '44 L/hr' },
+      { label: 'Hopper', value: '2 x 7.5L' },
+      { label: 'Cooling', value: 'Water' },
+    ],
+    image: softServeImages.flagship,
+    imageAlt: 'Hospitality soft serve machine',
+  },
+  {
+    name: 'ICM-Q360 Queue Breaker',
+    seriesLabel: 'Series Q',
+    description: 'Fast-recovery system tuned for lunch-rush windows and short-queue retail operations.',
+    metrics: [
+      { label: 'Output', value: '32 L/hr' },
+      { label: 'Hopper', value: '2 x 5.5L' },
+      { label: 'Cooling', value: 'Air + Pre' },
+    ],
+    image: softServeImages.versatile,
+    imageAlt: 'Fast-recovery soft serve machine',
+  },
+  {
+    name: 'ICM-N180 Niche Single',
+    seriesLabel: 'Series N',
+    description: 'Entry single-flavor machine for specialty yogurt, trial menus, and compact seasonal programs.',
+    metrics: [
+      { label: 'Output', value: '14 L/hr' },
+      { label: 'Hopper', value: '1 x 6.5L' },
+      { label: 'Cooling', value: 'Air' },
+    ],
+    image: softServeImages.vertical,
+    imageAlt: 'Single-flavor seasonal soft serve machine',
+  },
+  {
+    name: 'ICM-A600 Auto Clean',
+    seriesLabel: 'Series A',
+    description: 'Pasteurizing auto-clean system for sites minimizing sanitation labor and overnight downtime.',
+    metrics: [
+      { label: 'Output', value: '40 L/hr' },
+      { label: 'Hopper', value: '2 x 7.0L' },
+      { label: 'Cooling', value: 'Air + Pre' },
+    ],
+    image: softServeImages.flagship,
+    imageAlt: 'Auto-clean soft serve machine',
+  },
+  {
+    name: 'ICM-G260 Gravity Craft',
+    seriesLabel: 'Series G',
+    description: 'Gravity-fed flavor density specialist for premium yogurt and gelato-style soft serve.',
+    metrics: [
+      { label: 'Output', value: '22 L/hr' },
+      { label: 'Hopper', value: '1 x 8.0L' },
+      { label: 'Cooling', value: 'Air' },
+    ],
+    image: softServeImages.gravity,
+    imageAlt: 'Gravity craft soft serve machine',
+  },
+  {
+    name: 'ICM-Z980 Stadium Force',
+    seriesLabel: 'Series Z',
+    description: 'Extreme-output twin system for arenas, food courts, and distributor-driven fleet deployments.',
+    metrics: [
+      { label: 'Output', value: '108 L/hr' },
+      { label: 'Hopper', value: '2 x 16L' },
+      { label: 'Cooling', value: 'Water/Air' },
+    ],
+    image: softServeImages.industrial,
+    imageAlt: 'Stadium-grade soft serve machine',
+  },
+  {
+    name: 'ICM-E220 Eco Counter',
+    seriesLabel: 'Series E',
+    description: 'Low-consumption countertop chassis for operators prioritizing utility efficiency and simplicity.',
+    metrics: [
+      { label: 'Output', value: '15 L/hr' },
+      { label: 'Hopper', value: '1 x 7.0L' },
+      { label: 'Cooling', value: 'Air' },
+    ],
+    image: softServeImages.compact,
+    imageAlt: 'Eco countertop soft serve machine',
+  },
+  {
+    name: 'ICM-U740 Utility Twin',
+    seriesLabel: 'Series U',
+    description: 'Robust export-ready twin system with simplified maintenance access for distributor service teams.',
+    metrics: [
+      { label: 'Output', value: '46 L/hr' },
+      { label: 'Hopper', value: '2 x 6.8L' },
+      { label: 'Cooling', value: 'Air + Pre' },
+    ],
+    image: softServeImages.versatile,
+    imageAlt: 'Utility twin soft serve machine',
+  },
+  {
+    name: 'ICM-B340 Buffet Prime',
+    seriesLabel: 'Series B',
+    description: 'Quiet buffet-oriented configuration with stainless presentation and clean front-facing service.',
+    metrics: [
+      { label: 'Output', value: '29 L/hr' },
+      { label: 'Hopper', value: '2 x 4.8L' },
+      { label: 'Cooling', value: 'Water' },
+    ],
+    image: softServeImages.flagship,
+    imageAlt: 'Buffet soft serve machine',
+  },
+  {
+    name: 'ICM-O500 OEM Frame',
+    seriesLabel: 'Series O',
+    description: 'Chassis-first OEM platform optimized for private-label control panels and export voltage packages.',
+    metrics: [
+      { label: 'Output', value: '34 L/hr' },
+      { label: 'Hopper', value: '2 x 6.0L' },
+      { label: 'Cooling', value: 'Hybrid' },
+    ],
+    image: softServeImages.vertical,
+    imageAlt: 'OEM frame soft serve machine',
+  },
+])
 
 function genericCards(
+  categorySlug: string,
   prefix: string,
   image: string,
   imageAlt: string,
   bestFor: string,
+  count: number,
 ): ProductListingCard[] {
-  return [
-    {
-      badge: 'Core',
-      badgeTone: 'surface',
-      name: `${prefix}-120 Core`,
-      seriesLabel: 'Series 1',
-      description: 'Entry platform for compact commercial deployment.',
-      metrics: [
-        { label: 'Output', value: 'Entry Tier' },
-        { label: 'Hopper', value: 'Compact' },
-        { label: 'Cooling', value: 'Air' },
-      ],
-      href: ROUTES.contact,
-      image,
-      imageAlt,
-    },
-    {
-      badge: 'Flexible',
-      badgeTone: 'surface',
-      name: `${prefix}-320 Flex`,
-      seriesLabel: 'Series 3',
-      description: 'Balanced throughput and footprint for mixed-service programs.',
-      metrics: [
-        { label: 'Output', value: 'Mid Volume' },
-        { label: 'Hopper', value: 'Flexible' },
-        { label: 'Cooling', value: 'Hybrid' },
-      ],
-      href: ROUTES.contact,
-      image,
-      imageAlt,
-    },
-    {
-      badge: 'Industrial',
-      badgeTone: 'primary',
-      name: `${prefix}-680 Pro`,
-      seriesLabel: 'Series X',
-      description: 'High-output commercial unit for extended operating windows.',
-      metrics: [
-        { label: 'Output', value: 'High Output' },
-        { label: 'Hopper', value: 'Large' },
-        { label: 'Cooling', value: 'Water/Air' },
-      ],
-      href: ROUTES.contact,
-      image,
-      imageAlt,
-    },
-    {
-      name: `${prefix} OEM Platform`,
-      description: 'Configurable architecture for private-label or distributor supply.',
-      href: ROUTES.contact,
-      image,
-      imageAlt,
-      muted: true,
-    },
-    {
-      name: `${prefix} Export Series`,
-      description: 'Built for containerized shipment and distributor rollout.',
-      href: ROUTES.contact,
-      image,
-      imageAlt,
-      muted: true,
-    },
-    {
-      name: `${prefix} Signature Line`,
-      description: `Premium finish tuned for ${bestFor.toLowerCase()}.`,
-      href: ROUTES.contact,
-      image,
-      imageAlt,
-      muted: true,
-    },
+  const descriptors = [
+    { name: 'Core', output: 'Entry', format: 'Compact', power: 'Air', copy: 'Entry platform for compact commercial deployment.' },
+    { name: 'Flex', output: 'Mid Volume', format: 'Flexible', power: 'Hybrid', copy: 'Balanced throughput and footprint for mixed-service programs.' },
+    { name: 'Pro', output: 'High Output', format: 'Large', power: 'Water/Air', copy: 'High-output commercial unit for extended operating windows.' },
+    { name: 'Select', output: 'Service', format: 'Retail', power: 'Air', copy: 'Service-oriented model for operator-friendly daily production.' },
+    { name: 'Export', output: 'Export', format: 'Factory', power: 'Hybrid', copy: 'Built for containerized shipment and distributor rollout.' },
+    { name: 'Signature', output: 'Premium', format: 'Showroom', power: 'Air', copy: `Premium finish tuned for ${bestFor.toLowerCase()}.` },
   ]
+
+  return createProductCards(
+    categorySlug,
+    Array.from({ length: count }, (_, index) => {
+      const descriptor = descriptors[index % descriptors.length]
+      const modelCode = 120 + index * 40
+      const tier = Math.floor(index / descriptors.length) + 1
+
+      return {
+        badge:
+          index === 0 ? 'Core' : index === 1 ? 'Flexible' : index === 2 ? 'Industrial' : undefined,
+        badgeTone: index === 2 ? 'primary' : 'surface',
+        name: `${prefix}-${modelCode} ${descriptor.name}`,
+        seriesLabel: `Series ${tier}`,
+        description: descriptor.copy,
+        metrics: [
+          { label: 'Output', value: descriptor.output },
+          { label: 'Format', value: descriptor.format },
+          { label: 'Power', value: descriptor.power },
+        ],
+        image,
+        imageAlt,
+      }
+    }),
+  )
+}
+
+export function getCategoryListingPagination(
+  category: ProductCategoryRecord,
+  currentPage: number,
+  pageSize = CATEGORY_PRODUCTS_PER_PAGE,
+): ProductPagination {
+  const totalProducts = category.listing.products.length
+  const totalPages = Math.max(1, Math.ceil(totalProducts / pageSize))
+  const normalizedPage = Math.min(Math.max(currentPage, 1), totalPages)
+  const startIndex = (normalizedPage - 1) * pageSize
+  const endIndexExclusive = Math.min(startIndex + pageSize, totalProducts)
+
+  return {
+    currentPage: normalizedPage,
+    totalPages,
+    totalProducts,
+    pageSize,
+    startItem: totalProducts === 0 ? 0 : startIndex + 1,
+    endItem: endIndexExclusive,
+    products: category.listing.products.slice(startIndex, endIndexExclusive),
+  }
 }
 
 function createCategoryRecord(options: {
@@ -328,6 +601,7 @@ function createCategoryRecord(options: {
   name: string
   shortLabel: string
   countLabel: string
+  productCount: number
   overviewBlurb: string
   image: string
   imageAlt: string
@@ -340,7 +614,16 @@ function createCategoryRecord(options: {
   guideOverrides?: Partial<ProductCategoryRecord['guide']>
 }) {
   const href = buildCategoryHref(options.slug)
-  const cards = options.cards ?? genericCards(options.shortLabel, options.image, options.imageAlt, options.bestFor)
+  const cards =
+    options.cards ??
+    genericCards(
+      options.slug,
+      options.shortLabel,
+      options.image,
+      options.imageAlt,
+      options.bestFor,
+      options.productCount,
+    )
 
   return {
     slug: options.slug,
@@ -360,7 +643,7 @@ function createCategoryRecord(options: {
       secondaryCtaLabel: 'Download Category Catalog',
       secondaryCtaHref: ROUTES.resources,
       controlLabel: 'Catalog Range',
-      countSummary: options.countLabel,
+      countSummary: `${cards.length} Models Available`,
       filters: ['Output Capacity', 'Cooling System', 'Footprint', 'Buyer Type'],
       sortLabel: 'Sort By:',
       sortOptions: ['Performance (High to Low)', 'Compactness', 'Newest Series'],
@@ -613,6 +896,7 @@ export const productCategories = [
     name: 'Soft Serve Machinery',
     shortLabel: 'SS',
     countLabel: '24 Model Families',
+    productCount: 24,
     overviewBlurb: 'Soft serve systems spanning compact counters to distributor-scale output platforms.',
     image: '/product-detail-main.png',
     imageAlt: 'Soft serve machinery category overview',
@@ -863,6 +1147,7 @@ export const productCategories = [
     name: 'Ice Lolly Machinery',
     shortLabel: 'IL',
     countLabel: '18 Model Families',
+    productCount: 18,
     overviewBlurb: 'Brine-tank and demolding systems for novelty production and frozen dessert lines.',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuCSUa9c9h-Y-OcvxuV87ynNRYkJ4MKH14y6LmdFMxSFWVeWvVrJMoc2Tp6Yrtr8KSqhNUfHwMiLql8fIbvJRtmT-6L0SjX0SRIgnJuN8M-40ZEgPAGhAiC1LKxkhMlO2PCnQNYVIuoea8G3TIkrZdEOhJpmncNQ2wNQlw8oi6Z-J0fzz4eN61AK-v4bRG0-UtlOCXRFVOL-fmbbckY65YGWYxwkCu9y23OXj2IeLqtzY2xg5XHzL11Nl2i3ulkLbmQ96NcQ7_lgjk0',
@@ -879,6 +1164,7 @@ export const productCategories = [
     name: 'Slush Freezer Machinery',
     shortLabel: 'SF',
     countLabel: '15 Model Families',
+    productCount: 15,
     overviewBlurb: 'Frozen beverage systems for convenience, leisure, hospitality, and mixed drink programs.',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDR5V3LeOGZf-vy0c_RctWFWuif9npy4YlcO0mgV-ece9PwkviaIzAi4iwPWROXMKweH2QlTNW3J4suFvaOdpLfP4tphct4S-8YPx1ZqRV4H8MujP68AHt7Lt3-dinCoY-vNe7MIY3cSpa3s52c8rQCylcmYnR8-SRuWF-wrxwhykv4aBppWLKsAbjE2FSIqyaIwmAg1hxZUYvRej3dw5ghZnC8kEeqLr52qZD4Zm34-SGJWi_saaX9DqbmQYpTD2YOCVezTr9qj2o',
@@ -895,6 +1181,7 @@ export const productCategories = [
     name: 'Gelato Batch Freezers',
     shortLabel: 'GB',
     countLabel: '12 Model Families',
+    productCount: 12,
     overviewBlurb: 'Texture-first batch freezing systems for artisan gelato labs and premium dessert concepts.',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuBNLtcGo1taIKNBfav4T2IldFaXBizwMFp6rK7tjB2VymOYKHVvVUILUkVZyx1MrVe-RadcYDKJ5LwK2PU9bmVJ5Iz9SgzuwdfayvV2t2XlJ-1ZKRtXaFoUDbWFHB6xW6banPxuGE8FAzpHdbIEyHaxGmY00B8DokIoXnip1yCpmsouM-DF37OSLEMo4W8zxMefnALKPuXt5DfIiU_0Izc8CqFvgjUEKuw3JY0MeBjVMQdKHlIwLSzt-UHmcvQb0Iwt3dmpy_FG0GY',
@@ -911,6 +1198,7 @@ export const productCategories = [
     name: 'Multifunction Frozen Drink Systems',
     shortLabel: 'FD',
     countLabel: '14 Model Families',
+    productCount: 14,
     overviewBlurb: 'Hybrid systems for granita, frozen cocktails, and flexible beverage menus.',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuApEAGJZuRPwAhgTwjHxGBJLx5jFpGvH_bKlnrhzmhapF4XUMyTuPkbXsSoLQyzAkgexz5tdPwU6d8u4K--kOqfzjZLDGsmKjIcl6fh1ZyfZpxTkVTwG-DOnN905UCxA76-tjGNrIOJx0JavTp9JqMTp_3BRd68ERqwQs9bU710y0tE4O9IuFJNRzJHJiVBePyc3lSTomnaAmBJxj_hrhEYnSVc8CBlwGBIfBnkK17f8KPoSvp6Z0LaZokI7jRYHxk3gmVMQXYUim4',
@@ -927,6 +1215,7 @@ export const productCategories = [
     name: 'Ice Makers & Related Equipment',
     shortLabel: 'IM',
     countLabel: '10 Model Families',
+    productCount: 10,
     overviewBlurb: 'Support equipment for ice generation, holding, and related beverage prep infrastructure.',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuD4Xj984hT85QDHtiVVPlOE6tcNvdwe8lvnsM4GyOpFdDLQiOYe6LlAotVmIyU8pwWJri3Upzgs4L0eUK_rMznXW8Ai0ggrhpqjm7ejwx2QFx31jvW5_-Khsy4JMaSytzSPu2y1xXMqyprEoJlC8lWjNA3teB76ELdzQuD8soLt-xMX2Z40vQtrHiwlIHdGRtzMB_QPA8Aoy2l9mYAVBghD-jC495R6XnV393vPnf4ZIog2jZbK0PeBqCVScGiFyA3KF3dsr8EWXI8',
@@ -944,6 +1233,22 @@ export type ProductCategory = (typeof productCategories)[number]
 
 export function getProductCategoryBySlug(slug: string) {
   return productCategories.find((category) => category.slug === slug)
+}
+
+export const productFixtures: ProductFixture[] = productCategories.flatMap((category) =>
+  category.listing.products.map((product) => ({
+    categorySlug: category.slug,
+    slug: product.slug,
+    title: product.name,
+    series: `${category.shortLabel} Series`,
+    description: product.description,
+  })),
+)
+
+export function getProductFixtureBySlug(categorySlug: string, productSlug: string) {
+  return productFixtures.find(
+    (product) => product.categorySlug === categorySlug && product.slug === productSlug,
+  )
 }
 
 export const productsOverviewFixture = {

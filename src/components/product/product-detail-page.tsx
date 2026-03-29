@@ -104,7 +104,21 @@ const faqs = [
   },
 ] as const;
 
-export function ProductDetailPage() {
+type ProductDetailPageProps = {
+  product?: {
+    title: string
+    description: string
+    series?: string
+  }
+}
+
+export function ProductDetailPage({ product }: ProductDetailPageProps) {
+  const productSeries = product?.series ?? "Precision Manufacturing Series";
+  const productTitle = product?.title ?? "ICM-T836 Twin-System Soft Serve Machine";
+  const productDescription =
+    product?.description ??
+    "A dual-compressor powerhouse designed for high-output commercial environments. Featuring independent cylinder control, the T836 ensures consistent texture and temperature even during peak operational hours.";
+
   return (
     <>
       <SiteHeader />
@@ -165,17 +179,13 @@ export function ProductDetailPage() {
               <div className="space-y-8">
                 <div>
                   <p className="font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-[#77584e]">
-                    PRECISION MANUFACTURING SERIES
+                    {productSeries.toUpperCase()}
                   </p>
                   <h1 className="mt-3 font-headline text-[48px] font-bold leading-[48px] tracking-[-0.025em] text-[#2e342d]">
-                    ICM-T836 Twin-System
-                    <br />
-                    Soft Serve Machine
+                    {productTitle}
                   </h1>
                   <p className="mt-10 font-sans text-[18px] leading-[29.25px] text-[#5b6159]">
-                    A dual-compressor powerhouse designed for high-output commercial
-                    environments. Featuring independent cylinder control, the T836 ensures
-                    consistent texture and temperature even during peak operational hours.
+                    {productDescription}
                   </p>
                 </div>
 

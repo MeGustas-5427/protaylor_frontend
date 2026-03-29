@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.protaylor.com'),
   title: {
     default: 'PRO-TAYLOR | Premium Dessert Manufacturing Equipment',
     template: '%s | PRO-TAYLOR',

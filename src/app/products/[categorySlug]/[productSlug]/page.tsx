@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ProductDetailPage } from '@/components/product/product-detail-page'
-import { getProductFixtureBySlug, productFixtures } from '@/fixtures/stitch/catalog'
+import {
+  getProductFixtureBySlug,
+  productFixtures,
+} from '@/fixtures/stitch/product-catalog'
 
 type PageProps = {
   params: Promise<{ categorySlug: string; productSlug: string }>
@@ -36,5 +39,5 @@ export default async function Page({ params }: PageProps) {
     notFound()
   }
 
-  return <ProductDetailPage />
+  return <ProductDetailPage product={product} />
 }
