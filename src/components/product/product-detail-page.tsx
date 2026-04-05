@@ -16,9 +16,11 @@ type ProductDetailPageProps = {
 export function ProductDetailPage({ product }: ProductDetailPageProps) {
   const scenarioCards = product.scenarios.map((scenario, index) => ({
     ...scenario,
-    // icon 明确按前端固定位置映射，不读取后端字段。
-    // 这是当前 Excel 映射和本轮验收边界的一部分。
-    icon: PRODUCT_DETAIL_STATIC_CONTENT.scenarios.icons[index] ?? PRODUCT_DETAIL_STATIC_CONTENT.scenarios.icons[0],
+    // 后端现在已经返回 use case icon；这里只保留静态兜底，避免旧数据未补 icon 时页面塌掉。
+    icon:
+      scenario.icon ||
+      PRODUCT_DETAIL_STATIC_CONTENT.scenarios.icons[index] ||
+      PRODUCT_DETAIL_STATIC_CONTENT.scenarios.icons[0],
   }))
   const specificationSplitIndex = Math.ceil(product.specifications.rows.length / 2)
   const specificationColumns = [
@@ -159,8 +161,9 @@ export function ProductDetailPage({ product }: ProductDetailPageProps) {
         </section>
 
         <section className="mx-auto mb-32 max-w-[1376px] px-8 xl:px-0">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            <article className="flex flex-col justify-between rounded-xl bg-[#4e616e] p-12 text-[#f2f8ff] lg:col-span-2">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-start">
+            <article className="rounded-xl bg-[#4e616e] p-12 text-[#f2f8ff] lg:col-span-2">
+              <div className="flex flex-col gap-12">
               <div>
                 <h2 className="mb-6 font-headline text-4xl font-bold italic">
                   {PRODUCT_DETAIL_STATIC_CONTENT.oem.title}
@@ -170,7 +173,7 @@ export function ProductDetailPage({ product }: ProductDetailPageProps) {
                 </p>
               </div>
 
-              <div className="mt-8 flex gap-4">
+              <div className="flex flex-wrap gap-4 border-t border-[#ffffff1a] pt-8">
                 {PRODUCT_DETAIL_STATIC_CONTENT.oem.bullets.map((item) => (
                   <div
                     key={item.label}
@@ -186,9 +189,10 @@ export function ProductDetailPage({ product }: ProductDetailPageProps) {
                   </div>
                 ))}
               </div>
+              </div>
             </article>
 
-            <article className="flex flex-col justify-center rounded-xl bg-[#dee4da] p-12 text-center">
+            <article className="flex flex-col justify-center rounded-xl bg-[#dee4da] p-6 text-center lg:self-start">
               <MaterialIcon icon="public" className="mb-4 text-[#4e616e]" size={48} lineHeight={48} />
               <h3 className="font-headline text-2xl font-bold text-[#2e342d]">
                 {PRODUCT_DETAIL_STATIC_CONTENT.exportSupport.title}

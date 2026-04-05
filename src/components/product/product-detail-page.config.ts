@@ -12,22 +12,23 @@ export const PRODUCT_DETAIL_STATIC_CONTENT = {
     title: 'Engineering Specifications',
   },
   oem: {
-    title: 'OEM & Branding Integration',
+    title: 'OEM & Customization Support',
     description:
-      'Transform the ICM-T836 into a proprietary asset for your franchise. We offer comprehensive white-labeling services including custom chassis colors, laser-etched branding, and localized UI software.',
+      'PRO-TAYLOR supports OEM/ODM production across multiple equipment lines. Depending on the model, customization may include color options, mold configuration, and selected branded details confirmed during inquiry.',
     bullets: [
-      { icon: 'palette', label: 'Custom RAL Colors' },
-      { icon: 'branding_watermark', label: 'Brand Etching' },
-      { icon: 'terminal', label: 'Custom UI/UX' },
+      { icon: 'factory', label: 'OEM/ODM Available' },
+      { icon: 'palette', label: 'Model-Specific Customization' },
+      { icon: 'category', label: 'Custom Molds on Applicable Machines' },
     ],
   },
   exportSupport: {
-    title: 'Global Export Support',
-    description: 'Door-to-door logistics in 120+ countries.',
+    title: 'Factory-Direct Export Service',
+    description:
+      'PRO-TAYLOR operates as a manufacturer and exporter for global markets. Product support is handled through factory-direct communication, with model-dependent warranty terms, online support on applicable products, and export packaging confirmed per order.',
     bullets: [
-      'Seaworthy Plywood Crating',
-      'Customs Documentation',
-      'Multi-Currency Invoicing',
+      'Global Export Experience',
+      'Fiber Wooden Box Packaging',
+      'Online Support on Applicable Models',
     ],
   },
   related: {

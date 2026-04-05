@@ -72,6 +72,7 @@ export type CatalogProductDetailPayload = {
   quick_facts: CatalogMetricRow[]
   spec_groups: CatalogSpecGroup[]
   use_cases: Array<{
+    icon: string
     title: string
     summary: string
   }>
@@ -106,6 +107,7 @@ export type ProductDetailViewModel = {
     hasDownloads: boolean
   }
   scenarios: Array<{
+    icon: string
     title: string
     description: string
   }>
@@ -131,9 +133,18 @@ export type ProductDetailViewModel = {
 }
 
 async function fetchCatalogJson<T>(path: string): Promise<T | null> {
-  const response = await fetch(`${CATALOG_API_BASE_URL}${path}`, {
-    next: { revalidate: CATALOG_REVALIDATE_SECONDS },
-  })
+  const response = await fetch(
+    `${CATALOG_API_BASE_URL}${path}`,
+    process.env.NODE_ENV === 'development'
+      ? {
+          // 本地联调时后端内容经常刚导入就要立刻验收；这里禁用 Next 的 data cache，
+          // 避免 dev server 继续喂旧 payload，导致页面看起来像“数据库没更新”。
+          cache: 'no-store',
+        }
+      : {
+          next: { revalidate: CATALOG_REVALIDATE_SECONDS },
+        },
+  )
 
   if (response.status === 404) {
     return null
@@ -209,6 +220,7 @@ export function mapProductDetailResponseToViewModel(
       hasDownloads: payload.downloads.length > 0,
     },
     scenarios: payload.use_cases.slice(0, 3).map((item) => ({
+      icon: item.icon?.trim() || '',
       title: item.title,
       description: item.summary,
     })),
