@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+
 import { ProductDetailPage } from '@/components/product/product-detail-page'
 import {
-  getProductFixtureBySlug,
-  productFixtures,
-} from '@/fixtures/stitch/product-catalog'
+  fetchCatalogProductDetailPayload,
+  fetchProductDetail,
+  fetchProductPaths,
+} from '@/lib/catalog/product-detail'
 
 type PageProps = {
   params: Promise<{ categorySlug: string; productSlug: string }>
@@ -12,28 +14,30 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { categorySlug, productSlug } = await params
-  const product = getProductFixtureBySlug(categorySlug, productSlug)
+  const product = await fetchCatalogProductDetailPayload(categorySlug, productSlug)
 
   if (!product) {
     return {}
   }
 
   return {
-    title: product.title,
-    description: product.description,
+    title: product.seo_title,
+    description: product.meta_description,
   }
 }
 
-export function generateStaticParams() {
-  return productFixtures.map((product) => ({
-    categorySlug: product.categorySlug,
-    productSlug: product.slug,
+export async function generateStaticParams() {
+  const productPaths = await fetchProductPaths()
+
+  return productPaths.map((product) => ({
+    categorySlug: product.category_slug,
+    productSlug: product.product_slug,
   }))
 }
 
 export default async function Page({ params }: PageProps) {
   const { categorySlug, productSlug } = await params
-  const product = getProductFixtureBySlug(categorySlug, productSlug)
+  const product = await fetchProductDetail(categorySlug, productSlug)
 
   if (!product) {
     notFound()
