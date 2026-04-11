@@ -5,15 +5,18 @@ import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
 import { TrustRibbon } from '@/components/layout/trust-ribbon'
 import { ProductHeroGallery } from '@/components/product/product-hero-gallery'
+import { JsonLdScript } from '@/components/seo/json-ld-script'
 import { MaterialIcon } from '@/components/ui/material-icon'
 import { PRODUCT_DETAIL_STATIC_CONTENT } from '@/components/product/product-detail-page.config'
 import type { ProductDetailViewModel } from '@/lib/catalog/product-detail'
+import { buildProductFaqJsonLd } from '@/lib/seo/product-faq-jsonld'
 
 type ProductDetailPageProps = {
   product: ProductDetailViewModel
 }
 
 export function ProductDetailPage({ product }: ProductDetailPageProps) {
+  const faqJsonLd = buildProductFaqJsonLd(product.faqItems)
   const scenarioCards = product.scenarios.map((scenario, index) => ({
     ...scenario,
     // 后端现在已经返回 use case icon；这里只保留静态兜底，避免旧数据未补 icon 时页面塌掉。
@@ -30,6 +33,7 @@ export function ProductDetailPage({ product }: ProductDetailPageProps) {
 
   return (
     <>
+      {faqJsonLd ? <JsonLdScript data={faqJsonLd} /> : null}
       <SiteHeader />
       <TrustRibbon />
 
