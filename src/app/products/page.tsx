@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { ProductsOverviewPage } from '@/components/product/products-overview-page'
+import { fetchProductsOverviewData } from '@/lib/catalog/products-overview'
 
 export const metadata: Metadata = {
   title: 'Products Overview | PRO-TAYLOR',
@@ -7,6 +8,13 @@ export const metadata: Metadata = {
     'Browse PRO-TAYLOR product categories, buyer paths, machine ecosystems, and sourcing guidance for global dessert equipment programs.',
 }
 
-export default function Page() {
-  return <ProductsOverviewPage />
+export default async function Page() {
+  const overviewData = await fetchProductsOverviewData()
+
+  return (
+    <ProductsOverviewPage
+      categories={overviewData.categories}
+      totalProductCount={overviewData.totalProductCount}
+    />
+  )
 }

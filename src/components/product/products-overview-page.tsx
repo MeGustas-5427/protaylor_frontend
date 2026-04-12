@@ -3,10 +3,20 @@
 import Link from 'next/link'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
+import { ProductsOverviewCategoryCard } from '@/components/product/products-overview-category-card'
 import { MaterialIcon } from '@/components/ui/material-icon'
 import { productsOverviewFixture } from '@/fixtures/stitch/product-catalog'
+import type { ProductsOverviewCategoryCard as ProductsOverviewCategoryCardData } from '@/lib/catalog/products-overview'
 
-export function ProductsOverviewPage() {
+type ProductsOverviewPageProps = {
+  categories: ProductsOverviewCategoryCardData[]
+  totalProductCount: number
+}
+
+export function ProductsOverviewPage({
+  categories,
+  totalProductCount,
+}: ProductsOverviewPageProps) {
   const overview = productsOverviewFixture
 
   return (
@@ -77,52 +87,18 @@ export function ProductsOverviewPage() {
                 </h2>
               </div>
               <div className="text-sm text-on-surface-variant">
-                <p>324 Total Models</p>
+                <p>{totalProductCount} Total Models</p>
                 <p>Updated Q3 2024</p>
               </div>
             </div>
 
             <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-              {overview.categories.map((category) => (
-                <article
-                  key={category.name}
-                  className="overflow-hidden rounded-[18px] bg-white shadow-[0_18px_48px_rgba(46,52,45,0.05)]"
-                >
-                  <div className="aspect-[4/3] overflow-hidden bg-surface-container">
-                    <img
-                      src={category.image}
-                      alt={category.alt}
-                      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between gap-6">
-                      <h3 className="font-headline text-2xl italic text-on-background">
-                        {category.name}
-                      </h3>
-                      <span className="rounded-full bg-surface-container-highest px-3 py-1 text-xs font-label text-secondary">
-                        {category.count}
-                      </span>
-                    </div>
-                    <p className="mt-4 text-sm leading-7 text-on-surface-variant">
-                      {category.blurb}
-                    </p>
-                    <div className="mt-6 flex flex-wrap gap-3">
-                      <Link
-                        href={category.href}
-                        className="inline-flex min-h-10 items-center justify-center rounded-md bg-primary px-4 py-2.5 text-xs font-bold uppercase tracking-[0.14em] text-on-primary"
-                      >
-                        View Models
-                      </Link>
-                      <Link
-                        href={category.guideHref}
-                        className="inline-flex min-h-10 items-center justify-center rounded-md border border-outline-variant px-4 py-2.5 text-xs font-bold uppercase tracking-[0.14em] text-primary"
-                      >
-                        Open Guide
-                      </Link>
-                    </div>
-                  </div>
-                </article>
+              {categories.map((category) => (
+                <ProductsOverviewCategoryCard
+                  key={category.href}
+                  category={category}
+                  fallbackImageUrl={overview.heroImage}
+                />
               ))}
             </div>
           </div>
