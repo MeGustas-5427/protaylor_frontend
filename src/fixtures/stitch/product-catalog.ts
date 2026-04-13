@@ -35,6 +35,14 @@ export type ProductCategoryRecord = {
     secondaryCtaHref: string
     controlLabel: string
     countSummary: string
+    machineTypeLabel?: string
+    machineTypeTabs?: Array<{
+      label: string
+      href: string
+      isActive: boolean
+    }>
+    currentOrderBy?: string
+    activeSubcategorySlug?: string | null
     filters: string[]
     sortLabel: string
     sortOptions: string[]

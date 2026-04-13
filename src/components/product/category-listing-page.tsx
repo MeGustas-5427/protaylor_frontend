@@ -30,9 +30,25 @@ function badgeClasses(tone: ProductListingCard['badgeTone']) {
   return 'bg-[#77584e] text-[#fff7f5]'
 }
 
-function buildPageHref(categorySlug: string, pageNumber: number) {
-  const baseHref = buildCategoryHref(categorySlug)
-  return pageNumber <= 1 ? baseHref : `${baseHref}?page=${pageNumber}`
+function buildListingPageHref(
+  categorySlug: string,
+  pageNumber: number,
+  listing: ProductCategoryRecord['listing'],
+) {
+  const params = new URLSearchParams()
+
+  if (pageNumber > 1) {
+    params.set('page', String(pageNumber))
+  }
+  if (listing.currentOrderBy && listing.currentOrderBy !== 'name') {
+    params.set('order_by', listing.currentOrderBy)
+  }
+  if (listing.activeSubcategorySlug) {
+    params.set('subcategory_slug', listing.activeSubcategorySlug)
+  }
+
+  const query = params.toString()
+  return query ? `${buildCategoryHref(categorySlug)}?${query}` : buildCategoryHref(categorySlug)
 }
 
 export function CategoryListingPage({ category, pagination }: CategoryListingPageProps) {
@@ -97,8 +113,33 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
         </header>
 
         <section className="sticky top-[104px] z-30 mb-8 border-y border-[#ecefe7] bg-[#fafaf5]/95 backdrop-blur-md">
-          <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-6 px-8 py-4 xl:px-12">
-            <div className="flex items-center gap-8">
+          <div className="mx-auto max-w-[1440px] px-8 xl:px-12">
+            {listing.machineTypeTabs?.length ? (
+              <div className="flex flex-col gap-3 border-b border-[#ecefe7] py-4 lg:flex-row lg:items-center lg:gap-6">
+                <span className="shrink-0 font-label text-[10px] font-bold uppercase tracking-[0.2em] text-[#77584e]">
+                  {listing.machineTypeLabel ?? 'MACHINE TYPE'}
+                </span>
+                <div className="flex flex-wrap gap-2.5">
+                  {listing.machineTypeTabs.map((tab) => (
+                    <Link
+                      key={tab.label}
+                      href={tab.href}
+                      aria-current={tab.isActive ? 'page' : undefined}
+                      className={`inline-flex min-h-10 items-center justify-center rounded-sm border px-5 py-2.5 font-body text-[11px] font-bold uppercase tracking-[0.14em] transition-colors ${
+                        tab.isActive
+                          ? 'border-[#b9c3ba] bg-[#eef1ea] text-[#36434d]'
+                          : 'border-[#d6dbd1] bg-[#fffdf8] text-[#4e616e] hover:border-[#b9c3ba] hover:bg-[#f3f4ee]'
+                      }`}
+                    >
+                      {tab.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            <div className="flex flex-wrap items-center justify-between gap-6 py-4">
+              <div className="flex items-center gap-8">
               <div className="flex flex-col">
                 <span className="font-label text-[10px] font-bold uppercase tracking-[0.2em] text-[#77584e]">
                   {listing.controlLabel}
@@ -108,33 +149,34 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
                 </span>
               </div>
 
-              <div className="hidden h-8 w-px bg-[#dee4da] lg:block" />
+                <div className="hidden h-8 w-px bg-[#dee4da] lg:block" />
 
-              <div className="flex gap-4 overflow-x-auto py-2 hide-scrollbar">
-                {listing.filters.map((filter) => (
-                  <button
-                    key={filter}
-                    type="button"
-                    disabled
-                    className="flex cursor-default items-center gap-2 whitespace-nowrap font-body text-xs font-bold uppercase tracking-[0.02em] text-[#5b6159] opacity-90"
-                  >
-                    <span>{filter}</span>
-                    <MaterialIcon icon="expand_more" className="text-[#5b6159]" size={16} lineHeight={16} />
-                  </button>
-                ))}
+                <div className="flex gap-4 overflow-x-auto py-2 hide-scrollbar">
+                  {listing.filters.map((filter) => (
+                    <button
+                      key={filter}
+                      type="button"
+                      disabled
+                      className="flex cursor-default items-center gap-2 whitespace-nowrap font-body text-xs font-bold uppercase tracking-[0.02em] text-[#5b6159] opacity-90"
+                    >
+                      <span>{filter}</span>
+                      <MaterialIcon icon="expand_more" className="text-[#5b6159]" size={16} lineHeight={16} />
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            <div className="flex items-center gap-4">
-              <span className="font-body text-xs font-medium text-[#767c74]">{listing.sortLabel}</span>
-              <button
-                type="button"
-                disabled
-                className="inline-flex cursor-default items-center gap-2 border-none bg-transparent font-body text-xs font-bold uppercase tracking-[0.14em] text-[#4e616e] opacity-90"
-              >
-                <span>{listing.sortOptions[0]}</span>
-                <MaterialIcon icon="expand_more" className="text-[#4e616e]" size={16} lineHeight={16} />
-              </button>
+              <div className="flex items-center gap-4">
+                <span className="font-body text-xs font-medium text-[#767c74]">{listing.sortLabel}</span>
+                <button
+                  type="button"
+                  disabled
+                  className="inline-flex cursor-default items-center gap-2 border-none bg-transparent font-body text-xs font-bold uppercase tracking-[0.14em] text-[#4e616e] opacity-90"
+                >
+                  <span>{listing.sortOptions[0]}</span>
+                  <MaterialIcon icon="expand_more" className="text-[#4e616e]" size={16} lineHeight={16} />
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -144,16 +186,16 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
             {pagination.products.map((product) => (
               <article
                 key={product.slug}
-                className="group overflow-hidden rounded-lg bg-white transition-all duration-300 hover:shadow-[0px_24px_48px_-12px_rgba(46,52,45,0.08)]"
+                className="group flex h-full flex-col overflow-hidden rounded-lg bg-white transition-all duration-300 hover:shadow-[0px_24px_48px_-12px_rgba(46,52,45,0.08)]"
               >
-                <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-[#f3f4ee] p-12">
+                <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-white">
                   <img
                     src={product.image}
                     alt={product.imageAlt}
                     className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                   />
                   {product.badge ? (
-                    <div className="absolute left-4 top-4">
+                    <div className="absolute -left-1 -top-1">
                       <span className={`px-3 py-1 font-label text-[10px] font-bold uppercase tracking-[0.2em] ${badgeClasses(product.badgeTone)}`}>
                         {product.badge}
                       </span>
@@ -161,46 +203,50 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
                   ) : null}
                 </div>
 
-                <div className="p-8">
-                  <div className="mb-2 flex items-start justify-between gap-4">
-                    <h2 className="font-headline text-2xl font-bold text-[#2e342d]">
+                <div className="flex flex-1 flex-col p-8">
+                  <div className="mb-4 min-h-14">
+                    <h2 className="h-full overflow-hidden font-headline text-2xl font-bold text-[#2e342d]">
                       {product.name}
                     </h2>
-                    {product.seriesLabel ? (
-                      <span className="font-mono text-xs font-bold text-[#4e616e]">
-                        {product.seriesLabel}
-                      </span>
-                    ) : null}
+                    {/*{product.seriesLabel ? (*/}
+                    {/*  <span className="font-mono text-xs font-bold text-[#4e616e]">*/}
+                    {/*    {product.seriesLabel}*/}
+                    {/*  </span>*/}
+                    {/*) : null}*/}
                   </div>
 
-                  <p className="mb-6 font-body text-sm leading-relaxed text-[#5b6159]">
+                  <p className="mb-3 h-17 overflow-hidden font-body text-sm leading-relaxed text-[#5b6159]">
                     {product.description}
                   </p>
 
-                  {product.metrics ? (
-                    <div className="mb-8 grid grid-cols-3 gap-4">
-                      {product.metrics.map((metric, index) => (
-                        <div
-                          key={metric.label}
-                          className={`${index < product.metrics!.length - 1 ? 'border-r border-[#ecefe7]' : ''} px-0 pr-4 first:pl-0`}
-                        >
-                          <span className="mb-1 block font-label text-[10px] font-bold uppercase tracking-[0.18em] text-[#77584e]">
-                            {metric.label}
-                          </span>
-                          <span className="font-body text-sm font-medium text-[#2e342d]">
-                            {metric.value}
-                          </span>
+                  <div className="mt-auto flex min-h-5 flex-col justify-end">
+                    <div className="mb-2 min-h-[3.5rem]">
+                      {product.metrics ? (
+                        <div className="grid grid-cols-3 gap-4">
+                          {product.metrics.map((metric, index) => (
+                            <div
+                              key={metric.label}
+                              className={`${index < (product.metrics?.length ?? 0) - 1 ? 'border-r border-[#ecefe7]' : ''} px-0 pr-4 first:pl-0`}
+                            >
+                              <span className="mb-1 block font-label text-[10px] font-bold uppercase tracking-[0.18em] text-[#77584e]">
+                                {metric.label}
+                              </span>
+                              <span className="font-body text-sm font-medium text-[#2e342d]">
+                                {metric.value}
+                              </span>
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      ) : null}
                     </div>
-                  ) : null}
 
-                  <Link
-                    href={product.href}
-                    className="inline-flex w-full items-center justify-center rounded-sm bg-[#dee4da] py-3 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-[#4e616e] transition-all duration-200 hover:bg-[#4e616e] hover:text-[#f2f8ff]"
-                  >
-                    View Technical Specs
-                  </Link>
+                    <Link
+                      href={product.href}
+                      className="inline-flex h-12 w-full items-center justify-center rounded-sm bg-[#dee4da] font-body text-[11px] font-bold uppercase tracking-[0.15em] text-[#4e616e] transition-all duration-200 hover:bg-[#4e616e] hover:text-[#f2f8ff]"
+                    >
+                      View Technical Specs
+                    </Link>
+                  </div>
                 </div>
               </article>
             ))}
@@ -214,7 +260,7 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
 
             <div className="flex flex-wrap items-center gap-3">
               <Link
-                href={buildPageHref(category.slug, pagination.currentPage - 1)}
+                href={buildListingPageHref(category.slug, pagination.currentPage - 1, listing)}
                 aria-disabled={pagination.currentPage === 1}
                 className={`inline-flex h-11 items-center justify-center rounded border px-5 font-body text-xs font-bold uppercase tracking-[0.14em] ${
                   pagination.currentPage === 1
@@ -229,7 +275,7 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
                 {pageNumbers.map((pageNumber) => (
                   <Link
                     key={pageNumber}
-                    href={buildPageHref(category.slug, pageNumber)}
+                    href={buildListingPageHref(category.slug, pageNumber, listing)}
                     aria-current={pageNumber === pagination.currentPage ? 'page' : undefined}
                     className={`inline-flex h-11 min-w-11 items-center justify-center rounded border px-4 font-body text-sm font-semibold ${
                       pageNumber === pagination.currentPage
@@ -243,7 +289,7 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
               </div>
 
               <Link
-                href={buildPageHref(category.slug, pagination.currentPage + 1)}
+                href={buildListingPageHref(category.slug, pagination.currentPage + 1, listing)}
                 aria-disabled={pagination.currentPage === pagination.totalPages}
                 className={`inline-flex h-11 items-center justify-center rounded border px-5 font-body text-xs font-bold uppercase tracking-[0.14em] ${
                   pagination.currentPage === pagination.totalPages
