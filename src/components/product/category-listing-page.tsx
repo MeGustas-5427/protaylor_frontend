@@ -115,11 +115,14 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
         <section className="sticky top-[104px] z-30 mb-8 border-y border-[#ecefe7] bg-[#fafaf5]/95 backdrop-blur-md">
           <div className="mx-auto max-w-[1440px] px-8 xl:px-12">
             {listing.machineTypeTabs?.length ? (
-              <div className="flex flex-col gap-3 border-b border-[#ecefe7] py-4 lg:flex-row lg:items-center lg:gap-6">
-                <span className="shrink-0 font-label text-[10px] font-bold uppercase tracking-[0.2em] text-[#77584e]">
-                  {listing.machineTypeLabel ?? 'MACHINE TYPE'}
-                </span>
-                <div className="flex flex-wrap gap-2.5">
+              <div className="flex flex-col gap-3 border-b border-[#ecefe7] py-4 lg:flex-row lg:items-center lg:gap-4">
+                <div className="w-[123px] shrink-0">
+                  <span className="shrink-0 font-label text-[10px] font-bold uppercase tracking-[0.2em] text-[#77584e]">
+                    {listing.machineTypeLabel ?? 'MACHINE TYPE'}
+                  </span>
+                </div>
+                <div className="hidden h-8 w-px bg-[#dee4da] lg:block" />
+                <div className="flex flex-wrap gap-2.5 pl-2">
                   {listing.machineTypeTabs.map((tab) => (
                     <Link
                       key={tab.label}
@@ -139,15 +142,12 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
             ) : null}
 
             <div className="flex flex-wrap items-center justify-between gap-6 py-4">
-              <div className="flex items-center gap-8">
-              <div className="flex flex-col">
-                <span className="font-label text-[10px] font-bold uppercase tracking-[0.2em] text-[#77584e]">
-                  {listing.controlLabel}
-                </span>
-                <span className="font-headline text-xl italic text-[#2e342d]">
-                  {pagination.totalProducts} Models Available
-                </span>
-              </div>
+              <div className="flex items-center gap-6">
+                <div className="w-[115px] shrink-0">
+                  <span className="font-label text-[10px] font-bold uppercase tracking-[0.2em] text-[#77584e]">
+                    {listing.controlLabel}
+                  </span>
+                </div>
 
                 <div className="hidden h-8 w-px bg-[#dee4da] lg:block" />
 
