@@ -42,6 +42,14 @@ type CatalogListingItemPayload = {
   }>
 }
 
+type CatalogOperationalItemPayload = {
+  section_code: 'operational_fit' | 'buyer_review_focus'
+  title: string
+  body: string
+  icon: string
+  sort_order: number
+}
+
 export type CatalogCategoryListingPayload = {
   slug: string
   name: string
@@ -51,6 +59,10 @@ export type CatalogCategoryListingPayload = {
   seo_title: string
   meta_description: string
   summary: string
+  operational_fit_title: string
+  operational_fit_items: CatalogOperationalItemPayload[]
+  buyer_review_focus_title: string
+  buyer_review_focus_items: CatalogOperationalItemPayload[]
   active_subcategory_slug: string | null
   subcategory_tabs: Array<{
     slug: string
@@ -186,6 +198,25 @@ function buildComparisonRows(payload: CatalogCategoryListingPayload) {
   ]
 }
 
+function mapOperationalItems(
+  items: CatalogOperationalItemPayload[],
+  fallback: Array<{
+    title: string
+    copy: string
+    icon?: string
+  }>,
+) {
+  if (items.length === 0) {
+    return fallback
+  }
+
+  return items.map((item) => ({
+    title: item.title,
+    copy: item.body,
+    icon: item.icon || undefined,
+  }))
+}
+
 function buildFallbackListing(
   payload: CatalogCategoryListingPayload,
   options: {
@@ -251,8 +282,8 @@ function buildFallbackListing(
     comparisonCtaHref: ROUTES.contact,
     comparisonColumns: ['Review Point', 'Current Range', 'Buyer Lens', 'Next Action'],
     comparisonRows: buildComparisonRows(payload),
-    operationalTitle: 'Operational Fit',
-    operationalSegments: [
+    operationalTitle: payload.operational_fit_title,
+    operationalSegments: mapOperationalItems(payload.operational_fit_items, [
       {
         title: 'Application Matching',
         copy: `Review ${payload.h1.toLowerCase()} options against expected throughput, service format, and daily operating rhythm.`,
@@ -268,9 +299,9 @@ function buildFallbackListing(
         copy: 'Bring shortlist, output target, and installation constraints into the inquiry so technical confirmation is faster.',
         icon: 'handshake',
       },
-    ],
-    buyingFactorsTitle: 'Buyer Review Focus',
-    buyingFactors: [
+    ]),
+    buyingFactorsTitle: payload.buyer_review_focus_title,
+    buyingFactors: mapOperationalItems(payload.buyer_review_focus_items, [
       {
         title: 'Capacity vs. Actual Demand',
         copy: 'Avoid sizing only by headline output. Match peak-hour demand to labor plan, recovery expectations, and product mix.',
@@ -286,7 +317,7 @@ function buildFallbackListing(
         copy: 'A better inquiry includes target market, quantity, preferred spec, and any OEM or compliance requirement.',
         icon: 'fact_check',
       },
-    ],
+    ]),
     insightsTitle: 'Sourcing FAQ',
     insightFaqs: [
       {
