@@ -18,6 +18,8 @@ type CategoryListingPageProps = {
   pagination: ProductPagination
 }
 
+type PaginationToken = number | 'ellipsis-left' | 'ellipsis-right'
+
 function badgeClasses(tone: ProductListingCard['badgeTone']) {
   if (tone === 'primary') {
     return 'bg-[#4e616e] text-[#f2f8ff]'
@@ -51,9 +53,25 @@ function buildListingPageHref(
   return query ? `${buildCategoryHref(categorySlug)}?${query}` : buildCategoryHref(categorySlug)
 }
 
+function buildPaginationTokens(currentPage: number, totalPages: number): PaginationToken[] {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, index) => index + 1)
+  }
+
+  if (currentPage <= 3) {
+    return [1, 2, 3, 4, 'ellipsis-right', totalPages]
+  }
+
+  if (currentPage >= totalPages - 2) {
+    return [1, 'ellipsis-left', totalPages - 3, totalPages - 2, totalPages - 1, totalPages]
+  }
+
+  return [1, 'ellipsis-left', currentPage - 1, currentPage, currentPage + 1, 'ellipsis-right', totalPages]
+}
+
 export function CategoryListingPage({ category, pagination }: CategoryListingPageProps) {
   const listing = category.listing
-  const pageNumbers = Array.from({ length: pagination.totalPages }, (_, index) => index + 1)
+  const pageTokens = buildPaginationTokens(pagination.currentPage, pagination.totalPages)
 
   return (
     <>
@@ -253,12 +271,16 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
           </div>
 
           <div className="mt-12 flex flex-col gap-6 border-t border-[#ecefe7] pt-8 lg:flex-row lg:items-center lg:justify-between">
-            <div className="font-body text-sm text-[#5b6159]">
+            <div className="font-body text-sm text-[#5b6159] sm:whitespace-nowrap">
               Showing <span className="font-semibold text-[#2e342d]">{pagination.startItem}-{pagination.endItem}</span> of{' '}
               <span className="font-semibold text-[#2e342d]">{pagination.totalProducts}</span> models
+              <span className="mx-2 text-[#a5aaa2]">·</span>
+              <span className="font-medium uppercase tracking-[0.14em] text-[#767c74]">
+                Page {pagination.currentPage} of {pagination.totalPages}
+              </span>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3 lg:justify-end">
               <Link
                 href={buildListingPageHref(category.slug, pagination.currentPage - 1, listing)}
                 aria-disabled={pagination.currentPage === 1}
@@ -272,20 +294,29 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
               </Link>
 
               <div className="flex items-center gap-2">
-                {pageNumbers.map((pageNumber) => (
-                  <Link
-                    key={pageNumber}
-                    href={buildListingPageHref(category.slug, pageNumber, listing)}
-                    aria-current={pageNumber === pagination.currentPage ? 'page' : undefined}
-                    className={`inline-flex h-11 min-w-11 items-center justify-center rounded border px-4 font-body text-sm font-semibold ${
-                      pageNumber === pagination.currentPage
-                        ? 'border-[#4e616e] bg-[#4e616e] text-[#f2f8ff]'
-                        : 'border-[#d6dbd1] text-[#4e616e] transition-colors hover:border-[#4e616e]'
-                    }`}
-                  >
-                    {pageNumber}
-                  </Link>
-                ))}
+                {pageTokens.map((token) =>
+                  typeof token === 'number' ? (
+                    <Link
+                      key={token}
+                      href={buildListingPageHref(category.slug, token, listing)}
+                      aria-current={token === pagination.currentPage ? 'page' : undefined}
+                      className={`inline-flex h-11 min-w-11 items-center justify-center rounded border px-4 font-body text-sm font-semibold ${
+                        token === pagination.currentPage
+                          ? 'border-[#4e616e] bg-[#4e616e] text-[#f2f8ff]'
+                          : 'border-[#d6dbd1] text-[#4e616e] transition-colors hover:border-[#4e616e]'
+                      }`}
+                    >
+                      {token}
+                    </Link>
+                  ) : (
+                    <span
+                      key={token}
+                      className="inline-flex h-11 min-w-6 items-center justify-center font-body text-sm font-semibold text-[#a5aaa2]"
+                    >
+                      ...
+                    </span>
+                  ),
+                )}
               </div>
 
               <Link
@@ -299,10 +330,6 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
               >
                 Next
               </Link>
-
-              <span className="ml-2 font-body text-xs font-medium uppercase tracking-[0.14em] text-[#767c74]">
-                Page {pagination.currentPage} of {pagination.totalPages}
-              </span>
             </div>
           </div>
         </section>
