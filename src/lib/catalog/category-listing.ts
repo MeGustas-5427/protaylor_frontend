@@ -50,6 +50,11 @@ type CatalogOperationalItemPayload = {
   sort_order: number
 }
 
+type CatalogFaqItemPayload = {
+  question: string
+  answer: string
+}
+
 export type CatalogCategoryListingPayload = {
   slug: string
   name: string
@@ -63,6 +68,8 @@ export type CatalogCategoryListingPayload = {
   operational_fit_items: CatalogOperationalItemPayload[]
   buyer_review_focus_title: string
   buyer_review_focus_items: CatalogOperationalItemPayload[]
+  sourcing_faq_title: string
+  sourcing_faq_items: CatalogFaqItemPayload[]
   active_subcategory_slug: string | null
   subcategory_tabs: Array<{
     slug: string
@@ -217,6 +224,23 @@ function mapOperationalItems(
   }))
 }
 
+function mapFaqItems(
+  items: CatalogFaqItemPayload[],
+  fallback: Array<{
+    question: string
+    answer: string
+  }>,
+) {
+  if (items.length === 0) {
+    return fallback
+  }
+
+  return items.map((item) => ({
+    question: item.question,
+    answer: item.answer,
+  }))
+}
+
 function buildFallbackListing(
   payload: CatalogCategoryListingPayload,
   options: {
@@ -318,8 +342,8 @@ function buildFallbackListing(
         icon: 'fact_check',
       },
     ]),
-    insightsTitle: 'Sourcing FAQ',
-    insightFaqs: [
+    insightsTitle: payload.sourcing_faq_title,
+    insightFaqs: mapFaqItems(payload.sourcing_faq_items, [
       {
         question: `How should buyers compare ${payload.h1.toLowerCase()} models?`,
         answer:
@@ -335,7 +359,7 @@ function buildFallbackListing(
         answer:
           'The category page helps buyers compare the published range faster, identify likely-fit models, and reduce back-and-forth during inquiry.',
       },
-    ],
+    ]),
     resourceCards: [
       {
         icon: 'description',
