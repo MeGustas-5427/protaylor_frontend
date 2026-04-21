@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
+import { TrustRibbon } from '@/components/layout/trust-ribbon'
 import { ProductsOverviewCategoryCard } from '@/components/product/products-overview-category-card'
 import { MaterialIcon } from '@/components/ui/material-icon'
 import { productsOverviewFixture } from '@/fixtures/stitch/product-catalog'
@@ -21,6 +22,7 @@ export function ProductsOverviewPage({
 
   return (
     <>
+      <TrustRibbon highlight="oem" topClassName="top-16" />
       <SiteHeader
         activeSection="products"
         navTone="serif"
@@ -28,7 +30,7 @@ export function ProductsOverviewPage({
         searchPlaceholder="Search PRO-TAYLOR"
       />
 
-      <main className="bg-background pt-24">
+      <main className="bg-background pt-32">
         <section className="mx-auto flex max-w-[1440px] flex-col gap-16 px-8 py-16 lg:flex-row lg:items-center lg:py-24">
           <div className="w-full lg:w-1/2">
             <span className="block font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">
