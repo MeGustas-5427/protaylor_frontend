@@ -55,6 +55,33 @@ type CatalogFaqItemPayload = {
   answer: string
 }
 
+type CatalogComparisonSubjectPayload = {
+  subject_key: string
+  label: string
+  route_category_slug: string
+  sort_order: number
+}
+
+type CatalogComparisonCellPayload = {
+  subject_key: string
+  body: string
+}
+
+type CatalogComparisonRowPayload = {
+  row_key: string
+  label: string
+  sort_order: number
+  cells: CatalogComparisonCellPayload[]
+}
+
+type CatalogComparisonOverviewPayload = {
+  title: string
+  intro: string
+  dimension_heading: string
+  subjects: CatalogComparisonSubjectPayload[]
+  rows: CatalogComparisonRowPayload[]
+}
+
 export type CatalogCategoryListingPayload = {
   slug: string
   name: string
@@ -64,6 +91,7 @@ export type CatalogCategoryListingPayload = {
   seo_title: string
   meta_description: string
   summary: string
+  comparison_overview: CatalogComparisonOverviewPayload | null
   operational_fit_title: string
   operational_fit_items: CatalogOperationalItemPayload[]
   buyer_review_focus_title: string
@@ -171,38 +199,40 @@ function resolveCardBadge(
   return item.series_label || undefined
 }
 
-function buildComparisonRows(payload: CatalogCategoryListingPayload) {
-  const subcategorySummary =
-    payload.subcategory_tabs.length > 0
-      ? payload.subcategory_tabs.map((tab) => tab.name).join(', ')
-      : payload.name
+function buildComparisonSection(
+  payload: CatalogCategoryListingPayload,
+): Pick<
+  ProductCategoryRecord['listing'],
+  | 'comparisonTitle'
+  | 'comparisonCopy'
+  | 'comparisonCtaLabel'
+  | 'comparisonCtaHref'
+  | 'comparisonColumns'
+  | 'comparisonRows'
+> | null {
+  const overview = payload.comparison_overview
+  if (!overview || overview.subjects.length === 0 || overview.rows.length === 0) {
+    return null
+  }
 
-  return [
-    {
-      feature: 'Range Coverage',
-      values: [
-        `${payload.pagination.total_items} published models`,
-        subcategorySummary,
-        'Shortlist models before RFQ',
-      ],
-    },
-    {
-      feature: 'Primary Review Focus',
-      values: [
-        'Output, utilities, footprint',
-        'Align with actual site constraints',
-        'Confirm operating fit early',
-      ],
-    },
-    {
-      feature: 'Quote Readiness',
-      values: [
-        'Model shortlist + application target',
-        'Voltage and placement details',
-        'Request technical confirmation',
-      ],
-    },
-  ]
+  const columns = [overview.dimension_heading, ...overview.subjects.map((subject) => subject.label)]
+  const rows = overview.rows.map((row) => {
+    const cellMap = new Map(row.cells.map((cell) => [cell.subject_key, cell.body]))
+
+    return {
+      feature: row.label,
+      values: overview.subjects.map((subject) => cellMap.get(subject.subject_key) || ''),
+    }
+  })
+
+  return {
+    comparisonTitle: overview.title,
+    comparisonCopy: overview.intro,
+    comparisonCtaLabel: 'REQUEST COMPARISON HELP',
+    comparisonCtaHref: ROUTES.contact,
+    comparisonColumns: columns,
+    comparisonRows: rows,
+  }
 }
 
 function mapOperationalItems(
@@ -247,6 +277,8 @@ function buildFallbackListing(
     orderBy: string
   },
 ): ProductCategoryRecord['listing'] {
+  const comparisonSection = buildComparisonSection(payload)
+
   return {
     eyebrow: 'PRECISION ENGINEERED',
     title: payload.h1,
@@ -299,13 +331,7 @@ function buildFallbackListing(
         imageAlt: item.card_image_alt,
       }),
     ),
-    comparisonTitle: `${payload.h1} Comparison Overview`,
-    comparisonCopy:
-      'Use this category view to compare model range, operating fit, and shortlist readiness before moving into technical inquiry.',
-    comparisonCtaLabel: 'REQUEST COMPARISON HELP',
-    comparisonCtaHref: ROUTES.contact,
-    comparisonColumns: ['Review Point', 'Current Range', 'Buyer Lens', 'Next Action'],
-    comparisonRows: buildComparisonRows(payload),
+    ...comparisonSection,
     operationalTitle: payload.operational_fit_title,
     operationalSegments: mapOperationalItems(payload.operational_fit_items, [
       {

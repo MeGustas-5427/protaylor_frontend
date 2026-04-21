@@ -72,6 +72,11 @@ function buildPaginationTokens(currentPage: number, totalPages: number): Paginat
 export function CategoryListingPage({ category, pagination }: CategoryListingPageProps) {
   const listing = category.listing
   const pageTokens = buildPaginationTokens(pagination.currentPage, pagination.totalPages)
+  const hasComparison = Boolean(
+    listing.comparisonTitle &&
+      listing.comparisonColumns?.length &&
+      listing.comparisonRows?.length,
+  )
 
   return (
     <>
@@ -334,59 +339,70 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
           </div>
         </section>
 
-        <section className="mx-auto mb-24 max-w-[1440px] px-8 xl:px-12">
-          <div className="rounded-xl bg-[#f3f4ee] p-10 xl:p-12">
-            <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-              <div>
-                <h2 className="font-headline text-3xl font-bold text-[#2e342d]">
-                  {listing.comparisonTitle}
-                </h2>
-                <p className="mt-2 font-body text-sm tracking-[0.02em] text-[#5b6159]">
-                  {listing.comparisonCopy}
-                </p>
+        {hasComparison ? (
+          <section className="mx-auto mb-24 max-w-[1440px] px-8 xl:px-12">
+            <div className="rounded-xl bg-[#f3f4ee] p-10 xl:p-12">
+              <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                  <h2 className="font-headline text-3xl font-bold text-[#2e342d]">
+                    {listing.comparisonTitle}
+                  </h2>
+                  {listing.comparisonCopy ? (
+                    <p className="mt-2 font-body text-sm tracking-[0.02em] text-[#5b6159]">
+                      {listing.comparisonCopy}
+                    </p>
+                  ) : null}
+                </div>
+
+                {listing.comparisonCtaLabel && listing.comparisonCtaHref ? (
+                  <Link
+                    href={listing.comparisonCtaHref}
+                    className="inline-flex items-center gap-2 font-body text-xs font-bold uppercase tracking-[0.2em] text-[#4e616e]"
+                  >
+                    <span>{listing.comparisonCtaLabel}</span>
+                    <MaterialIcon
+                      icon="arrow_forward"
+                      className="text-[#4e616e]"
+                      size={20}
+                      lineHeight={20}
+                    />
+                  </Link>
+                ) : null}
               </div>
 
-              <Link
-                href={listing.comparisonCtaHref}
-                className="inline-flex items-center gap-2 font-body text-xs font-bold uppercase tracking-[0.2em] text-[#4e616e]"
-              >
-                <span>{listing.comparisonCtaLabel}</span>
-                <MaterialIcon icon="arrow_forward" className="text-[#4e616e]" size={20} lineHeight={20} />
-              </Link>
-            </div>
-
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse text-left">
-                <thead>
-                  <tr className="border-b-2 border-[#77584e]/20">
-                    {listing.comparisonColumns.map((column) => (
-                      <th
-                        key={column}
-                        className="py-4 font-label text-[10px] font-bold uppercase tracking-[0.2em] text-[#77584e]"
-                      >
-                        {column}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#ecefe7]">
-                  {listing.comparisonRows.map((row) => (
-                    <tr key={row.feature} className="transition-colors hover:bg-[#ecefe7]">
-                      <td className="py-5 font-body text-sm font-semibold text-[#2e342d]">
-                        {row.feature}
-                      </td>
-                      {row.values.map((value) => (
-                        <td key={`${row.feature}-${value}`} className="py-5 font-body text-sm text-[#5b6159]">
-                          {value}
-                        </td>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse text-left">
+                  <thead>
+                    <tr className="border-b-2 border-[#77584e]/20">
+                      {listing.comparisonColumns?.map((column) => (
+                        <th
+                          key={column}
+                          className="py-4 font-label text-[10px] font-bold uppercase tracking-[0.2em] text-[#77584e]"
+                        >
+                          {column}
+                        </th>
                       ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-[#ecefe7]">
+                    {listing.comparisonRows?.map((row) => (
+                      <tr key={row.feature} className="transition-colors hover:bg-[#ecefe7]">
+                        <td className="py-5 font-body text-sm font-semibold text-[#2e342d]">
+                          {row.feature}
+                        </td>
+                        {row.values.map((value) => (
+                          <td key={`${row.feature}-${value}`} className="py-5 font-body text-sm text-[#5b6159]">
+                            {value}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : null}
 
         <section className="mx-auto mb-24 max-w-[1440px] px-8 xl:px-12">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">

@@ -47,12 +47,12 @@ export type ProductCategoryRecord = {
     sortLabel: string
     sortOptions: string[]
     products: ProductListingCard[]
-    comparisonTitle: string
-    comparisonCopy: string
-    comparisonCtaLabel: string
-    comparisonCtaHref: string
-    comparisonColumns: string[]
-    comparisonRows: Array<{
+    comparisonTitle?: string
+    comparisonCopy?: string
+    comparisonCtaLabel?: string
+    comparisonCtaHref?: string
+    comparisonColumns?: string[]
+    comparisonRows?: Array<{
       feature: string
       values: string[]
     }>
