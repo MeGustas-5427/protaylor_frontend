@@ -14,6 +14,7 @@ type SiteHeaderProps = {
   topClassName?: string
   ctaLabel?: string
   ctaTone?: 'default' | 'sentence'
+  showLanguageIcon?: boolean
 }
 
 function navClasses(
@@ -45,6 +46,7 @@ export function SiteHeader({
   topClassName = 'top-0',
   ctaLabel = 'Request Quote',
   ctaTone = 'default',
+  showLanguageIcon = true,
 }: SiteHeaderProps) {
   const ctaClasses =
     ctaTone === 'sentence'
@@ -85,7 +87,7 @@ export function SiteHeader({
                 <MaterialIcon name="search" className="cursor-pointer" />
               </div>
               <div className="hidden items-center gap-4 text-[#4e616e] lg:flex">
-                <MaterialIcon name="language" className="cursor-pointer" />
+                {showLanguageIcon ? <MaterialIcon name="language" className="cursor-pointer" /> : null}
                 <MaterialIcon name="search" className="cursor-pointer" />
               </div>
             </>

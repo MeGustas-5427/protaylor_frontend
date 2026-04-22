@@ -115,13 +115,12 @@ export function ProductsOverviewCategoryCard({
           >
             View Models
           </Link>
-          <button
-            type="button"
-            className="inline-flex min-h-10 items-center justify-center rounded-md border border-outline-variant px-4 py-2.5 text-xs font-bold uppercase tracking-[0.14em] text-primary"
-            aria-disabled="true"
+          <Link
+            href={category.guideHref}
+            className="inline-flex min-h-10 items-center justify-center rounded-md border border-outline-variant px-4 py-2.5 text-xs font-bold uppercase tracking-[0.14em] text-primary transition-colors hover:bg-surface-container-low"
           >
             Open Guide
-          </button>
+          </Link>
         </div>
       </div>
     </article>

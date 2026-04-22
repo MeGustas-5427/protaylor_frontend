@@ -23,6 +23,7 @@ export type ProductsOverviewCategoryCard = {
   countLabel: string
   blurb: string
   href: string
+  guideHref: string
   imageUrl: string | null
   imageAlt: string | null
 }
@@ -71,6 +72,11 @@ async function fetchCategoryPreviewImage(slug: string) {
   }
 }
 
+function buildGuideHref(urlPath: string) {
+  const normalizedPath = urlPath.endsWith('/') ? urlPath.slice(0, -1) : urlPath
+  return `${normalizedPath}/guide`
+}
+
 export const fetchProductsOverviewData = cache(async (): Promise<ProductsOverviewData> => {
   const categories = await fetchCatalogJson<CatalogCategoryOverviewCardPayload[]>('/categories')
   const categoryCards = await Promise.all(
@@ -82,6 +88,7 @@ export const fetchProductsOverviewData = cache(async (): Promise<ProductsOvervie
         countLabel: `${category.product_count} Models`,
         blurb: category.summary,
         href: category.url_path,
+        guideHref: buildGuideHref(category.url_path),
         imageUrl: previewImage?.imageUrl ?? null,
         imageAlt: previewImage?.imageAlt ?? category.name,
       }

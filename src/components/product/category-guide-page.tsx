@@ -6,10 +6,10 @@ import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
 import { TrustRibbon } from '@/components/layout/trust-ribbon'
 import { MaterialIcon } from '@/components/ui/material-icon'
-import type { ProductCategoryRecord } from '@/fixtures/stitch/product-catalog'
+import type { CategoryGuideRecord } from '@/lib/catalog/category-guide'
 
 type CategoryGuidePageProps = {
-  category: ProductCategoryRecord
+  category: CategoryGuideRecord
 }
 
 function renderDefinitionParagraph(text: string) {
@@ -33,18 +33,26 @@ export function CategoryGuidePage({ category }: CategoryGuidePageProps) {
     : [guide.definitionCopy]
   const standardsStats = guide.standardsStats?.length ? guide.standardsStats : guide.metrics
   const relatedResources = guide.resources ?? []
+  const hasDefinitionCards = guide.definitionCards.length > 0
+  const hasContexts = guide.contexts.length > 0
+  const hasMatrixCards = guide.matrixCards.length > 0
+  const hasPaths = guide.paths.length > 0
+  const hasStandards = standardsStats.length > 0
+  const hasFaqs = guide.faqs.length > 0
+  const hasResources = relatedResources.length > 0
 
   return (
     <>
       <SiteHeader
         activeSection="products"
         navTone="serif"
-        searchMode="pill"
-        searchPlaceholder={`Search ${category.name}`}
+        searchMode="icons"
+        ctaTone="sentence"
+        showLanguageIcon={false}
       />
       <TrustRibbon highlight="oem" topClassName="top-16" />
 
-      <main className="bg-[#fafaf5] pb-24 pt-36">
+      <main className="bg-[#fafaf5] pt-32">
         <header className="relative mx-auto max-w-[1536px] overflow-hidden px-8 pb-24 pt-16">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
             <div className="z-10 lg:col-span-7">
@@ -96,7 +104,7 @@ export function CategoryGuidePage({ category }: CategoryGuidePageProps) {
 
         <section className="bg-[#f3f4ee] py-24">
           <div className="mx-auto max-w-[1536px] px-8">
-            <div className="grid grid-cols-1 items-start gap-20 lg:grid-cols-2">
+            <div className={`grid grid-cols-1 items-start gap-20 ${hasDefinitionCards ? 'lg:grid-cols-2' : ''}`}>
               <div>
                 <h2 className="font-headline mb-8 text-4xl font-bold leading-tight text-[#2e342d] tracking-[0.01em]">
                   {guide.definitionTitle}
@@ -108,200 +116,218 @@ export function CategoryGuidePage({ category }: CategoryGuidePageProps) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                {guide.definitionCards.map((card) => (
-                  <article
-                    key={card.title}
-                    className="flex aspect-square flex-col justify-end rounded-lg bg-white p-8"
-                  >
-                    <MaterialIcon
-                      icon={card.icon ?? 'widgets'}
-                      className="mb-4 text-[#77584e]"
-                      size={40}
-                      lineHeight={40}
-                    />
-                    <h3 className="font-body mb-2 text-xl font-bold text-[#2e342d]">
-                      {card.title}
-                    </h3>
-                    <p className="font-body text-sm leading-6 text-[#5b6159]">{card.copy}</p>
-                  </article>
-                ))}
-              </div>
+              {hasDefinitionCards ? (
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {guide.definitionCards.map((card) => (
+                    <article
+                      key={card.title}
+                      className="flex min-h-[18rem] flex-col justify-end rounded-lg bg-white p-8 sm:aspect-square sm:min-h-0"
+                    >
+                      <MaterialIcon
+                        icon={card.icon ?? 'widgets'}
+                        className="mb-4 text-[#77584e]"
+                        size={40}
+                        lineHeight={40}
+                      />
+                      <h3 className="font-body mb-2 text-xl font-bold text-[#2e342d]">
+                        {card.title}
+                      </h3>
+                      <p className="font-body text-sm leading-6 text-[#5b6159]">{card.copy}</p>
+                    </article>
+                  ))}
+                </div>
+              ) : null}
             </div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1536px] px-8 py-24">
-          <h2 className="font-headline mb-16 text-center text-5xl font-bold italic text-[#2e342d]">
-            {guide.contextsTitle}
-          </h2>
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
-            {guide.contexts.map((context) => (
-              <article key={context.title} className="group cursor-pointer">
-                <div className="relative mb-6 aspect-video overflow-hidden rounded-xl">
-                  <img
-                    src={context.image}
-                    alt={context.imageAlt}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                </div>
-                <h3 className="font-body mb-3 text-2xl font-bold text-[#2e342d]">
-                  {context.title}
-                </h3>
-                <p className="font-body leading-relaxed text-[#5b6159]">{context.copy}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="bg-[#ecefe7] py-24">
-          <div className="mx-auto max-w-[1536px] px-8">
-            <h2 className="font-headline mb-4 text-[39px] font-bold text-[#2e342d]">
-              {guide.matrixTitle}
+        {hasContexts ? (
+          <section className="mx-auto max-w-[1536px] px-8 py-24">
+            <h2 className="font-headline mb-16 text-center text-5xl font-bold italic text-[#2e342d]">
+              {guide.contextsTitle}
             </h2>
-            {guide.matrixEyebrow ? (
-              <p className="font-body mb-16 text-sm uppercase tracking-[0.1em] text-[#5b6159]">
-                {guide.matrixEyebrow}
-              </p>
-            ) : null}
-
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {guide.matrixCards.map((card) => (
-                <article
-                  key={card.title}
-                  className="rounded-xl border border-[#aeb4aa]/5 bg-white p-10 transition-all hover:shadow-xl"
-                >
-                  <MaterialIcon
-                    icon={card.icon ?? 'widgets'}
-                    className="mb-6 text-[#77584e]"
-                    size={30}
-                    lineHeight={30}
-                  />
-                  <h3 className="font-body mb-4 text-lg font-bold text-[#2e342d]">
-                    {card.title}
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+              {guide.contexts.map((context) => (
+                <article key={context.title} className="group cursor-pointer">
+                  <div className="relative mb-6 aspect-video overflow-hidden rounded-xl">
+                    <img
+                      src={context.image}
+                      alt={context.imageAlt}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  </div>
+                  <h3 className="font-body mb-3 text-2xl font-bold text-[#2e342d]">
+                    {context.title}
                   </h3>
-                  <p className="font-body text-sm leading-relaxed text-[#5b6159]">{card.copy}</p>
+                  <p className="font-body leading-relaxed text-[#5b6159]">{context.copy}</p>
                 </article>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
+        ) : null}
 
-        <section className="mx-auto max-w-[1536px] px-8 py-24">
-          <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-            <h2 className="font-headline text-5xl font-bold leading-tight text-[#2e342d]">
-              {guide.pathsTitle}
-            </h2>
-            {guide.pathsEyebrow ? (
-              <p className="font-body border-b border-[#77584e] pb-1 text-xs font-bold uppercase tracking-[0.2em] text-[#77584e]">
-                {guide.pathsEyebrow}
-              </p>
-            ) : null}
-          </div>
-
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
-            {guide.paths.map((path) => (
-              <article key={path.title} className="border-l border-[#aeb4aa]/30 pl-8 pt-4">
-                <span className="font-headline mb-6 block text-4xl italic text-[#aeb4aa]">
-                  {path.step ?? '01'}
-                </span>
-                <h3 className="font-body mb-4 text-2xl font-bold text-[#2e342d]">
-                  {path.title}
-                </h3>
-                <p className="font-body mb-8 leading-relaxed text-[#5b6159]">{path.copy}</p>
-                {path.bullets?.length ? (
-                  <ul className="space-y-3 text-sm font-medium text-[#2e342d]">
-                    {path.bullets.map((bullet) => (
-                      <li key={bullet} className="flex items-center gap-2">
-                        <MaterialIcon
-                          icon="check_circle"
-                          className="text-[#4e616e]"
-                          size={16}
-                          lineHeight={16}
-                        />
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="relative overflow-hidden bg-[#2e342d] py-20 text-[#fafaf5]">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent" />
-          </div>
-          <div className="relative z-10 mx-auto max-w-[1536px] px-8">
-            <div className="flex flex-col items-center justify-between gap-12 md:flex-row">
-              <div className="max-w-md">
-                <h2 className="font-headline mb-4 text-[32px] font-bold italic tracking-[0.01em]">
-                  {guide.standardsTitle}
-                </h2>
-                <p className="font-body text-[#d5dcd0]/80">{guide.standardsCopy}</p>
-              </div>
-              <div className="grid w-full grid-cols-2 gap-8 md:w-auto lg:grid-cols-4">
-                {standardsStats.map((stat) => (
-                  <div key={stat.value} className="text-center">
-                    <span className="font-headline mb-1 block text-4xl font-bold">
-                      {stat.value}
-                    </span>
-                    <span className="text-[10px] uppercase tracking-widest text-[#d5dcd0]/60">
-                      {stat.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-[1536px] px-8 py-24">
-          <div className="grid grid-cols-1 gap-20 lg:grid-cols-12">
-            <div className="lg:col-span-8">
-              <h2 className="font-headline mb-12 text-[36px] font-bold italic text-[#2e342d]  tracking-[0.02em]">
-                {guide.faqTitle}
+        {hasMatrixCards ? (
+          <section className="bg-[#ecefe7] py-24">
+            <div className="mx-auto max-w-[1536px] px-8">
+              <h2 className="font-headline mb-4 text-[39px] font-bold text-[#2e342d]">
+                {guide.matrixTitle}
               </h2>
-              <div className="space-y-10">
-                {guide.faqs.map((faq) => (
-                  <article key={faq.question}>
-                    <h3 className="font-body mb-4 text-xl font-bold text-[#2e342d]">
-                      {faq.question}
+              {guide.matrixEyebrow ? (
+                <p className="font-body mb-16 text-sm uppercase tracking-[0.1em] text-[#5b6159]">
+                  {guide.matrixEyebrow}
+                </p>
+              ) : null}
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {guide.matrixCards.map((card) => (
+                  <article
+                    key={card.title}
+                    className="rounded-xl border border-[#aeb4aa]/5 bg-white p-10 transition-all hover:shadow-xl"
+                  >
+                    <MaterialIcon
+                      icon={card.icon ?? 'widgets'}
+                      className="mb-6 text-[#77584e]"
+                      size={30}
+                      lineHeight={30}
+                    />
+                    <h3 className="font-body mb-4 text-lg font-bold text-[#2e342d]">
+                      {card.title}
                     </h3>
-                    <p className="font-body leading-relaxed text-[#5b6159]">{faq.answer}</p>
+                    <p className="font-body text-sm leading-relaxed text-[#5b6159]">
+                      {card.copy}
+                    </p>
                   </article>
                 ))}
               </div>
             </div>
+          </section>
+        ) : null}
 
-            <aside className="h-fit rounded-xl bg-[#f3f4ee] p-10 lg:col-span-4">
-              <h2 className="font-headline mb-8 text-2xl font-bold text-[#2e342d]">
-                {guide.resourcesTitle}
+        {hasPaths ? (
+          <section className="mx-auto max-w-[1536px] px-8 py-24">
+            <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+              <h2 className="font-headline text-5xl font-bold leading-tight text-[#2e342d]">
+                {guide.pathsTitle}
               </h2>
-              <ul className="space-y-6">
-                {relatedResources.map((resource) => (
-                  <li key={resource.title}>
-                    <Link href={resource.href} className="group flex flex-col gap-1">
-                      <span className="text-xs font-bold uppercase tracking-widest text-[#77584e]">
-                        {resource.label}
+              {guide.pathsEyebrow ? (
+                <p className="font-body border-b border-[#77584e] pb-1 text-xs font-bold uppercase tracking-[0.2em] text-[#77584e]">
+                  {guide.pathsEyebrow}
+                </p>
+              ) : null}
+            </div>
+
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+              {guide.paths.map((path) => (
+                <article key={path.title} className="border-l border-[#aeb4aa]/30 pl-8 pt-4">
+                  <span className="font-headline mb-6 block text-4xl italic text-[#aeb4aa]">
+                    {path.step ?? '01'}
+                  </span>
+                  <h3 className="font-body mb-4 text-2xl font-bold text-[#2e342d]">
+                    {path.title}
+                  </h3>
+                  <p className="font-body mb-8 leading-relaxed text-[#5b6159]">{path.copy}</p>
+                  {path.bullets?.length ? (
+                    <ul className="space-y-3 text-sm font-medium text-[#2e342d]">
+                      {path.bullets.map((bullet) => (
+                        <li key={bullet} className="flex items-center gap-2">
+                          <MaterialIcon
+                            icon="check_circle"
+                            className="text-[#4e616e]"
+                            size={16}
+                            lineHeight={16}
+                          />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {hasStandards ? (
+          <section className="relative overflow-hidden bg-[#2e342d] py-20 text-[#fafaf5]">
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent" />
+            </div>
+            <div className="relative z-10 mx-auto max-w-[1536px] px-8">
+              <div className="flex flex-col items-center justify-between gap-12 md:flex-row">
+                <div className="max-w-md">
+                  <h2 className="font-headline mb-4 text-[32px] font-bold italic tracking-[0.01em]">
+                    {guide.standardsTitle}
+                  </h2>
+                  <p className="font-body text-[#d5dcd0]/80">{guide.standardsCopy}</p>
+                </div>
+                <div className="grid w-full grid-cols-2 gap-8 md:w-auto lg:grid-cols-4">
+                  {standardsStats.map((stat) => (
+                    <div key={stat.value} className="text-center">
+                      <span className="font-headline mb-1 block text-4xl font-bold">
+                        {stat.value}
                       </span>
-                      <span className="font-body font-bold text-[#2e342d] underline decoration-[#aeb4aa]/30 underline-offset-4 transition-colors group-hover:text-[#77584e]">
-                        {resource.title}
+                      <span className="text-[10px] uppercase tracking-widest text-[#d5dcd0]/60">
+                        {stat.label}
                       </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </aside>
-          </div>
-        </section>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {hasFaqs || hasResources ? (
+          <section className="mx-auto max-w-[1536px] px-8 py-24">
+            <div className="grid grid-cols-1 gap-20 lg:grid-cols-12">
+              {hasFaqs ? (
+                <div className={hasResources ? 'lg:col-span-8' : 'lg:col-span-12'}>
+                  <h2 className="font-headline mb-12 text-[36px] font-bold italic text-[#2e342d] tracking-[0.02em]">
+                    {guide.faqTitle}
+                  </h2>
+                  <div className="space-y-10">
+                    {guide.faqs.map((faq) => (
+                      <article key={faq.question}>
+                        <h3 className="font-body mb-4 text-xl font-bold text-[#2e342d]">
+                          {faq.question}
+                        </h3>
+                        <p className="font-body leading-relaxed text-[#5b6159]">{faq.answer}</p>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {hasResources ? (
+                <aside className={`h-fit rounded-xl bg-[#f3f4ee] p-10 ${hasFaqs ? 'lg:col-span-4' : 'lg:col-span-12'}`}>
+                  <h2 className="font-headline mb-8 text-2xl font-bold text-[#2e342d]">
+                    {guide.resourcesTitle}
+                  </h2>
+                  <ul className="space-y-6">
+                    {relatedResources.map((resource) => (
+                      <li key={resource.title}>
+                        <Link href={resource.href} className="group flex flex-col gap-1">
+                          <span className="text-xs font-bold uppercase tracking-widest text-[#77584e]">
+                            {resource.label}
+                          </span>
+                          <span className="font-body font-bold text-[#2e342d] underline decoration-[#aeb4aa]/30 underline-offset-4 transition-colors group-hover:text-[#77584e]">
+                            {resource.title}
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </aside>
+              ) : null}
+            </div>
+          </section>
+        ) : null}
 
         <section className="mx-auto max-w-[1536px] px-8 pb-32">
           <div className="relative overflow-hidden rounded-xl bg-[#4e616e] px-8 py-16 text-center text-[#f2f8ff] md:px-16 md:py-24">
             <div className="relative z-10">
-              <h2 className="font-headline mb-8 text-5xl font-bold italic md:text-7xl  tracking-[0.04em]">
+              <h2 className="font-headline mb-8 text-5xl font-bold italic tracking-[0.04em] md:text-7xl">
                 {guide.ctaTitle}
               </h2>
               <p className="font-body mx-auto mb-12 max-w-2xl text-xl opacity-90">
