@@ -81,10 +81,15 @@
 
 @layer utilities {
   .material-symbols-outlined {
-    font-family: "Material Symbols Outlined";
+    font-family: inherit;
     font-style: normal;
     font-weight: normal;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
     line-height: 1;
     text-transform: none;
     letter-spacing: normal;
@@ -98,6 +103,17 @@
     -webkit-font-smoothing: antialiased;
     user-select: none;
     vertical-align: middle;
+  }
+
+  .material-icon-svg {
+    display: block;
+    width: 1em;
+    height: 1em;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
   }
 
   .serif-italic {
