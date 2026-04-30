@@ -83,12 +83,18 @@ export function SiteHeader({
             </div>
           ) : (
             <>
-              <div className="flex items-center text-primary md:hidden">
-                <MaterialIcon name="search" className="cursor-pointer" />
-              </div>
+              <button
+                type="button"
+                aria-label="Search"
+                className="flex items-center text-primary md:hidden"
+              >
+                <MaterialIcon name="search" />
+              </button>
               <div className="hidden items-center gap-4 text-[#4e616e] lg:flex">
                 {showLanguageIcon ? <MaterialIcon name="language" className="cursor-pointer" /> : null}
-                <MaterialIcon name="search" className="cursor-pointer" />
+                <button type="button" aria-label="Search" className="flex items-center">
+                  <MaterialIcon name="search" />
+                </button>
               </div>
             </>
           )}
