@@ -59,7 +59,7 @@ export function CategoryGuidePage({ category }: CategoryGuidePageProps) {
               <p className="font-label mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-[#77584e]">
                 {guide.eyebrow}
               </p>
-              <h1 className="font-headline mb-8 max-w-[760px] text-6xl font-bold italic leading-[1.05] tracking-[-0.04em] text-[#2e342d] lg:text-8xl">
+              <h1 className="font-headline mb-8 max-w-[760px] text-[clamp(2.5rem,10vw,4.5rem)] font-bold italic leading-[1.05] tracking-[-0.04em] text-[#2e342d] lg:text-8xl">
                 {guide.title}
               </h1>
               <p className="font-body mb-10 max-w-xl text-xl leading-relaxed text-[#5b6159]">
