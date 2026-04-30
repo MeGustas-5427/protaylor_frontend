@@ -3,16 +3,10 @@ import { notFound } from 'next/navigation'
 
 import { CategoryGuidePage } from '@/components/product/category-guide-page'
 import {
-  buildCategoryGuideHref,
-  getProductCategoryBySlug,
-  productCategories,
-} from '@/fixtures/stitch/product-catalog'
-import {
-  buildCatalogGuideMetadata,
-  mapCatalogListingToGuideModel,
-  type CategoryGuideRecord,
+  buildCategoryGuideMetadata,
+  fetchCategoryGuide,
+  fetchCategoryGuidePayload,
 } from '@/lib/catalog/category-guide'
-import { fetchCatalogCategoryListingPayload } from '@/lib/catalog/category-listing'
 import { fetchCategoryPaths } from '@/lib/catalog/product-detail'
 
 type PageProps = {
@@ -21,50 +15,15 @@ type PageProps = {
 
 export const dynamicParams = false
 
-async function resolveCategoryGuide(categorySlug: string): Promise<{
-  category: CategoryGuideRecord
-  canonical: string
-} | null> {
-  const fixtureCategory = getProductCategoryBySlug(categorySlug)
-
-  if (fixtureCategory) {
-    return {
-      category: fixtureCategory,
-      canonical: buildCategoryGuideHref(categorySlug),
-    }
-  }
-
-  const payload = await fetchCatalogCategoryListingPayload(categorySlug)
-  if (!payload) {
-    return null
-  }
-
-  return {
-    category: mapCatalogListingToGuideModel(payload),
-    canonical: buildCatalogGuideMetadata(payload).canonical,
-  }
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { categorySlug } = await params
-  const fixtureCategory = getProductCategoryBySlug(categorySlug)
+  const payload = await fetchCategoryGuidePayload(categorySlug)
 
-  if (fixtureCategory) {
-    return {
-      title: fixtureCategory.guide.title,
-      description: fixtureCategory.guide.description,
-      alternates: {
-        canonical: buildCategoryGuideHref(categorySlug),
-      },
-    }
-  }
-
-  const payload = await fetchCatalogCategoryListingPayload(categorySlug)
   if (!payload) {
     return {}
   }
 
-  const metadata = buildCatalogGuideMetadata(payload)
+  const metadata = buildCategoryGuideMetadata(payload)
 
   return {
     title: metadata.title,
@@ -77,16 +36,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export async function generateStaticParams() {
   const categoryPaths = await fetchCategoryPaths()
-  const realSlugs = categoryPaths.map((category) => category.slug)
-  const fixtureSlugs = productCategories.map((category) => category.slug)
-  const allSlugs = Array.from(new Set([...realSlugs, ...fixtureSlugs]))
 
-  return allSlugs.map((categorySlug) => ({ categorySlug }))
+  return categoryPaths.map((category) => ({ categorySlug: category.slug }))
 }
 
 export default async function Page({ params }: PageProps) {
   const { categorySlug } = await params
-  const resolvedCategoryGuide = await resolveCategoryGuide(categorySlug)
+  const resolvedCategoryGuide = await fetchCategoryGuide(categorySlug)
 
   if (!resolvedCategoryGuide) {
     notFound()
