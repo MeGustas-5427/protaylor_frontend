@@ -121,7 +121,7 @@ export function CategoryGuidePage({ category }: CategoryGuidePageProps) {
                   {guide.definitionCards.map((card) => (
                     <article
                       key={card.title}
-                      className="flex min-h-[18rem] flex-col justify-end rounded-lg bg-white p-8 sm:aspect-square sm:min-h-0"
+                      className="flex min-h-[18rem] flex-col rounded-lg bg-white p-8"
                     >
                       <MaterialIcon
                         icon={card.icon ?? 'widgets'}
