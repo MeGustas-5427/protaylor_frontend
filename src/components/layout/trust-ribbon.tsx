@@ -18,9 +18,9 @@ export function TrustRibbon({
 
   return (
     <div
-      className={`${Wrapper} ${topClassName} z-[60] flex h-10 w-full items-center justify-center gap-12 overflow-x-auto bg-[#ecefe7] py-2 hide-scrollbar`}
+      className={`${Wrapper} ${topClassName} z-[60] flex h-10 w-full items-center justify-start overflow-x-auto bg-[#ecefe7] py-2 hide-scrollbar md:justify-center`}
     >
-      <div className="mx-auto flex items-center gap-8 whitespace-nowrap px-6 md:gap-12">
+      <div className="flex items-center gap-6 whitespace-nowrap px-4 md:mx-auto md:gap-12 md:px-6">
         {trustItems.map((item) => {
           const active = item.key === highlight
           const itemClass = neutralDesktop

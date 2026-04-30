@@ -50,17 +50,17 @@ export function SiteHeader({
 }: SiteHeaderProps) {
   const ctaClasses =
     ctaTone === 'sentence'
-      ? 'bg-primary text-white px-6 py-2.5 rounded-md font-medium text-sm hover:bg-primary-dim transition-all active:scale-[0.98]'
+      ? 'bg-primary text-white px-4 py-2 rounded-md font-medium text-xs whitespace-nowrap hover:bg-primary-dim transition-all active:scale-[0.98] sm:px-6 sm:py-2.5 sm:text-sm'
       : 'bg-primary text-white px-4 py-2 rounded-md text-xs font-bold uppercase tracking-widest hover:bg-primary-dim transition-all active:scale-[0.98] md:px-6 md:py-2.5'
 
   return (
     <header
       className={`fixed ${topClassName} z-50 w-full bg-[#fafaf5]/80 backdrop-blur-xl shadow-sm`}
     >
-      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-8 py-4">
+      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-4 py-4 sm:px-6 md:px-8">
         <Link
           href={ROUTES.home}
-          className="font-serif text-2xl font-bold tracking-tighter text-[#4e616e]"
+          className="shrink-0 whitespace-nowrap font-serif text-xl font-bold tracking-tighter text-[#4e616e] sm:text-2xl"
         >
           PRO-TAYLOR
         </Link>
@@ -75,7 +75,7 @@ export function SiteHeader({
             </Link>
           ))}
         </div>
-        <div className="flex items-center gap-6">
+        <div className="flex shrink-0 items-center gap-3 sm:gap-6">
           {searchMode === 'pill' ? (
             <div className="hidden items-center rounded-full bg-surface-container px-4 py-1.5 lg:flex">
               <MaterialIcon name="search" className="text-primary text-xl" />
