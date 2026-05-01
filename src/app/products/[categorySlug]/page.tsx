@@ -8,12 +8,6 @@ import {
   mapCatalogListingToPageModel,
 } from '@/lib/catalog/category-listing'
 import { fetchCategoryPaths } from '@/lib/catalog/product-detail'
-import {
-  buildCategoryHref,
-  getCategoryListingPagination,
-  getProductCategoryBySlug,
-  productCategories,
-} from '@/fixtures/stitch/product-catalog'
 
 type PageProps = {
   params: Promise<{ categorySlug: string }>
@@ -76,38 +70,13 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     }
   }
 
-  const category = getProductCategoryBySlug(categorySlug)
-
-  if (!category) {
-    return {}
-  }
-
-  const pagination = getCategoryListingPagination(category, currentPage)
-  if (currentPage > pagination.totalPages) {
-    notFound()
-  }
-
-  const canonicalPath =
-    currentPage === 1
-      ? buildCategoryHref(categorySlug)
-      : `${buildCategoryHref(categorySlug)}?page=${currentPage}`
-
-  return {
-    title: `${category.name} | PRO-TAYLOR`,
-    description: category.listing.description,
-    alternates: {
-      canonical: canonicalPath,
-    },
-  }
+  return {}
 }
 
 export async function generateStaticParams() {
   const categoryPaths = await fetchCategoryPaths()
-  const realSlugs = categoryPaths.map((category) => category.slug)
-  const fixtureSlugs = productCategories.map((category) => category.slug)
-  const allSlugs = Array.from(new Set([...realSlugs, ...fixtureSlugs]))
 
-  return allSlugs.map((categorySlug) => ({ categorySlug }))
+  return categoryPaths.map((category) => ({ categorySlug: category.slug }))
 }
 
 export default async function Page({ params, searchParams }: PageProps) {
@@ -135,16 +104,5 @@ export default async function Page({ params, searchParams }: PageProps) {
     return <CategoryListingPage category={pageModel.category} pagination={pageModel.pagination} />
   }
 
-  const category = getProductCategoryBySlug(categorySlug)
-  if (!category) {
-    notFound()
-  }
-
-  const pagination = getCategoryListingPagination(category, currentPage)
-
-  if (currentPage > pagination.totalPages) {
-    notFound()
-  }
-
-  return <CategoryListingPage category={category} pagination={pagination} />
+  notFound()
 }

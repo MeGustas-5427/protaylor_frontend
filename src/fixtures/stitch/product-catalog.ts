@@ -1266,11 +1266,11 @@ export const productsOverviewFixture = {
     'Explore PRO-TAYLOR by product family first, then choose whether to browse models directly or open the category guide for buying logic and sourcing context.',
   primaryCtaLabel: 'Request Master Catalog',
   primaryCtaHref: ROUTES.contact,
-  secondaryCtaLabel: 'View Soft Serve Models',
-  secondaryCtaHref: buildCategoryHref('soft-serve-machines'),
+  secondaryCtaLabel: 'View Ice Cream Machine Models',
+  secondaryCtaHref: buildCategoryHref('ice-cream-machine'),
   heroImage:
     'https://lh3.googleusercontent.com/aida-public/AB6AXuApnMncHh1Oq6eRIN27y8fEGYJneuQiZlFUNH8lCOD-h_7r1lNOfUO2MyCcVBJ75H7BHTzNSnGrOt67pplbM7NYi4e-PVC8vqcg39BVW8P_YJsZsQTjyNtnF1X1B6Dp1zVgr4uO-JHhdB7uKs8iNmg6P3f77O3g0uvc-NQ3kZXHy44iFLUqLvlYplHIGwuRtb9db_K4PF8oKNxD27oDher1itUYkLQlizdx4sDdWgi5eoHKg7Sp5H23AeDCylesKLXUBdSpBfMwQIo',
-  heroAlt: 'Featured PRO-TAYLOR soft serve machine',
+  heroAlt: 'Featured PRO-TAYLOR ice cream machine',
   featuredLabel: 'Featured Model',
   featuredTitle: 'The PT-900 High-Output Series',
   categories: productCategories.map((category) => ({
@@ -1295,23 +1295,23 @@ export const productsOverviewFixture = {
     title: 'Products First. Guides Second. Detail Pages Last.',
     copy:
       'The product IA now separates model browsing from editorial guidance, so buyers can either move fast or learn first without one page trying to do both jobs.',
-    ctaLabel: 'Open Soft Serve Guide',
-    href: buildCategoryGuideHref('soft-serve-machines'),
+    ctaLabel: 'Open Ice Cream Machine Guide',
+    href: buildCategoryGuideHref('ice-cream-machine'),
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDH748o06q9Lh-L_GmaWPkKgBehskf9IAt7ocS_vcJI7Iu34eqYBeyJae7xkokydkezqtc6M6hvaeeq1Dzke6-lQq6kRjd_wNyzJpiPDxOweeJ_3VDPg-M1f2n7f1JU-ADyuJiZ888fvLXcMMaSIyWzlifoXUMp_hWdXj-pesrZXyLWysCdsRj-hcpxo4-eQnPYx_iYIWUBnF7dVd2n510hbPHWBVjz9VMgaJdsiBhuZ9CAN6qmqE6jFrDSZ5aPinm_ncUCUBzFaNg',
   },
   resources: [
     {
       eyebrow: 'Buying Guide',
-      title: 'How to Choose the Right Soft Serve Machine',
-      copy: 'A practical path through throughput, overrun control, utilities, and cleaning complexity.',
-      href: buildCategoryGuideHref('soft-serve-machines'),
+      title: 'How to Choose the Right Ice Cream Machine',
+      copy: 'A practical path through route selection, output, footprint, utilities, and cleaning complexity.',
+      href: buildCategoryGuideHref('ice-cream-machine'),
     },
     {
       eyebrow: 'Category Listing',
-      title: 'Browse Current Soft Serve Model Families',
+      title: 'Browse Current Ice Cream Machine Families',
       copy: 'Go directly into the listing layer when you already know the category and want to compare specific series.',
-      href: buildCategoryHref('soft-serve-machines'),
+      href: buildCategoryHref('ice-cream-machine'),
     },
   ],
   faqs: [
