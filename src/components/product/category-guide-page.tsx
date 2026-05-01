@@ -217,18 +217,23 @@ export function CategoryGuidePage({ category }: CategoryGuidePageProps) {
               ) : null}
             </div>
 
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-4">
               {guide.paths.map((path) => (
-                <article key={path.title} className="border-l border-[#aeb4aa]/30 pl-8 pt-4">
-                  <span className="font-headline mb-6 block text-4xl italic text-[#aeb4aa]">
+                <article
+                  key={path.title}
+                  className="border-l border-[#aeb4aa]/30 pl-8 pt-4 lg:grid lg:row-span-6 lg:grid-rows-subgrid"
+                >
+                  <span className="font-headline mb-6 block text-4xl italic text-[#aeb4aa] lg:mb-0">
                     {path.step ?? '01'}
                   </span>
-                  <h3 className="font-body mb-4 text-2xl font-bold text-[#2e342d]">
+                  <h3 className="font-body mb-4 text-2xl font-bold text-[#2e342d] lg:mb-0">
                     {path.title}
                   </h3>
-                  <p className="font-body mb-8 leading-relaxed text-[#5b6159]">{path.copy}</p>
+                  <p className="font-body mb-8 leading-relaxed text-[#5b6159] lg:mb-0">
+                    {path.copy}
+                  </p>
                   {path.bullets?.length ? (
-                    <ul className="space-y-3 text-sm font-medium text-[#2e342d]">
+                    <ul className="space-y-3 text-sm font-medium text-[#2e342d] lg:contents lg:space-y-0">
                       {path.bullets.map((bullet) => (
                         <li key={bullet} className="flex items-center gap-2">
                           <MaterialIcon
