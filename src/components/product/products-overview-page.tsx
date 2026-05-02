@@ -98,7 +98,6 @@ export function ProductsOverviewPage({
               </div>
               <div className="text-sm text-on-surface-variant">
                 <p>{totalProductCount} Total Models</p>
-                <p>Updated Q3 2024</p>
               </div>
             </div>
 
