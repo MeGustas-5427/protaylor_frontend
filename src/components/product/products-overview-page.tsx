@@ -5,9 +5,11 @@ import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
 import { TrustRibbon } from '@/components/layout/trust-ribbon'
 import { ProductsOverviewCategoryCard } from '@/components/product/products-overview-category-card'
+import { JsonLdScript } from '@/components/seo/json-ld-script'
 import { MaterialIcon } from '@/components/ui/material-icon'
 import { productsOverviewFixture } from '@/fixtures/stitch/product-catalog'
 import type { ProductsOverviewCategoryCard as ProductsOverviewCategoryCardData } from '@/lib/catalog/products-overview'
+import { buildProductsOverviewJsonLd } from '@/lib/seo/products-overview-jsonld'
 
 type ProductsOverviewPageProps = {
   categories: ProductsOverviewCategoryCardData[]
@@ -19,9 +21,15 @@ export function ProductsOverviewPage({
   totalProductCount,
 }: ProductsOverviewPageProps) {
   const overview = productsOverviewFixture
+  const productsOverviewJsonLd = buildProductsOverviewJsonLd({
+    categories,
+    faqs: overview.faqs,
+    pageDescription: overview.description,
+  })
 
   return (
     <>
+      <JsonLdScript data={productsOverviewJsonLd} />
       <TrustRibbon highlight="oem" topClassName="top-16" />
       <SiteHeader
         activeSection="products"

@@ -1303,9 +1303,9 @@ export const productsOverviewFixture = {
   resources: [
     {
       eyebrow: 'Buying Guide',
-      title: 'How to Choose the Right Ice Cream Machine',
-      copy: 'A practical path through route selection, output, footprint, utilities, and cleaning complexity.',
-      href: buildCategoryGuideHref('ice-cream-machine'),
+      title: 'How to Choose the Right Frozen Yogurt Machine',
+      copy: 'A practical path through service format, output needs, floor placement, cleaning, and frozen yogurt menu fit.',
+      href: buildCategoryGuideHref('frozen-yogurt-machine'),
     },
     {
       eyebrow: 'Category Listing',
@@ -1327,9 +1327,9 @@ export const productsOverviewFixture = {
     },
   ],
   cta: {
-    title: 'Tell us how you want to buy',
+    title: 'Narrow the right equipment path',
     copy:
-      'We can point you to the right listing page, the right guide page, or the right product series based on buyer type, output target, and export destination.',
+      'Tell us your buyer type, target output, destination market, and customization needs. We will help narrow the product family, likely model range, and quotation next steps before you compare the wrong equipment.',
     contactOptions: [
       { label: 'Distributor Inquiry', href: ROUTES.contact, icon: 'storefront' },
       { label: 'OEM Program', href: ROUTES.contact, icon: 'manufacturing' },
