@@ -1283,18 +1283,18 @@ export const productsOverviewFixture = {
     guideHref: buildCategoryGuideHref(category.slug),
   })),
   selectionGuide: {
-    columns: ['Business Need', 'Recommended Layer', 'Primary Next Click', 'Why'],
+    columns: ['Buying Situation', 'Best Starting Point', 'Next Step', 'Why'],
     rows: [
-      ['Need a shortlist fast', 'Category Listing', 'Browse Models', 'Best when the buyer is already category-aware'],
-      ['Need education first', 'Category Guide', 'Open Guide', 'Best when the buyer still needs category logic and selection support'],
-      ['Know the exact machine', 'Product Detail', 'View Product', 'Best when the buyer is ready for technical evaluation'],
+      ['Already know the equipment family', 'Product list', 'Browse models', 'Best when you are ready to compare available models inside one category'],
+      ['Still deciding which family fits', 'Buying guide', 'Open guide', 'Best when you need selection logic before comparing individual machines'],
+      ['Already have a target model', 'Product detail', 'View product', 'Best when you are ready to review specifications, scenarios, and inquiry details'],
     ],
   },
   spotlight: {
     eyebrow: 'Showroom Logic',
-    title: 'Products First. Guides Second. Detail Pages Last.',
+    title: 'Start with the right category before comparing models.',
     copy:
-      'The product IA now separates model browsing from editorial guidance, so buyers can either move fast or learn first without one page trying to do both jobs.',
+      'Use this page to choose the equipment family first. If the category is already clear, move into model comparison; if the buying question is still unclear, open the guide before shortlisting machines.',
     ctaLabel: 'Open Ice Cream Machine Guide',
     href: buildCategoryGuideHref('ice-cream-machine'),
     image:
@@ -1316,14 +1316,14 @@ export const productsOverviewFixture = {
   ],
   faqs: [
     {
-      question: 'Should buyers start from Products, a category listing, or a guide page?',
+      question: 'Where should I start if I am not sure which machine category I need?',
       answer:
-        'Start from Products if the buyer still needs to choose a machine family. Start from the category listing if the family is already known. Start from the guide when the buyer needs category-level education before comparing models.',
+        'Start from the Products page to compare equipment families first. After you choose the closest category, open its guide if you need buying logic, or open the product list if you are ready to compare models.',
     },
     {
-      question: 'Why separate the guide page from the listing page?',
+      question: 'What information should I prepare before asking for a quotation?',
       answer:
-        'Because one page should not try to be both an editorial explainer and a true PLP. The split reduces confusion and scales better across 20+ categories and 300+ products.',
+        'Prepare the target application, expected output or service volume, installation market, voltage requirement, and whether you need distributor supply, OEM customization, or a single project quotation.',
     },
   ],
   cta: {
