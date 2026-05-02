@@ -3,7 +3,7 @@ import { ProductsOverviewPage } from '@/components/product/products-overview-pag
 import { fetchProductsOverviewData } from '@/lib/catalog/products-overview'
 
 export const metadata: Metadata = {
-  title: 'Products Overview | PRO-TAYLOR',
+  title: 'Products Overview',
   description:
     'Browse PRO-TAYLOR product categories, buyer paths, machine ecosystems, and sourcing guidance for global dessert equipment programs.',
 }
