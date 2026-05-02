@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'Products Overview',
   description:
     'Browse PRO-TAYLOR product categories, buyer paths, machine ecosystems, and sourcing guidance for global dessert equipment programs.',
+  alternates: {
+    canonical: '/products',
+  },
 }
 
 export default async function Page() {
