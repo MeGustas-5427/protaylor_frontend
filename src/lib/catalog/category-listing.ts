@@ -82,6 +82,15 @@ type CatalogComparisonOverviewPayload = {
   rows: CatalogComparisonRowPayload[]
 }
 
+type CatalogListingPageIdentityPayload = {
+  name: string
+  h1: string
+  lead_text: string
+  seo_title: string
+  meta_description: string
+  summary: string
+}
+
 export type CatalogCategoryListingPayload = {
   slug: string
   name: string
@@ -99,6 +108,7 @@ export type CatalogCategoryListingPayload = {
   sourcing_faq_title: string
   sourcing_faq_items: CatalogFaqItemPayload[]
   active_subcategory_slug: string | null
+  active_subcategory: CatalogListingPageIdentityPayload | null
   subcategory_tabs: Array<{
     slug: string
     name: string
@@ -208,6 +218,10 @@ function getVisibleActiveSubcategorySlug(payload: CatalogCategoryListingPayload)
   return payload.subcategory_tabs.some((tab) => tab.slug === activeSlug) ? activeSlug : null
 }
 
+function getListingPageIdentity(payload: CatalogCategoryListingPayload): CatalogListingPageIdentityPayload {
+  return payload.active_subcategory ?? payload
+}
+
 function buildComparisonSection(
   payload: CatalogCategoryListingPayload,
 ): Pick<
@@ -288,11 +302,12 @@ function buildFallbackListing(
 ): ProductCategoryRecord['listing'] {
   const comparisonSection = buildComparisonSection(payload)
   const activeSubcategorySlug = getVisibleActiveSubcategorySlug(payload)
+  const identity = getListingPageIdentity(payload)
 
   return {
     eyebrow: 'PRECISION ENGINEERED',
-    title: payload.h1,
-    description: payload.lead_text || payload.summary,
+    title: identity.h1,
+    description: identity.lead_text || identity.summary,
     badgeLabel: `${payload.pagination.total_items} MODELS IN THIS CATEGORY`,
     primaryCtaLabel: 'REQUEST QUOTE',
     primaryCtaHref: ROUTES.contact,
@@ -346,7 +361,7 @@ function buildFallbackListing(
     operationalSegments: mapOperationalItems(payload.operational_fit_items, [
       {
         title: 'Application Matching',
-        copy: `Review ${payload.h1.toLowerCase()} options against expected throughput, service format, and daily operating rhythm.`,
+        copy: `Review ${identity.h1.toLowerCase()} options against expected throughput, service format, and daily operating rhythm.`,
         icon: 'storefront',
       },
       {
@@ -381,7 +396,7 @@ function buildFallbackListing(
     insightsTitle: payload.sourcing_faq_title,
     insightFaqs: mapFaqItems(payload.sourcing_faq_items, [
       {
-        question: `How should buyers compare ${payload.h1.toLowerCase()} models?`,
+        question: `How should buyers compare ${identity.h1.toLowerCase()} models?`,
         answer:
           'Start with application fit, output target, utility constraints, and space limits. Then narrow to a shortlist before requesting final technical confirmation.',
       },
@@ -474,6 +489,7 @@ export function mapCatalogListingToPageModel(
   pagination: ProductPagination
 } {
   const orderBy = normalizeOrderBy(options.orderBy)
+  const identity = getListingPageIdentity(payload)
 
   return {
     category: {
@@ -486,9 +502,9 @@ export function mapCatalogListingToPageModel(
         .slice(0, 3)
         .toUpperCase(),
       countLabel: `${payload.pagination.total_items} Models`,
-      overviewBlurb: payload.summary,
+      overviewBlurb: identity.summary,
       image: payload.items[0]?.card_image_url || '',
-      imageAlt: payload.items[0]?.card_image_alt || payload.name,
+      imageAlt: payload.items[0]?.card_image_alt || identity.name,
       listing: buildFallbackListing(payload, { orderBy }),
       guide: {
         eyebrow: 'CATEGORY GUIDE',
@@ -536,14 +552,15 @@ export function mapCatalogListingToPageModel(
 
 export function buildCatalogListingMetadata(payload: CatalogCategoryListingPayload) {
   const activeSubcategorySlug = getVisibleActiveSubcategorySlug(payload)
+  const identity = getListingPageIdentity(payload)
   const canonicalPath = buildPaginationHref(payload.slug, {
     page: payload.pagination.current_page,
     subcategorySlug: activeSubcategorySlug ?? undefined,
   })
 
   return {
-    title: payload.seo_title,
-    description: payload.meta_description,
+    title: identity.seo_title,
+    description: identity.meta_description,
     canonical: canonicalPath,
   }
 }

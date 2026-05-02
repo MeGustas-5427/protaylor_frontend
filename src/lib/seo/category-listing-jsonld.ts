@@ -20,6 +20,15 @@ function buildAbsoluteUrl(path: string) {
   return `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`
 }
 
+function getActiveMachineTypeLabel(category: ProductCategoryRecord) {
+  const listing = category.listing
+  if (!listing.activeSubcategorySlug) {
+    return null
+  }
+
+  return listing.machineTypeTabs?.find((tab) => tab.isActive)?.label ?? listing.title
+}
+
 function buildListingPath(category: ProductCategoryRecord, pagination: ProductPagination) {
   const params = new URLSearchParams()
   const listing = category.listing
@@ -39,29 +48,58 @@ function buildBreadcrumbJsonLd(
   category: ProductCategoryRecord,
   pageUrl: string,
 ): WithContext<BreadcrumbList> {
+  const activeMachineTypeLabel = getActiveMachineTypeLabel(category)
+
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: SITE_URL,
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Products',
-        item: `${SITE_URL}/products`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: category.name,
-        item: pageUrl,
-      },
-    ],
+    itemListElement: activeMachineTypeLabel
+      ? [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: SITE_URL,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Products',
+            item: `${SITE_URL}/products`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: category.name,
+            item: buildAbsoluteUrl(`/products/${category.slug}`),
+          },
+          {
+            '@type': 'ListItem',
+            position: 4,
+            name: activeMachineTypeLabel,
+            item: pageUrl,
+          },
+        ]
+      : [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: SITE_URL,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Products',
+            item: `${SITE_URL}/products`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: category.name,
+            item: pageUrl,
+          },
+        ],
   }
 }
 
@@ -116,14 +154,16 @@ function buildProductItemListJsonLd(
   pagination: ProductPagination,
   pageUrl: string,
 ): WithContext<ItemList> {
+  const listCategoryName = getActiveMachineTypeLabel(category) ?? category.name
+
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: `${category.name} product models`,
+    name: `${listCategoryName} product models`,
     url: pageUrl,
     numberOfItems: pagination.totalProducts,
     itemListElement: pagination.products.map((product, index) =>
-      buildProductListItem(product, pagination.startItem + index, category.name),
+      buildProductListItem(product, pagination.startItem + index, listCategoryName),
     ),
   }
 }
