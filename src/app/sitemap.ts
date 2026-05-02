@@ -21,6 +21,16 @@ type CatalogProductPath = {
   product_slug: string
 }
 
+type CatalogSubcategoryTab = {
+  slug: string
+  name: string
+  product_count: number
+}
+
+type CatalogCategoryListingForSitemap = {
+  subcategory_tabs: CatalogSubcategoryTab[]
+}
+
 const STATIC_SITEMAP_PATHS = [
   { path: '/', changeFrequency: 'weekly', priority: 1 },
   { path: '/products', changeFrequency: 'weekly', priority: 0.9 },
@@ -106,6 +116,29 @@ async function fetchCatalogJson<T>(path: string): Promise<T[]> {
   }
 }
 
+async function fetchCatalogObject<T>(path: string): Promise<T | null> {
+  try {
+    const response = await fetch(
+      `${CATALOG_API_BASE_URL}${path}`,
+      process.env.NODE_ENV === 'development'
+        ? {
+            cache: 'no-store',
+          }
+        : {
+            next: { revalidate: CATALOG_REVALIDATE_SECONDS },
+          },
+    )
+
+    if (!response.ok) {
+      return null
+    }
+
+    return (await response.json()) as T
+  } catch {
+    return null
+  }
+}
+
 function dedupeSitemap(entries: SitemapEntry[]) {
   const seen = new Set<string>()
 
@@ -119,6 +152,33 @@ function dedupeSitemap(entries: SitemapEntry[]) {
   })
 }
 
+function buildSubcategoryListingPath(categoryPath: string, subcategorySlug: string) {
+  const params = new URLSearchParams({ subcategory_slug: subcategorySlug })
+  return `${withoutTrailingSlash(categoryPath)}?${params.toString()}`
+}
+
+async function fetchSubcategoryListingPaths(
+  categoryPaths: CatalogCategoryPath[],
+): Promise<string[]> {
+  const listingPayloads = await Promise.all(
+    categoryPaths.map(async (category) => {
+      const payload = await fetchCatalogObject<CatalogCategoryListingForSitemap>(
+        `/categories/${category.slug}/products`,
+      )
+
+      if (!payload) {
+        return []
+      }
+
+      return payload.subcategory_tabs
+        .filter((tab) => tab.product_count > 0)
+        .map((tab) => buildSubcategoryListingPath(category.url_path, tab.slug))
+    }),
+  )
+
+  return listingPayloads.flat()
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date()
   const [categoryPaths, productPaths, guidePaths] = await Promise.all([
@@ -126,6 +186,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     fetchCatalogJson<CatalogProductPath>('/products/paths'),
     fetchCatalogJson<CatalogGuidePath>('/categories/guide/paths'),
   ])
+  const subcategoryListingPaths = await fetchSubcategoryListingPaths(categoryPaths)
 
   return dedupeSitemap([
     ...STATIC_SITEMAP_PATHS.map((entry) =>
@@ -140,6 +201,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: now,
         changeFrequency: 'weekly',
         priority: 0.8,
+      }),
+    ),
+    ...subcategoryListingPaths.map((path) =>
+      buildSitemapEntry(path, {
+        lastModified: now,
+        changeFrequency: 'weekly',
+        priority: 0.75,
       }),
     ),
     ...productPaths.map((product) =>

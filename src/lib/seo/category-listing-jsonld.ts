@@ -27,9 +27,6 @@ function buildListingPath(category: ProductCategoryRecord, pagination: ProductPa
   if (pagination.currentPage > 1) {
     params.set('page', String(pagination.currentPage))
   }
-  if (listing.currentOrderBy && listing.currentOrderBy !== 'name') {
-    params.set('order_by', listing.currentOrderBy)
-  }
   if (listing.activeSubcategorySlug) {
     params.set('subcategory_slug', listing.activeSubcategorySlug)
   }

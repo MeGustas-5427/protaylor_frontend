@@ -524,22 +524,16 @@ export function mapCatalogListingToPageModel(
   }
 }
 
-export function buildCatalogListingMetadata(
-  payload: CatalogCategoryListingPayload,
-  options: {
-    orderBy?: string | string[] | undefined
-  },
-) {
+export function buildCatalogListingMetadata(payload: CatalogCategoryListingPayload) {
+  const canonicalPath = buildPaginationHref(payload.slug, {
+    page: payload.pagination.current_page,
+    subcategorySlug: payload.active_subcategory_slug ?? undefined,
+  })
+
   return {
     title: payload.seo_title,
     description: payload.meta_description,
-    canonical:
-      payload.pagination.current_page === 1 && normalizeOrderBy(options.orderBy) === 'name'
-        ? payload.url_path
-        : buildPaginationHref(payload.slug, {
-            page: payload.pagination.current_page,
-            orderBy: options.orderBy,
-          }),
+    canonical: canonicalPath,
   }
 }
 

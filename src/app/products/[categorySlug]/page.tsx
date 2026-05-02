@@ -59,7 +59,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   })
 
   if (payload) {
-    const metadata = buildCatalogListingMetadata(payload, { orderBy })
+    const metadata = buildCatalogListingMetadata(payload)
 
     return {
       title: metadata.title,
