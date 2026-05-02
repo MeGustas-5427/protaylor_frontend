@@ -209,6 +209,20 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
         </section>
 
         <section className="mx-auto max-w-[1440px] px-8 pb-24 xl:px-12">
+          <div className="mb-8 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <span className="mb-3 block font-label text-xs font-bold uppercase tracking-[0.2em] text-[#77584e]">
+                Published Model Range
+              </span>
+              <h2 className="font-headline text-3xl font-bold text-[#2e342d]">
+                {listing.title} Models
+              </h2>
+            </div>
+            <p className="font-body text-sm font-medium uppercase tracking-[0.14em] text-[#767c74]">
+              {listing.countSummary}
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
             {pagination.products.map((product) => (
               <article
@@ -232,9 +246,9 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
 
                 <div className="flex flex-1 flex-col p-8">
                   <div className="mb-4 min-h-14">
-                    <h2 className="h-full overflow-hidden font-headline text-2xl font-bold text-[#2e342d]">
+                    <h3 className="h-full overflow-hidden font-headline text-2xl font-bold text-[#2e342d]">
                       {product.name}
-                    </h2>
+                    </h3>
                     {/*{product.seriesLabel ? (*/}
                     {/*  <span className="font-mono text-xs font-bold text-[#4e616e]">*/}
                     {/*    {product.seriesLabel}*/}
