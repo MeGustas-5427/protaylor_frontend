@@ -148,12 +148,12 @@ export function CategoryGuidePage({ category }: CategoryGuidePageProps) {
             </h2>
             <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
               {guide.contexts.map((context) => (
-                <article key={context.title} className="group cursor-pointer">
+                <article key={context.title}>
                   <div className="relative mb-6 aspect-video overflow-hidden rounded-xl">
                     <img
                       src={context.image}
                       alt={context.imageAlt}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="h-full w-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                   </div>
