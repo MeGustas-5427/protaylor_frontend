@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
 import { TrustRibbon } from '@/components/layout/trust-ribbon'
+import { JsonLdScript } from '@/components/seo/json-ld-script'
 import { MaterialIcon } from '@/components/ui/material-icon'
 import {
   buildCategoryHref,
@@ -12,6 +13,7 @@ import {
   type ProductListingCard,
   type ProductPagination,
 } from '@/fixtures/stitch/product-catalog'
+import { buildCategoryListingJsonLd } from '@/lib/seo/category-listing-jsonld'
 
 type CategoryListingPageProps = {
   category: ProductCategoryRecord
@@ -72,6 +74,7 @@ function buildPaginationTokens(currentPage: number, totalPages: number): Paginat
 export function CategoryListingPage({ category, pagination }: CategoryListingPageProps) {
   const listing = category.listing
   const pageTokens = buildPaginationTokens(pagination.currentPage, pagination.totalPages)
+  const categoryListingJsonLd = buildCategoryListingJsonLd({ category, pagination })
   const hasComparison = Boolean(
     listing.comparisonTitle &&
       listing.comparisonColumns?.length &&
@@ -80,6 +83,7 @@ export function CategoryListingPage({ category, pagination }: CategoryListingPag
 
   return (
     <>
+      <JsonLdScript data={categoryListingJsonLd} />
       <SiteHeader
         activeSection="products"
         navTone="serif"
