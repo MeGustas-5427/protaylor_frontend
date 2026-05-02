@@ -199,6 +199,15 @@ function resolveCardBadge(
   return item.series_label || undefined
 }
 
+function getVisibleActiveSubcategorySlug(payload: CatalogCategoryListingPayload) {
+  const activeSlug = payload.active_subcategory_slug
+  if (!activeSlug) {
+    return null
+  }
+
+  return payload.subcategory_tabs.some((tab) => tab.slug === activeSlug) ? activeSlug : null
+}
+
 function buildComparisonSection(
   payload: CatalogCategoryListingPayload,
 ): Pick<
@@ -278,6 +287,7 @@ function buildFallbackListing(
   },
 ): ProductCategoryRecord['listing'] {
   const comparisonSection = buildComparisonSection(payload)
+  const activeSubcategorySlug = getVisibleActiveSubcategorySlug(payload)
 
   return {
     eyebrow: 'PRECISION ENGINEERED',
@@ -313,7 +323,7 @@ function buildFallbackListing(
           ]
         : undefined,
     currentOrderBy: options.orderBy,
-    activeSubcategorySlug: payload.active_subcategory_slug,
+    activeSubcategorySlug,
     filters: ['OUTPUT CAPACITY', 'COOLING SYSTEM', 'FOOTPRINT', 'BUYER TYPE'],
     sortLabel: 'Sort By:',
     sortOptions: [getSortLabel(options.orderBy)],
@@ -525,9 +535,10 @@ export function mapCatalogListingToPageModel(
 }
 
 export function buildCatalogListingMetadata(payload: CatalogCategoryListingPayload) {
+  const activeSubcategorySlug = getVisibleActiveSubcategorySlug(payload)
   const canonicalPath = buildPaginationHref(payload.slug, {
     page: payload.pagination.current_page,
-    subcategorySlug: payload.active_subcategory_slug ?? undefined,
+    subcategorySlug: activeSubcategorySlug ?? undefined,
   })
 
   return {
