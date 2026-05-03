@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { navItems, ROUTES } from '@/fixtures/stitch/site'
-import { MaterialIcon } from '@/components/ui/material-icon'
 
 type ActiveSection = (typeof navItems)[number]['key'] | null
 type NavTone = 'plain' | 'serif' | 'label'
@@ -41,12 +40,9 @@ function navClasses(
 export function SiteHeader({
   activeSection = null,
   navTone = 'plain',
-  searchMode = 'icons',
-  searchPlaceholder = 'Search the Journal',
   topClassName = 'top-0',
   ctaLabel = 'Request Quote',
   ctaTone = 'default',
-  showLanguageIcon = true,
 }: SiteHeaderProps) {
   const ctaClasses =
     ctaTone === 'sentence'
@@ -76,28 +72,6 @@ export function SiteHeader({
           ))}
         </div>
         <div className="flex shrink-0 items-center gap-3 sm:gap-6">
-          {searchMode === 'pill' ? (
-            <div className="hidden items-center rounded-full bg-surface-container px-4 py-1.5 lg:flex">
-              <MaterialIcon name="search" className="text-primary text-xl" />
-              <span className="ml-2 text-sm text-outline">{searchPlaceholder}</span>
-            </div>
-          ) : (
-            <>
-              <button
-                type="button"
-                aria-label="Search"
-                className="flex items-center text-primary md:hidden"
-              >
-                <MaterialIcon name="search" />
-              </button>
-              <div className="hidden items-center gap-4 text-[#4e616e] lg:flex">
-                {showLanguageIcon ? <MaterialIcon name="language" className="cursor-pointer" /> : null}
-                <button type="button" aria-label="Search" className="flex items-center">
-                  <MaterialIcon name="search" />
-                </button>
-              </div>
-            </>
-          )}
           <Link
             href={ROUTES.contact}
             className={ctaClasses}
