@@ -2,10 +2,10 @@ import { ROUTES } from '@/fixtures/stitch/site'
 
 export const homePageData = {
   hero: {
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAZqNZcjb4GqAxA0uxYpEQ2IVKpiWRaYZS5ZgieuKy8fw8jnERl5bmHFvScsQ0oasl1DPS8J5OHKGeCNJdDQtF6Xfm62Mls1kakrRJl-WLYJMef6iUKn5zz1BCA2ymR1G7vUX62VH81Bq0M_tr6fD5NSi-H2JnOSGXu0CgSYmkJDPzRMFnw-ZxV0SEw85VFSVlu57ZiK6eS4Vj5miEMNy1cZOsfVoHEBnliYo186ZQ8_C4yNHc0TSvs4zS0hRhMIBGRCSw2157-s7o',
+    image: '/images/home/gelato-batch-freezer-hero-desktop.webp',
   },
   mobileHero: {
+    image: '/images/home/gelato-batch-freezer-hero-mobile.webp',
     eyebrow: 'Established 1984',
     title: 'Precision Engineered for the Modern Dessert Bar.',
     copy:

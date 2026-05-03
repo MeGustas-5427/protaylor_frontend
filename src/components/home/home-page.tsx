@@ -14,12 +14,12 @@ export function HomePage() {
       <TrustRibbon highlight="oem" topClassName="top-16" />
       <SiteHeader navTone="serif" searchMode="pill" searchPlaceholder="Search PRO-TAYLOR" />
       <main className="pt-32 pb-20 md:pb-0">
-        <section className="relative hidden h-[921px] w-full overflow-hidden md:flex md:items-center md:px-8 lg:px-20">
+        <section className="home-hero-desktop relative hidden w-full overflow-hidden bg-surface-container-low md:flex md:items-center md:px-8 lg:px-20">
           <div className="absolute inset-0 z-0">
             <img
               src={homePageData.hero.image}
-              alt="Premium soft serve machine in a minimal architectural dessert boutique"
-              className="h-full w-full object-cover brightness-[0.85] grayscale-[20%]"
+              alt="Premium gelato batch freezer in a minimal architectural dessert production showroom"
+              className="home-hero-desktop__image h-full w-full object-cover brightness-[0.85] grayscale-[20%]"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-background/40 to-transparent" />
           </div>
@@ -50,8 +50,8 @@ export function HomePage() {
         <section className="px-6 pb-12 pt-6 md:hidden">
           <div className="relative mb-8 h-[530px] overflow-hidden rounded-xl">
             <img
-              src={homePageData.hero.image}
-              alt="Industrial precision"
+              src={homePageData.mobileHero.image}
+              alt="Premium gelato batch freezer in a minimal architectural dessert production showroom"
               className="h-full w-full object-cover contrast-125 grayscale"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-on-background/60 to-transparent" />
