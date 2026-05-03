@@ -51,7 +51,7 @@ export const homePageData = {
       cta: 'OEM Solutions',
       href: ROUTES.solution,
       image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuA8iFd4X_6J7fax9viPVvubv2bIv3kpzO-3hk_Emqgsn4WL8Y2QNbEQ-QL3UHKIfYC8tc1bO-rgv5fmvbv94n9-fQ20A2SYtomaVTHTpwQ04cnn5LFB1kJJOs_7tippps7H1qmnuz5Hi7Acggx2VXmQG5hTHFSdc2AEtP6ZiguKUSg1pQAVnhmoHpRTlk-V6FWCnf6aQD5M8U_5l7N53kujxq1o471-uaXRXtyPRvfaA3djTeo_54S9i5B9tvoiEQ7RtukrzuPs7mg',
+        '/images/home/ChatGPT%20Image%20May%203,%202026,%2009_30_07%20PM.webp',
       tone: 'bg-surface-container-low',
     },
     {
