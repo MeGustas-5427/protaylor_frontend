@@ -144,11 +144,6 @@
     gap: 1.5rem;
   }
 
-  .home-hero-desktop {
-    height: min(921px, calc(100vh - 8rem));
-    min-height: 720px;
-  }
-
   @media (min-width: 1536px) {
     .home-hero-desktop {
       background: linear-gradient(90deg, #f0f1ec 0%, #e7e8e1 48%, #d3d4cf 100%);
@@ -165,9 +160,4 @@
     }
   }
 
-  @media (max-height: 760px) and (min-width: 768px) {
-    .home-hero-desktop {
-      min-height: 640px;
-    }
-  }
 }

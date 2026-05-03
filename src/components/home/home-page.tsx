@@ -14,7 +14,10 @@ export function HomePage() {
       <TrustRibbon highlight="oem" topClassName="top-16" />
       <SiteHeader navTone="serif" searchMode="pill" searchPlaceholder="Search PRO-TAYLOR" />
       <main className="pt-32 pb-20 md:pb-0">
-        <section className="home-hero-desktop relative hidden w-full overflow-hidden bg-surface-container-low md:flex md:items-center md:px-8 lg:px-20">
+        <section
+          className="home-hero-desktop relative hidden w-full overflow-hidden bg-surface-container-low md:flex md:items-center md:px-8 lg:px-20"
+          style={{ height: 'clamp(28rem, calc(100vh - 12rem), 48rem)', minHeight: 0 }}
+        >
           <div className="absolute inset-0 z-0">
             <img
               src={homePageData.hero.image}
@@ -152,7 +155,7 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="mx-auto hidden max-w-[1440px] px-8 py-24 md:block">
+        <section className="mx-auto hidden max-w-[1440px] px-8 pb-24 pt-8 md:block">
           <div className="grid gap-8 md:grid-cols-2">
             {homePageData.buyerPaths.map((item) => (
               <Link
