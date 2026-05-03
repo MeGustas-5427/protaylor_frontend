@@ -59,10 +59,9 @@ export function HomePage() {
               <span className="mb-2 inline-block text-[10px] font-bold uppercase tracking-[0.2em] text-surface-container-lowest">
                 {homePageData.mobileHero.eyebrow}
               </span>
-              <h1 className="font-headline text-4xl italic leading-tight tracking-tight text-surface-container-lowest">
-                Precision Engineered <br />
-                for the Modern Era.
-              </h1>
+              <p className="font-headline text-4xl italic leading-tight tracking-tight text-surface-container-lowest">
+                PRO-TAYLOR: Premium Equipment for the World&apos;s Best Desserts.
+              </p>
             </div>
           </div>
           <p className="max-w-md text-base leading-relaxed text-on-surface-variant">
