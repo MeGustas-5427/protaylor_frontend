@@ -69,29 +69,25 @@ export const homePageData = {
     {
       title: 'Soft Serve',
       copy: 'High-overrun technology for the smoothest textures in the industry.',
-      image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuAKN-_XMe7FErFvuKCejgrCGiabgrYxB92_TaxvTjc9IC3LEHledgPpQSkJXZTQebfshetpW8saFNoQtHlQkfAkGzqGr0i6rmNXDjGwSueSUOZIFilzBSBLg15srV4ukxB4K7BJfouKXkV0laFC-HiskgB9giqhoP1uG2MiOX6EAswR9f-8iMBrtqdiM4N5FN5atEsWTWx-MHKW7srI1Br4tLUJ20OL7PVJaWXmn7S3pGUrMV7w49QEa472X9eD4beEzu-jnnd94lg',
+      image: '/images/home/Soft%20Serve.webp',
       href: ROUTES.category,
     },
     {
       title: 'Ice Lolly',
       copy: 'Rapid freezing systems for high-output popsicle production.',
-      image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuCHFtdjFtTlOUnAq7s6zw5-QF0dDhmXxLRxoCK3QU2MJCjjXSWgyHjfyE9-drgrX_NAWcI3286CMEhBfX5rxqAnk6kZPmB-9GC5HBlkWbToVCXXHlXlroOCLuot4pYJmt8GFLgOVubuzz0Ty4H4-r9r3bCpZy9JCtVl1CyR5mra0S_4cXyD4AQtIdPsmLYoDSKnMCRJ3XsllUhq9-5h6GBur2b-6jxiU8jcNVDSzyOrLFQcz26KaAMTmN6TgUI2q7wsG4lhEWfMVS4',
+      image: '/images/home/Ice%20Lolly.webp',
       href: ROUTES.categoryIceLolly,
     },
     {
       title: 'Slush',
       copy: 'Dual-tank versatility with precise temperature consistency.',
-      image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuAj4IY_ZfFQAxfZGmLNrUGmu2YkCymdckTkhqOzBjsaPJhdHP5uAf908TvUv7TRF6SVNt5OfzzzIqmrcl5z6HpoHCNcVLsrfW-5NIx1tC04QtYdBNXl7_0ZJGs4DN07AP8QWpcKpBzPRcYvb7kyDpeW5JGgop0PHXUFaF0zDHRF6e_0A_ZzxGUFRNvXBuobZ7fxUKGScIlxvx-UY4CWg1oNvw85ZQcd_4_qhwjq0h_wcmziHYR60j4IBOSTAgs6ctwrTiwUrnw2xMc',
+      image: '/images/home/Slush.webp',
       href: ROUTES.categorySlush,
     },
     {
       title: 'Gelato',
       copy: 'The traditional vertical batch freezer, re-engineered for 2024.',
-      image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuD3UVrC2H4HleSZyHNuFZg9KDD6I6XsRZCjoaIxEUI1qRaaJY4-jYyOLSonDgmO1S4AsFL9h8_hM1TVKZctpALRwKCy9dkFB_ZCfM2As2A54IRtzUu6BI94sxUo_xeL-wG4mDukZKAmlX22rvn8CZDDr65xTezFNYHVD9eXGv9Nd8WF_DFf9l9xHfdOEKQ80Ku9Dc8_U1a5imJN4Q5BU7CKk2xVseBI1AJ6h4feconWiatrySjkDoEVTO81rWzA1lv-pMBdFkCNWi8',
+      image: '/images/home/Gelato.webp',
       href: ROUTES.categoryGelato,
     },
   ],
@@ -113,7 +109,7 @@ export const homePageData = {
     },
   ],
   valueImage:
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuB9s-73xYujL08LiCz89pfUDNKw6dMtiUZ3OKRq4vdhkivg0IyXpW2ZM1MYqzCZTT1CbOWveVgnfESEZ7-MGF6AfjiKwNHHUDocK1rEAvHspdbnYS-uxyb7w5grgO3bMawUSNi_HRYUtjFhw6H4xSu37XNiyNhybI3coGQ-QAQIjsOhKhr9C2p2xp6OFlWUQVZ3BycA-rDSyo6GO4rXcEG9jMJO6cUWTl9giBZ4u9HOlzyAsEx_VHAqOgGGIQABXVe2WCZeAJcdgJk',
+    '/images/home/Why%20Buyers%20Choose.webp',
   editorialBlocks: [
     {
       eyebrow: 'The Craft',
@@ -122,8 +118,7 @@ export const homePageData = {
       copy: 'Discover how air-incorporation and precision cooling create the signature PRO-TAYLOR texture. Our machines are designed to preserve flavor integrity while maximizing yield.',
       cta: 'Read Article',
       href: ROUTES.article,
-      image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuC9WJ0LO_AucroguYqa1XrNh1ktqWWDyEux4OytCG0rUiKYuzPCmPKGzjFGHvetsgN8orAt81NtYn-XHWuZtc8ru-mb799CAAxFV-nlhQoWWTt3gNOFxrQpWGZT_g7OUyipJGTyGEewOWApZpy0Y_UFiTDFzwfqpqcGLpeFS9iyf9b2rmVSltfV4je3_kxLhv3yHLiMSTDZZWN48Bb2rb01MB2pUkzvQm3PBH-L32Q0fskV-0fdWlLc72FylV5GF4ROi47WBBVFqU0',
+      image: '/images/home/The%20Art%20of%20Soft%20Serve.webp',
       reverse: true,
       panelTone: 'surface',
     },
@@ -134,8 +129,7 @@ export const homePageData = {
       copy: 'From CNC precision milling to hand-finishing stainless steel panels, our process blends robotic accuracy with human oversight for unmatched durability.',
       cta: 'Watch Film',
       href: ROUTES.company,
-      image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuAIiZ4RtTMLVeyLSeNnoeG-vBbPlg4-4Cr9gLOrnYq1nhBY6PTCY8JiGKqDdsjrh8UQmEV4MSP11C-4xrJybNxaYsxHEd2rPOcN90zkmGVwMi6D6PqHF_DUYHNHi2Wb7Ldu2ZnwJnpKzqA1eYDW9dkrjm4V8hoqOOzlbhoWMaBVmcXRvdzTJUGa2nG3T8iH4jJ8Ja48rF3_8-lBYcbB94AKHQQ3SDdHWm5CqOPiKcb9wKd-CxOfE7-bDnwDWq3SLgZOWxWM1CudtQQ',
+      image: '/images/home/Manufacturing%20Philosophy.webp',
       reverse: false,
       panelTone: 'low',
     },
