@@ -255,59 +255,61 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="hidden md:block">
-          <div className="grid md:grid-cols-2">
-            <div className="flex aspect-square flex-col justify-center bg-surface-container px-12 py-20 md:aspect-auto lg:px-24">
-              <span className="mb-6 font-label text-xs uppercase tracking-[0.2em] text-secondary">
-                {homePageData.editorialBlocks[0].eyebrow}
-              </span>
-              <h2 className="mb-8 font-headline text-4xl font-bold leading-tight">
-                {homePageData.editorialBlocks[0].title.replace(homePageData.editorialBlocks[0].titleAccent, '')}
-                <span className="serif-italic font-normal">{homePageData.editorialBlocks[0].titleAccent}</span>
-              </h2>
-              <p className="mb-10 leading-relaxed text-on-background">
-                {homePageData.editorialBlocks[0].copy}
-              </p>
-              <Link
-                href={homePageData.editorialBlocks[0].href}
-                className="self-start border-b border-primary pb-1 text-sm font-bold uppercase tracking-widest transition-colors hover:border-secondary hover:text-secondary"
-              >
-                {homePageData.editorialBlocks[0].cta}
-              </Link>
+        <section className="hidden bg-white px-8 py-24 md:block">
+          <div className="mx-auto max-w-[1373px] space-y-12">
+            <div className="grid overflow-hidden rounded-[0.5rem] bg-surface-container md:min-h-96 md:grid-cols-2 xl:min-h-[28rem]">
+              <div className="flex flex-col justify-center px-10 py-12 lg:px-16">
+                <span className="mb-5 font-label text-xs uppercase tracking-[0.2em] text-secondary">
+                  {homePageData.editorialBlocks[0].eyebrow}
+                </span>
+                <h2 className="mb-6 font-headline text-3xl font-bold leading-tight xl:text-4xl">
+                  {homePageData.editorialBlocks[0].title.replace(homePageData.editorialBlocks[0].titleAccent, '')}
+                  <span className="serif-italic font-normal">{homePageData.editorialBlocks[0].titleAccent}</span>
+                </h2>
+                <p className="mb-8 max-w-xl leading-relaxed text-on-background">
+                  {homePageData.editorialBlocks[0].copy}
+                </p>
+                <Link
+                  href={homePageData.editorialBlocks[0].href}
+                  className="self-start border-b border-primary pb-1 text-sm font-bold uppercase tracking-widest transition-colors hover:border-secondary hover:text-secondary"
+                >
+                  {homePageData.editorialBlocks[0].cta}
+                </Link>
+              </div>
+              <div className="h-80 md:h-auto">
+                <img
+                  src={homePageData.editorialBlocks[0].image}
+                  alt={homePageData.editorialBlocks[0].title}
+                  className="h-full w-full object-cover"
+                />
+              </div>
             </div>
-            <div className="aspect-square">
-              <img
-                src={homePageData.editorialBlocks[0].image}
-                alt={homePageData.editorialBlocks[0].title}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2">
-            <div className="order-2 aspect-square md:order-1">
-              <img
-                src={homePageData.editorialBlocks[1].image}
-                alt={homePageData.editorialBlocks[1].title}
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="order-1 flex aspect-square flex-col justify-center bg-surface-container-low px-12 py-20 md:order-2 md:aspect-auto lg:px-24">
-              <span className="mb-6 font-label text-xs uppercase tracking-[0.2em] text-secondary">
-                {homePageData.editorialBlocks[1].eyebrow}
-              </span>
-              <h2 className="mb-8 font-headline text-4xl font-bold leading-tight">
-                {homePageData.editorialBlocks[1].title.replace(homePageData.editorialBlocks[1].titleAccent, '')}
-                <span className="serif-italic font-normal">{homePageData.editorialBlocks[1].titleAccent}</span>
-              </h2>
-              <p className="mb-10 leading-relaxed text-on-background">
-                {homePageData.editorialBlocks[1].copy}
-              </p>
-              <Link
-                href={homePageData.editorialBlocks[1].href}
-                className="self-start border-b border-primary pb-1 text-sm font-bold uppercase tracking-widest transition-colors hover:border-secondary hover:text-secondary"
-              >
-                {homePageData.editorialBlocks[1].cta}
-              </Link>
+            <div className="grid overflow-hidden rounded-[0.5rem] bg-surface-container-low md:min-h-96 md:grid-cols-2 xl:min-h-[28rem]">
+              <div className="order-2 h-80 md:order-1 md:h-auto">
+                <img
+                  src={homePageData.editorialBlocks[1].image}
+                  alt={homePageData.editorialBlocks[1].title}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div className="order-1 flex flex-col justify-center px-10 py-12 md:order-2 lg:px-16">
+                <span className="mb-5 font-label text-xs uppercase tracking-[0.2em] text-secondary">
+                  {homePageData.editorialBlocks[1].eyebrow}
+                </span>
+                <h2 className="mb-6 font-headline text-3xl font-bold leading-tight xl:text-4xl">
+                  {homePageData.editorialBlocks[1].title.replace(homePageData.editorialBlocks[1].titleAccent, '')}
+                  <span className="serif-italic font-normal">{homePageData.editorialBlocks[1].titleAccent}</span>
+                </h2>
+                <p className="mb-8 max-w-xl leading-relaxed text-on-background">
+                  {homePageData.editorialBlocks[1].copy}
+                </p>
+                <Link
+                  href={homePageData.editorialBlocks[1].href}
+                  className="self-start border-b border-primary pb-1 text-sm font-bold uppercase tracking-widest transition-colors hover:border-secondary hover:text-secondary"
+                >
+                  {homePageData.editorialBlocks[1].cta}
+                </Link>
+              </div>
             </div>
           </div>
         </section>
