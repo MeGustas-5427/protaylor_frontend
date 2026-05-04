@@ -1268,11 +1268,10 @@ export const productsOverviewFixture = {
   primaryCtaHref: ROUTES.contact,
   secondaryCtaLabel: 'View Ice Cream Machine Models',
   secondaryCtaHref: buildCategoryHref('ice-cream-machine'),
-  heroImage:
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuApnMncHh1Oq6eRIN27y8fEGYJneuQiZlFUNH8lCOD-h_7r1lNOfUO2MyCcVBJ75H7BHTzNSnGrOt67pplbM7NYi4e-PVC8vqcg39BVW8P_YJsZsQTjyNtnF1X1B6Dp1zVgr4uO-JHhdB7uKs8iNmg6P3f77O3g0uvc-NQ3kZXHy44iFLUqLvlYplHIGwuRtb9db_K4PF8oKNxD27oDher1itUYkLQlizdx4sDdWgi5eoHKg7Sp5H23AeDCylesKLXUBdSpBfMwQIo',
-  heroAlt: 'Featured PRO-TAYLOR ice cream machine',
-  featuredLabel: 'Featured Model',
-  featuredTitle: 'The PT-900 High-Output Series',
+  heroImage: '/images/home/Slush.webp',
+  heroAlt: 'Featured PRO-TAYLOR commercial slush machine',
+  featuredLabel: 'Featured Category',
+  featuredTitle: 'Commercial Slush Freezer Systems',
   categories: productCategories.map((category) => ({
     name: category.name,
     count: category.countLabel,
